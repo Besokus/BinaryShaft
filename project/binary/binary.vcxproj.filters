@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\scene">
+      <UniqueIdentifier>{4174cb10-1912-41ed-b6e0-edcbec5dd863}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\util">
+      <UniqueIdentifier>{455fd593-8b8c-4862-a6bc-3a8354766a53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\animation">
+      <UniqueIdentifier>{086e154b-7b00-4e40-889e-ebe8d9f8ee15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\atlas">
+      <UniqueIdentifier>{00bcc06d-b230-45dd-b099-0bfec80a9b6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\player">
+      <UniqueIdentifier>{acbaf478-0c0b-4bb5-b636-106605891e4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\platform">
+      <UniqueIdentifier>{4d154b7a-9aff-4803-9dde-87c9aaf2f911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\scene">
+      <UniqueIdentifier>{baecac70-6979-4e18-8ff5-43b96c091cbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\menu_scene">
+      <UniqueIdentifier>{b88fa161-e35e-4c86-b466-6bd01743ce7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\scene_manager">
+      <UniqueIdentifier>{5c3ed2ae-7058-4c3e-af82-c61ad28436c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\game_scene">
+      <UniqueIdentifier>{eef5680f-fd30-47be-80fe-918d78569cf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\pause_scene">
+      <UniqueIdentifier>{45bdefa1-bb8a-4947-a202-21441acd4417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\set_up_scene">
+      <UniqueIdentifier>{0a40a197-b738-4a73-a773-6bd13afaf9ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\platform\platform">
+      <UniqueIdentifier>{73ba73f1-8d05-4063-96bd-9feafa4bad3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\platform\AC_platform">
+      <UniqueIdentifier>{f9ac2f32-30e5-4365-9185-1e1985b1c574}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\platform\WA_platform">
+      <UniqueIdentifier>{a8093552-8d77-4f4c-8f60-ea0f17e32d1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\platform\NULL_platform">
+      <UniqueIdentifier>{790f1ba1-98fb-4afa-92f5-06bad60757a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\platform\CE_platform">
+      <UniqueIdentifier>{1d2d09d9-73ab-4c4c-95a7-86caae984fae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\platform\TLE_platform">
+      <UniqueIdentifier>{a279110c-5082-43c8-bb66-a381ffb6aec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\platform\MLE_platform">
+      <UniqueIdentifier>{d7e525e4-6109-4f9f-8cf1-8690c0a6b78c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\util\image_util">
+      <UniqueIdentifier>{96c2b3a3-f8b3-47a9-beee-ec8fb29062d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\util\load_util">
+      <UniqueIdentifier>{291c52ec-6668-4d68-952a-c1c5a9ae768c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\select_level_scene">
+      <UniqueIdentifier>{b7838143-d068-47e3-aba7-22ab06cfcbdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\items">
+      <UniqueIdentifier>{2d31f940-36d8-49c0-bfca-52105367d18a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button">
+      <UniqueIdentifier>{6b06db1a-6fdd-41c8-9f35-3b28f6a65f1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button\button">
+      <UniqueIdentifier>{95ef54cf-dbee-4ba4-9e1d-790fa44d1211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button\menu_button">
+      <UniqueIdentifier>{10ba299b-c0c9-455f-834e-4cc15de7a7fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button\select_mode_button">
+      <UniqueIdentifier>{6180b0bf-23be-4eb2-9f01-eff5a5080d01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button\select_level_button">
+      <UniqueIdentifier>{3e4f2051-cffe-4cd2-9846-9364538c6af5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="animation\animation.cpp">
+      <Filter>头文件\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="atlas\atlas.cpp">
+      <Filter>头文件\atlas</Filter>
+    </ClCompile>
+    <ClCompile Include="player\player.cpp">
+      <Filter>头文件\player</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\game_scene\game_scene.cpp">
+      <Filter>头文件\scene\game_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\menu_scene\menu_scene.cpp">
+      <Filter>头文件\scene\menu_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\pause_scene\pause_scene.cpp">
+      <Filter>头文件\scene\pause_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\scene\scene.cpp">
+      <Filter>头文件\scene\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\scene_manager\scene_manager.cpp">
+      <Filter>头文件\scene\scene_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\set_up_scene\set_up_scene.cpp">
+      <Filter>头文件\scene\set_up_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="util\image_util\image_util.cpp">
+      <Filter>头文件\util\image_util</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\AC_platform\AC_platform.cpp">
+      <Filter>头文件\platform\AC_platform</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\CE_platform\CE_platform.cpp">
+      <Filter>头文件\platform\CE_platform</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\MLE_platform\MLE_platform.cpp">
+      <Filter>头文件\platform\MLE_platform</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\NULL_platform\NULL_platform.cpp">
+      <Filter>头文件\platform\NULL_platform</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\platform\platform.cpp">
+      <Filter>头文件\platform\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\TLE_platform\TLE_platform.cpp">
+      <Filter>头文件\platform\TLE_platform</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\WA_platform\WA_platform.cpp">
+      <Filter>头文件\platform\WA_platform</Filter>
+    </ClCompile>
+    <ClCompile Include="global\global.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="load.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\select_level_scene\select_level_scene.cpp">
+      <Filter>头文件\scene\select_level_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="button\button\button.cpp">
+      <Filter>头文件\button\button</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="animation\animation.h">
+      <Filter>头文件\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="atlas\atlas.h">
+      <Filter>头文件\atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="player\player.h">
+      <Filter>头文件\player</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\game_scene\game_scene.h">
+      <Filter>头文件\scene\game_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\menu_scene\menu_scene.h">
+      <Filter>头文件\scene\menu_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\pause_scene\pause_scene.h">
+      <Filter>头文件\scene\pause_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\scene\scene.h">
+      <Filter>头文件\scene\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\scene_manager\scene_manager.h">
+      <Filter>头文件\scene\scene_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\set_up_scene\set_up_scene.h">
+      <Filter>头文件\scene\set_up_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="util\image_util\image_util.h">
+      <Filter>头文件\util\image_util</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\AC_platform\AC_platform.h">
+      <Filter>头文件\platform\AC_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\CE_platform\CE_platform.h">
+      <Filter>头文件\platform\CE_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\MLE_platform\MLE_platform.h">
+      <Filter>头文件\platform\MLE_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\NULL_platform\NULL_platform.h">
+      <Filter>头文件\platform\NULL_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\platform\platform.h">
+      <Filter>头文件\platform\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\TLE_platform\TLE_platform.h">
+      <Filter>头文件\platform\TLE_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\WA_platform\WA_platform.h">
+      <Filter>头文件\platform\WA_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\select_level_scene\select_level_scene.h">
+      <Filter>头文件\scene\select_level_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="button\button\button.h">
+      <Filter>头文件\button\button</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
