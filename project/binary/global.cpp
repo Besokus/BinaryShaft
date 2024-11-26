@@ -56,7 +56,7 @@ IMAGE img_menu_setup_pushed;
 
 
 // 定义按钮对象
-StartButton* btn_menu_start = nullptr;
+StartButton* btn_menu_start = nullptr;// btn button
 FindButton* btn_menu_find = nullptr;
 SetUpButton* btn_menu_setup = nullptr;
 
@@ -84,7 +84,7 @@ SceneManager scene_manager;
 Player* player = nullptr;
 
 // 定义平台对象
-// 
+// Platform 
 std::vector<Platform*> platform_list;
 
 void LoadGameResources()
@@ -99,11 +99,13 @@ void LoadGameResources()
 	loadimage(&img_menu_background, _T("resources/menu_background.png"));
 
 	// 导入start按键素材并且设置其范围
+	// 设定范围region
 	region_menu_start.left = 300;
 	region_menu_start.right = region_menu_start.left + BUTTON_WIDTH;
 	region_menu_start.top = 235;
 	region_menu_start.bottom = region_menu_start.top + BUTTON_HEIGHT;
 
+	// 导入素材
 	btn_menu_start = new StartButton(region_menu_start,
 		_T("resources/menu_start_idle.png"), _T("resources/menu_start_hovered.png"), _T("resources/menu_start_pushed.png"));
 

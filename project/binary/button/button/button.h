@@ -36,7 +36,8 @@
 
 extern SceneManager scene_manager;
 
-class Button {
+class Button 
+{
 private:
 	// °´Å¥×´Ì¬
 	enum class Status

@@ -13,6 +13,7 @@ Button::Button(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTS
 
 void Button::OnEnter()
 {
+	// 将状态重置为默认
 	status = Status::Idle;
 }
 
