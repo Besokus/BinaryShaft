@@ -8,10 +8,10 @@
 
 
 */
-#include "../scene/scene_manager/scene_manager.h"
-#include "../scene/scene/scene.h"
-#include "../player/player.h"
-#include "../platform/platform/platform.h"
+#include "scene/scene_manager/scene_manager.h"
+#include "scene/scene/scene.h"
+#include "player/player.h"
+#include "platform/platform/platform.h"
 #include <vector>
 
 
@@ -65,8 +65,8 @@ std::vector<Platform*> platform_list;
 void LoadGameResources()
 {
 	loadimage(&img_menu_background, _T("resources/menu_background.png"));
-	loadimage(&img_menu_start_idle, _T("../resources/menu_start_idle.png"));
-	loadimage(&img_menu_start_hovered, _T("../resources/menu_start_hovered.png"));
-	loadimage(&img_menu_start_pushed, _T("../resources/menu_start_pushed.png"));
+	loadimage(&img_menu_start_idle, _T("resources/menu_start_idle.png"));
+	loadimage(&img_menu_start_hovered, _T("resources/menu_start_hovered.png"));
+	loadimage(&img_menu_start_pushed, _T("resources/menu_start_pushed.png"));
 
 }

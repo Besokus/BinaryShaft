@@ -130,7 +130,7 @@
     <ClCompile Include="animation\animation.cpp" />
     <ClCompile Include="atlas\atlas.cpp" />
     <ClCompile Include="button\button\button.cpp" />
-    <ClCompile Include="global\global.cpp" />
+    <ClCompile Include="global.cpp" />
     <ClCompile Include="load.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="platform\AC_platform\AC_platform.cpp" />

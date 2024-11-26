@@ -153,9 +153,6 @@
     <ClCompile Include="platform\WA_platform\WA_platform.cpp">
       <Filter>头文件\platform\WA_platform</Filter>
     </ClCompile>
-    <ClCompile Include="global\global.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="load.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -164,6 +161,9 @@
     </ClCompile>
     <ClCompile Include="button\button\button.cpp">
       <Filter>头文件\button\button</Filter>
+    </ClCompile>
+    <ClCompile Include="global.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
