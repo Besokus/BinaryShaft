@@ -1,7 +1,6 @@
 #include <graphics.h>
 #include "animation/animation.h"
 #include "atlas/atlas.h"
-#include "global/global.h"
 #include "platform/platform/platform.h"
 #include "player/player.h"
 #include "scene/scene/scene.h"
@@ -26,8 +25,13 @@ extern std::vector<Platform*> platform_list;
 extern void LoadGameResources();
 
 
+
+
+
+
 int main()
 {
+
 	ExMessage msg;
 	const int FPS = 60;
 
@@ -40,7 +44,7 @@ int main()
 	menu_scene = new MenuScene();
 	game_scene = new GameScene();
 	select_Level_scene = new SelectLevelScene();
-	pause_scene =new PauseScene();
+	pause_scene = new PauseScene();
 
 	// 初始化场景为菜单
 	scene_manager.SetCurrentScene(menu_scene);

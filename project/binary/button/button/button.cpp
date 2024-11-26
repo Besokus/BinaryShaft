@@ -1,5 +1,7 @@
 #include "button.h"
 
+extern void PutImage(int x, int y, IMAGE* img);
+
 Button::Button(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTSTR path_img_pushed)
 {
 	region = rect;
@@ -14,13 +16,13 @@ void Button::OnDraw()
 	switch (status)
 	{
 	case Status::Idle:
-		putimage(region.left, region.top, &img_idle);
+		PutImage(region.left, region.top, &img_idle);
 		break;
 	case Status::Hovered:
-		putimage(region.left, region.top, &img_hovered);
+		PutImage(region.left, region.top, &img_hovered);
 		break;
 	case Status::Pushed:
-		putimage(region.left, region.top, &img_pushed);
+		PutImage(region.left, region.top, &img_pushed);
 		break;
 	}
 }

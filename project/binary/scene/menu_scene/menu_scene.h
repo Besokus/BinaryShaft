@@ -14,7 +14,8 @@
 
 #include "../scene/scene.h"
 #include "../scene_manager/scene_manager.h"
-#include <iostream>
+#include "../../button/button/button.h"
+#include <iostream>	
 
 class MenuScene :public Scene
 {
@@ -23,7 +24,7 @@ private:
 
 public:
 	MenuScene() = default;
-	~MenuScene() = default;
+
 
 	void OnEnter();
 

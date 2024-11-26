@@ -12,6 +12,7 @@
 #include "scene/scene/scene.h"
 #include "player/player.h"
 #include "platform/platform/platform.h"
+#include "button/button/button.h"
 #include <vector>
 
 
@@ -38,12 +39,11 @@ IMAGE img_menu_setup_pushed;
 // example:
 // Atlas atlas_peashooter_idle_left;
 // atlas_(class)_(status)_(direction)
-
+StartButton* btn_menu_start = nullptr;
 
 bool running = true;
 
 int level = 0;
-
 
 Scene* menu_scene = nullptr;
 Scene* game_scene = nullptr;
@@ -61,12 +61,16 @@ SceneManager scene_manager;
 Player* player = nullptr;
 std::vector<Platform*> platform_list;
 
-
 void LoadGameResources()
 {
 	loadimage(&img_menu_background, _T("resources/menu_background.png"));
+
 	loadimage(&img_menu_start_idle, _T("resources/menu_start_idle.png"));
 	loadimage(&img_menu_start_hovered, _T("resources/menu_start_hovered.png"));
 	loadimage(&img_menu_start_pushed, _T("resources/menu_start_pushed.png"));
+
+
+
+
 
 }

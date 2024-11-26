@@ -5,6 +5,8 @@
 
 */
 #include <graphics.h>
+#include "../../scene/scene_manager/scene_manager.h"
+extern SceneManager scene_manager;
 
 class Button {
 private:
@@ -39,19 +41,46 @@ private:
 	bool CheckCursorHit(int x, int y);
 };
 
-class StartGameButton :public Button
+class StartButton :public Button
 {
+public:
+	StartButton(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTSTR path_img_pushed)
+		:Button(rect, path_img_idle, path_img_hovered, path_img_pushed) {}
+	~StartButton() = default;
 
+protected:
+	void OnClick()
+	{
+		//scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
+	}
 };
 
-class QuitGameButton :public Button
+class FindButton :public Button
 {
+public:
+	FindButton(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTSTR path_img_pushed)
+		:Button(rect, path_img_idle, path_img_hovered, path_img_pushed) {}
+	~FindButton() = default;
 
+protected:
+	void OnClick()
+	{
+
+	}
 };
 
-class RankButton :public Button 
+class SetUpButton :public Button 
 {
+public:
+	SetUpButton(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTSTR path_img_pushed)
+		:Button(rect, path_img_idle, path_img_hovered, path_img_pushed) {}
+	~SetUpButton() = default;
 
+protected:
+	void OnClick()
+	{
+
+	}
 };
 
 
@@ -60,9 +89,4 @@ class AchievementButton :public Button
 
 };
 
-class SetUpButton :public Button 
-{
-
-
-};
 
