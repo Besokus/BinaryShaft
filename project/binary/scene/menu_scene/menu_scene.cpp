@@ -12,29 +12,20 @@ extern IMAGE img_menu_start_hovered;
 extern IMAGE img_menu_start_pushed;
 
 extern StartButton* btn_menu_start;
+extern FindButton* btn_menu_find;
+extern SetUpButton* btn_menu_setup;
 
-const int WINDOW_WIDTH = 1280;
-const int WINDOW_HEIGHT = 720;
-const int BUTTON_WIDTH = 175;
-const int BUTTON_HEIGHT = 45;
 
 void MenuScene::OnEnter()
 {
-	RECT region_menu_start;
-	region_menu_start.left = 300;
-	region_menu_start.right = region_menu_start.left+ BUTTON_WIDTH;
-	region_menu_start.top = 235;
-	region_menu_start.bottom = region_menu_start.top + BUTTON_HEIGHT;
-
-	btn_menu_start = new StartButton(region_menu_start,
-		_T("resources/menu_start_idle.png"), _T("resources/menu_start_hovered.png"), _T("resources/menu_start_pushed.png"));
-
+	btn_menu_start->OnEnter();
+	btn_menu_find->OnEnter();
+	btn_menu_setup->OnEnter();
 	std::cout << "进入主菜单" << std::endl;
 }
 
 void MenuScene::OnUpdate()
 {
-
 	std::cout << "主菜单正在运行" << std::endl;
 }
 
@@ -42,12 +33,16 @@ void MenuScene::OnDraw()
 {
 	putimage(0, 0, &img_menu_background);
 	btn_menu_start->OnDraw();
+	btn_menu_find->OnDraw();
+	btn_menu_setup->OnDraw();
 	// outtextxy(10, 10, _T("A选关 D退出"));
 }
 
 void MenuScene::OnInput(const ExMessage& msg)
 {
 	btn_menu_start->OnInput(msg);
+	btn_menu_find->OnInput(msg);
+	btn_menu_setup->OnInput(msg);
 	if (msg.message == WM_KEYDOWN)
 	{
 		switch (msg.vkcode)

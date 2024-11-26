@@ -3,9 +3,13 @@
 #include "../../player/player.h"
 #include "../../platform/platform/platform.h"
 
-extern SceneManager scene_manager;
-extern Player *player;
+
 extern int level;
+
+extern SceneManager scene_manager;
+
+extern Player* player;
+
 extern std::vector<Platform*> platform_list;
 
 // 初始化游戏界面
@@ -16,7 +20,7 @@ extern std::vector<Platform*> platform_list;
 void GameScene::OnEnter()
 {
 	player = new Player();
-	player->SetPosition(114,514);
+	player->SetPosition(114, 514);
 }
 
 // 更新游戏数据
@@ -38,40 +42,48 @@ void GameScene::OnEnter()
 void GameScene::OnUpdate()
 {
 	player->OnUpdate();
-	for (Platform* platform : platform_list) 
+
+	// 生成新的平台到场景中
+	GeneratePlatform(platform_list);
+
+	// 对于所有在场景中的平台,调用其更新方法
+	for (Platform* platform : platform_list)
 	{
-		if (platform->CheckCollision(*player)) 
-		{
-		
-		
-		}
+		platform->OnUpdate();
 	}
+
+	DeletePlatform(platform_list);
 }
 
-// 1.绘制玩家
-// 2.绘制平台
-// 3.绘制窗口
-// 4.绘制分数
-//		1.AC
-//		2.time
-//		3.memory
-// 
-//
 void GameScene::OnDraw()
 {
 	outtextxy(10, 10, _T("游戏绘图内容"));
 	static TCHAR text[64];
 	_stprintf_s(text, _T("level:%d"), level + 1);
 	outtextxy(10, 50, text);
-	
 	outtextxy(10, 70, _T("P暂停 ESC退出到主菜单"));
 
+	// 绘制玩家
 	// player->OnDraw();
+	// 
+	// 绘制平台
+	// for (Platform* platform : platform_list) 
+	// {
+	// 	  platform->OnDraw();
+	// }
+	//
+	// 绘制游戏窗口
+	// 
+	// 
+	// 绘制分数
+	// 
+	// outtext(); // level(关卡数) living_time(存活时间) memory_size(地图大小)
+
 }
 
 void GameScene::OnInput(const ExMessage& msg)
 {
-	
+
 	if (msg.message == WM_KEYDOWN)
 	{
 		player->OnInput(msg);
@@ -96,4 +108,44 @@ void GameScene::OnInput(const ExMessage& msg)
 void GameScene::OnExit()
 {
 	std::cout << "游戏退出" << std::endl;
+}
+
+void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
+{
+	// 间隔一段时间后更新平台
+	// INTERVAL的值可能需要随平台速度改变
+	const int INTERVAL = 200;
+	static int counter = 0;
+	if ((++counter) % INTERVAL == 0)
+	{
+		// int seed = rand() % MOD;
+		// 设置概率,生成不同的平台
+		// switch(seed){...}
+		// platform_list.push_back(new NULL_Platform());
+		// platform_list.push_back(new NULL_Platform());
+	}
+
+}
+
+void GameScene::DeletePlatform(std::vector<Platform*>& platform_list)
+{
+	for (Platform* platform : platform_list) {
+
+		// 此处写入坐标位置判定
+		if (platform->GetCollisonShape().y < 0)
+		{
+			platform->Disappear();
+		}
+	}
+
+	for (size_t i = 0;i < platform_list.size();i++) {
+		Platform* platform  = platform_list[i];
+		if (!platform->CheckExist())
+		{
+			std::swap(platform_list[i], platform_list.back());
+			platform_list.pop_back();
+			delete platform;
+		}
+	}
+
 }

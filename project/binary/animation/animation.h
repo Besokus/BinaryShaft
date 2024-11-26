@@ -3,13 +3,21 @@
 /*
 	负责人:ja1u0va
 	功能:
-		1.
-		2.
+		1.使用图集资源
+		2.逐帧播放图集素材
 	示例:
-		1.
+		Animation* animation_player = nullptr;                    // 定义玩家动画
+		animation_player = new Animation(atlas_player); // 使用玩家图集资源
+		animation_player->SetIterval(5);                // 设立帧间隔(会影响动画播放的快慢)
 
+		// 在更新数据阶段,更新动画的参数(例如会播放动画的第几帧)
+		animation->OnUpdate();
 
+		// 在绘制画面阶段,绘制动画的某一帧(由Upddate决定)
+		animation->OnDraw();
 
+		// 其他函数用于实现特殊功能
+		// 这里仅展示基础功能
 */
 
 #include <graphics.h>

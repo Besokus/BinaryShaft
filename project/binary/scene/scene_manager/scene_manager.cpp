@@ -2,8 +2,9 @@
 
 extern Scene* menu_scene;
 extern Scene* game_scene;
-extern Scene* select_Level_scene;
+extern Scene* select_level_scene;
 extern Scene* pause_scene;
+extern Scene* setup_scene;
 
 // 设置当前的场景
 void SceneManager::SetCurrentScene(Scene* scene)
@@ -29,10 +30,13 @@ void SceneManager::SwitchTo(SceneType type)
 		current_scene = game_scene;
 		break;
 	case SceneType::SelectLevel:
-		current_scene = select_Level_scene;
+		current_scene = select_level_scene;
 		break;
 	case SceneType::Pause:
 		current_scene = pause_scene;
+		break;
+	case SceneType::SetUp:
+		current_scene = setup_scene;
 		break;
 	default:
 		break;

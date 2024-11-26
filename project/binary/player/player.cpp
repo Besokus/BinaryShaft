@@ -2,9 +2,7 @@
 
 Player::Player() 
 {
-	
 	current_animation = &animation_idle_left;
-
 }
 
 

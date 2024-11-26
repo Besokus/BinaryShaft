@@ -3,11 +3,10 @@
 #include "atlas/atlas.h"
 #include "platform/platform/platform.h"
 #include "player/player.h"
-#include "scene/scene/scene.h"
-#include "scene/game_scene/game_scene.h"
 #include "scene/menu_scene/menu_scene.h"
 #include "scene/select_level_scene/select_level_scene.h"
 #include "scene/pause_scene/pause_scene.h"
+#include "scene/set_up_scene/set_up_scene.h"
 
 // 去除GetTickCount()函数的警告
 #pragma warning(disable:28159)
@@ -24,11 +23,6 @@ extern std::vector<Platform*> platform_list;
 
 extern void LoadGameResources();
 
-
-
-
-
-
 int main()
 {
 
@@ -41,10 +35,7 @@ int main()
 	// initgraph(1280, 720);
 
 	// 初始化界面
-	menu_scene = new MenuScene();
-	game_scene = new GameScene();
-	select_Level_scene = new SelectLevelScene();
-	pause_scene = new PauseScene();
+
 
 	// 初始化场景为菜单
 	scene_manager.SetCurrentScene(menu_scene);

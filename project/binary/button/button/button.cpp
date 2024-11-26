@@ -11,6 +11,11 @@ Button::Button(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTS
 	loadimage(&img_pushed, path_img_pushed);
 }
 
+void Button::OnEnter()
+{
+	status = Status::Idle;
+}
+
 void Button::OnDraw()
 {
 	switch (status)

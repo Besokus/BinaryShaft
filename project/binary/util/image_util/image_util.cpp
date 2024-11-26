@@ -1,3 +1,14 @@
+/*
+	负责人:ja1u0va
+	使用说明:一些处理图片文件的函数
+	例子:
+
+
+
+
+*/
+
+
 #include <graphics.h>
 #include "../../atlas/atlas.h"
 
