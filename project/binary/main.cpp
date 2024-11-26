@@ -25,6 +25,7 @@ extern std::vector<Platform*> platform_list;
 
 extern void LoadGameResources();
 
+
 int main()
 {
 	ExMessage msg;

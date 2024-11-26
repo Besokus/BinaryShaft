@@ -3,8 +3,16 @@
 extern bool running;
 extern SceneManager scene_manager;
 
+extern IMAGE img_menu_background;
+
+extern IMAGE img_menu_start_idle;
+extern IMAGE img_menu_start_hovered;
+extern IMAGE img_menu_start_pushed;
+
+
 void MenuScene::OnEnter()
 {
+
 	std::cout << "进入主菜单" << std::endl;
 }
 
@@ -15,7 +23,8 @@ void MenuScene::OnUpdate()
 
 void MenuScene::OnDraw()
 {
-	outtextxy(10, 10, _T("A选关 D退出"));
+	putimage(0, 0, &img_menu_background);
+	// outtextxy(10, 10, _T("A选关 D退出"));
 }
 
 void MenuScene::OnInput(const ExMessage& msg)
