@@ -4,7 +4,6 @@
 extern bool running;
 extern SceneManager scene_manager;
 
-
 extern IMAGE img_menu_background;
 
 extern IMAGE img_menu_start_idle;

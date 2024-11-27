@@ -6,6 +6,8 @@
 
 extern int level;
 
+extern IMAGE img_menu_background;
+
 extern SceneManager scene_manager;
 
 extern Player* player;
@@ -19,7 +21,6 @@ extern std::vector<Platform*> platform_list;
 // 3.平台数量,平台位置
 void GameScene::OnEnter()
 {
-	player = new Player();
 	player->SetPosition(114, 514);
 }
 
@@ -44,15 +45,15 @@ void GameScene::OnUpdate()
 	player->OnUpdate();
 
 	// 生成新的平台到场景中
-	GeneratePlatform(platform_list);
+	// GeneratePlatform(platform_list);
 
 	// 对于所有在场景中的平台,调用其更新方法
-	for (Platform* platform : platform_list)
-	{
-		platform->OnUpdate();
-	}
+	//for (Platform* platform : platform_list)
+	//{
+	//	platform->OnUpdate();
+	//}
 
-	DeletePlatform(platform_list);
+	//DeletePlatform(platform_list);
 }
 
 void GameScene::OnDraw()
@@ -63,8 +64,10 @@ void GameScene::OnDraw()
 	outtextxy(10, 50, text);
 	outtextxy(10, 70, _T("P暂停 ESC退出到主菜单"));
 
+	putimage(0, 0, &img_menu_background);
+
 	// 绘制玩家
-	// player->OnDraw();
+	player->OnDraw();
 	// 
 	// 绘制平台
 	// for (Platform* platform : platform_list) 
@@ -83,24 +86,24 @@ void GameScene::OnDraw()
 
 void GameScene::OnInput(const ExMessage& msg)
 {
+	player->OnInput(msg);
+
+
 
 	if (msg.message == WM_KEYDOWN)
 	{
-		player->OnInput(msg);
-		if (msg.message == WM_KEYDOWN)
+		switch (msg.vkcode)
 		{
-			switch (msg.vkcode)
-			{
-			case 'P':
-				scene_manager.SwitchTo(SceneManager::SceneType::Pause);
-				break;
-			case VK_ESCAPE:
-				scene_manager.SwitchTo(SceneManager::SceneType::Menu);
-				break;
-			}
-
+		case 'P':
+			scene_manager.SwitchTo(SceneManager::SceneType::Pause);
+			break;
+		case VK_ESCAPE:
+			scene_manager.SwitchTo(SceneManager::SceneType::Menu);
+			break;
 		}
+
 	}
+
 
 
 }
@@ -139,7 +142,7 @@ void GameScene::DeletePlatform(std::vector<Platform*>& platform_list)
 	}
 
 	for (size_t i = 0;i < platform_list.size();i++) {
-		Platform* platform  = platform_list[i];
+		Platform* platform = platform_list[i];
 		if (!platform->CheckExist())
 		{
 			std::swap(platform_list[i], platform_list.back());

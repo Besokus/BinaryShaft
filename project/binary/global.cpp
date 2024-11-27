@@ -20,6 +20,9 @@
 #include "button/button/button.h"
 #include <vector>
 
+extern void FlipAtlas(Atlas& src, Atlas& dst);
+
+
 extern const int WINDOW_WIDTH = 1280;
 extern const int WINDOW_HEIGHT = 720;
 extern const int BUTTON_WIDTH = 175;
@@ -53,6 +56,11 @@ IMAGE img_menu_setup_pushed;
 // example:
 // Atlas atlas_peashooter_idle_left;
 // atlas_(class)_(status)_(direction)
+IMAGE img_player_idle;
+
+
+Atlas atlas_player_left;
+Atlas atlas_player_right;
 
 
 // 定义按钮对象
@@ -79,6 +87,10 @@ Scene* setup_scene = nullptr;
 //Scene* pause_scene = nullptr;
 
 SceneManager scene_manager;
+
+Animation* animation_player_left;
+Animation* animation_player_right;
+Animation* animation_player_idle;
 
 // 定义玩家对象
 Player* player = nullptr;
@@ -126,4 +138,17 @@ void LoadGameResources()
 	btn_menu_setup = new SetUpButton(region_menu_setup,
 		_T("resources/menu_setup_idle.png"), _T("resources/menu_setup_hovered.png"), _T("resources/menu_setup_pushed.png"));
 
+	loadimage(&img_player_idle, _T("resources/player_idle_1.png"));
+
+	atlas_player_left.LoadFromFile(_T("resources/left_walk_%d.png"), 6);
+	FlipAtlas(atlas_player_left, atlas_player_right);
+
+	animation_player_left = new Animation();
+	animation_player_right = new Animation();
+
+	animation_player_left->SetAtlas(&atlas_player_left);
+	animation_player_right->SetAtlas(&atlas_player_right);
+
+
+	player = new Player();
 }

@@ -55,7 +55,6 @@ void Button::OnInput(const ExMessage& msg)
 	}
 }
 
-
 bool Button::CheckCursorHit(int x, int y)
 {
 	return x >= region.left && x <= region.right

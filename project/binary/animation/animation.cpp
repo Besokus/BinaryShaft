@@ -67,7 +67,7 @@ void Animation::OnUpDate(int delta)
 		idx_frame++;
 		// 检查当前帧索引是否到达图集尾部
 
-		/*
+	
 		if (idx_frame >= atlas->GetSize())
 		{
 			// 如果到达图集尾部
@@ -78,7 +78,7 @@ void Animation::OnUpDate(int delta)
 			if (!is_loop && callback)	// 如果没有设置循环播放且回调函数存在
 				callback();				// 则执行回调函数的功能
 		}
-		*/
+		
 	}
 }
 

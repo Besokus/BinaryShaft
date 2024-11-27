@@ -31,10 +31,6 @@ private:
 	bool is_move_left = false;
 	bool is_move_right = false;
 	bool is_facing_right = false;
-	Animation animation_run_left;
-	Animation animation_run_right;
-	Animation animation_idle_left;
-	Animation animation_idle_right;
 	Animation* current_animation = nullptr;
 
 public:
