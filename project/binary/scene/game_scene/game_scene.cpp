@@ -23,8 +23,11 @@ extern std::vector<Platform*> platform_list;
 // 3.平台数量,平台位置
 void GameScene::OnEnter()
 {
+	// 可能要换成析构函数
 	AC_platform->OnEnter(img_AC_platform);
+
 	AC_platform->SetPosition(514, 300);
+
 	player->SetPosition(514, 0);
 }
 
@@ -48,17 +51,15 @@ void GameScene::OnUpdate()
 {
 	player->OnUpdate();
 
+	AC_platform->OnUpdate();
 	// 生成新的平台到场景中
 	// GeneratePlatform(platform_list);
 
-	if (AC_platform->CheckCollision(player))
-		player->is_on_platform = true;
-	else
-		player->is_on_platform = false;
+
 	// 对于所有在场景中的平台,调用其更新方法
 	//for (Platform* platform : platform_list)
 	//{
-	//	platform->OnUpdate();
+
 	//}
 
 	//DeletePlatform(platform_list);
@@ -143,10 +144,7 @@ void GameScene::DeletePlatform(std::vector<Platform*>& platform_list)
 	for (Platform* platform : platform_list) {
 
 		// 此处写入坐标位置判定
-		if (platform->GetCollisonShape().y < 0)
-		{
-			platform->Disappear();
-		}
+
 	}
 
 	for (size_t i = 0;i < platform_list.size();i++) {

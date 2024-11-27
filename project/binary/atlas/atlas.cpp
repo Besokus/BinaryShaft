@@ -10,7 +10,7 @@ void Atlas::LoadFromFile(LPCTSTR path_template, int num)
 	{
 		_stprintf_s(path_file, path_template, i + 1);
 
-		loadimage(&img_list[i], path_file);
+		loadimage(&img_list[i], path_file, 90, 90);
 	}
 
 }

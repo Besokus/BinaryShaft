@@ -9,13 +9,16 @@
 
 */
 #include "scene/scene_manager/scene_manager.h"
+
 #include "scene/scene/scene.h"
 #include "scene/game_scene/game_scene.h"
 #include "scene/menu_scene/menu_scene.h"
 #include "scene/select_level_scene/select_level_scene.h"
 #include "scene/pause_scene/pause_scene.h"
 #include "scene/set_up_scene/set_up_scene.h"
+
 #include "player/player.h"
+
 #include "platform/platform/platform.h"
 
 #include "button/button/button.h"
@@ -35,6 +38,7 @@ extern const int PLAYER_HEIGHT = 64;
 
 // 定义bool变量
 bool running = true;
+bool is_dubug = false;
 
 int level = 0;
 
@@ -95,6 +99,7 @@ Animation* animation_player_left = nullptr;
 Animation* animation_player_right = nullptr;
 Animation* animation_player_idle = nullptr;
 Animation* animation_player_fall_idle = nullptr;
+
 // 定义玩家对象
 Player* player = nullptr;
 
@@ -104,21 +109,28 @@ Player* player = nullptr;
 Platform* AC_platform = nullptr;
 std::vector<Platform*> platform_list;
 
-void LoadGameResources()
+void LoadImageAndAtlas()
 {
-	menu_scene = new MenuScene();
-	game_scene = new GameScene();
-	select_level_scene = new SelectLevelScene();
-	pause_scene = new PauseScene();
-	setup_scene = new SetUpScene();
-
-	AC_platform = new Platform();
-
 	// 导入菜单背景
 	loadimage(&img_menu_background, _T("resources/menu_background.png"));
 
-	loadimage(&img_AC_platform, _T("resources/AC_platform.png"));
+	// 玩家默认图片
+	loadimage(&img_player_idle, _T("resources/player_idle_1.png"), 90, 90);
 
+	// 玩家向左图集
+	atlas_player_left.LoadFromFile(_T("resources/left_walk_%d.png"), 6);
+	// 玩家向右图集
+	FlipAtlas(atlas_player_left, atlas_player_right);
+
+	atlas_player_fall_idle.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
+
+	// 导入AC平台
+	loadimage(&img_AC_platform, _T("resources/AC_platform.png"), 150, 30);
+}
+
+
+void LoadButton()
+{
 	// 导入start按键素材并且设置其范围
 	// 设定范围region
 	region_menu_start.left = 300;
@@ -148,24 +160,33 @@ void LoadGameResources()
 	// 导入素材
 	btn_menu_setup = new MenuSetUpButton(region_menu_setup,
 		_T("resources/menu_setup_idle.png"), _T("resources/menu_setup_hovered.png"), _T("resources/menu_setup_pushed.png"));
+}
 
+void LoadGameResources()
+{
+	menu_scene = new MenuScene();
+	game_scene = new GameScene();
+	select_level_scene = new SelectLevelScene();
+	pause_scene = new PauseScene();
+	setup_scene = new SetUpScene();
 
-
-
-	loadimage(&img_player_idle, _T("resources/player_idle_1.png"));
-
-	atlas_player_left.LoadFromFile(_T("resources/left_walk_%d.png"), 6);
-	FlipAtlas(atlas_player_left, atlas_player_right);
-
-	atlas_player_fall_idle.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
+	AC_platform = new Platform();
 
 	animation_player_left = new Animation();
 	animation_player_right = new Animation();
 	animation_player_fall_idle = new Animation();
 
+	player = new Player();
+
+	LoadButton();
+
+	LoadImageAndAtlas();
+
 	animation_player_left->SetAtlas(&atlas_player_left);
 	animation_player_right->SetAtlas(&atlas_player_right);
 	animation_player_fall_idle->SetAtlas(&atlas_player_fall_idle);
 
-	player = new Player();
+
 }
+
+
