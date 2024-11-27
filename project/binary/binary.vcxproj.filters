@@ -73,9 +73,6 @@
     <Filter Include="头文件\util\image_util">
       <UniqueIdentifier>{96c2b3a3-f8b3-47a9-beee-ec8fb29062d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\util\load_util">
-      <UniqueIdentifier>{291c52ec-6668-4d68-952a-c1c5a9ae768c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\scene\select_level_scene">
       <UniqueIdentifier>{b7838143-d068-47e3-aba7-22ab06cfcbdd}</UniqueIdentifier>
     </Filter>
@@ -96,6 +93,9 @@
     </Filter>
     <Filter Include="头文件\button\select_level_button">
       <UniqueIdentifier>{3e4f2051-cffe-4cd2-9846-9364538c6af5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\vector2">
+      <UniqueIdentifier>{9718fdc6-fcf4-4f40-ab59-eafa76df1a10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -153,9 +153,6 @@
     <ClCompile Include="platform\WA_platform\WA_platform.cpp">
       <Filter>头文件\platform\WA_platform</Filter>
     </ClCompile>
-    <ClCompile Include="load.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="scene\select_level_scene\select_level_scene.cpp">
       <Filter>头文件\scene\select_level_scene</Filter>
     </ClCompile>
@@ -164,6 +161,9 @@
     </ClCompile>
     <ClCompile Include="global.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="vector2\vector2.cpp">
+      <Filter>头文件\vector2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +223,15 @@
     </ClInclude>
     <ClInclude Include="button\button\button.h">
       <Filter>头文件\button\button</Filter>
+    </ClInclude>
+    <ClInclude Include="button\menu_button\menu_setup_button.h">
+      <Filter>头文件\button\menu_button</Filter>
+    </ClInclude>
+    <ClInclude Include="button\menu_button\menu_start_button.h">
+      <Filter>头文件\button\menu_button</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2\vector2.h">
+      <Filter>头文件\vector2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

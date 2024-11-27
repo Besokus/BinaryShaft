@@ -24,7 +24,8 @@ public:
 		Game,
 		Pause,
 		SetUp,
-		SelectLevel
+		SelectLevel,
+		
 
 	};
 public:

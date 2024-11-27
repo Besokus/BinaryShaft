@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-	负责人:
+	负责人:	
 	功能:
 		1.
 		2.
@@ -24,7 +24,6 @@ private:
 
 public:
 	MenuScene() = default;
-
 
 	void OnEnter();
 

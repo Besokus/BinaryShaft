@@ -1,25 +1,23 @@
 #include "menu_scene.h"
 #include "../../button/button/button.h"
+#include "../../button/menu_button/menu_start_button.h"
+#include "../../button/menu_button/menu_setup_button.h"
 
 extern bool running;
 extern SceneManager scene_manager;
 
 extern IMAGE img_menu_background;
 
-extern IMAGE img_menu_start_idle;
-extern IMAGE img_menu_start_hovered;
-extern IMAGE img_menu_start_pushed;
-
-extern StartButton* btn_menu_start;
+extern MenuStartButton* btn_menu_start;
 extern FindButton* btn_menu_find;
-extern SetUpButton* btn_menu_setup;
-
+extern MenuSetUpButton* btn_menu_setup;
 
 void MenuScene::OnEnter()
 {
 	btn_menu_start->OnEnter();
 	btn_menu_find->OnEnter();
 	btn_menu_setup->OnEnter();
+
 	std::cout << "进入主菜单" << std::endl;
 }
 
@@ -42,6 +40,7 @@ void MenuScene::OnInput(const ExMessage& msg)
 	btn_menu_start->OnInput(msg);
 	btn_menu_find->OnInput(msg);
 	btn_menu_setup->OnInput(msg);
+
 	if (msg.message == WM_KEYDOWN)
 	{
 		switch (msg.vkcode)
@@ -54,11 +53,7 @@ void MenuScene::OnInput(const ExMessage& msg)
 			break;
 
 		}
-
 	}
-
-
-
 }
 
 void MenuScene::OnExit()

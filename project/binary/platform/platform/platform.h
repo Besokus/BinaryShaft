@@ -14,6 +14,10 @@
 #include <graphics.h>
 #include "../../player/player.h"
 
+extern void PutImage(int x, int y, IMAGE* img);
+
+extern const int PLAYER_HEIGHT;
+
 class Platform
 {
 private:
@@ -25,23 +29,55 @@ private:
 		float left, right;
 		float y;
 
-	}platform_shape;
+	}shape;
+
+	POINT render_position; // äÖÈ¾Î»ÖÃ
+
+	IMAGE img_platform;
 public:
 	Platform() = default;
 	~Platform() = default;
 
-	virtual void OnUpdate() {}
-
-	virtual void OnDraw() {}
-
-	virtual void OnInput(const ExMessage& msg) {}
-
-	struct CollisionShape GetCollisonShape() 
+	void OnEnter(IMAGE img_platform)
 	{
-		return platform_shape;
+		this->img_platform = img_platform;
 	}
 
-	bool CheckCollision(const Player& player);
+	virtual void OnUpdate() {}
+
+	void OnDraw()
+	{
+		setlinecolor(RGB(255, 0, 0));
+		line(render_position.x, render_position.y, render_position.x + 100, render_position.y);
+		PutImage(render_position.x, render_position.y, &img_platform);
+	}
+
+	void SetPosition(int x, int y)
+	{
+		shape.left = x;
+		shape.right = shape.left + 100;
+		shape.y = y;
+
+		render_position.x = (int)shape.left + 30;
+		render_position.y = (int)shape.y;
+	}
+
+	struct CollisionShape GetCollisonShape()
+	{
+		return shape;
+	}
+
+	bool CheckCollision(Player* player)
+	{
+		if (player->GetPosition().y + PLAYER_HEIGHT > shape.y && player->GetPosition().y + PLAYER_HEIGHT - 10 < shape.y)
+		{
+			if (player->GetPosition().x > shape.left && player->GetPosition().x < shape.right)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 
 	void Disappear()
 	{

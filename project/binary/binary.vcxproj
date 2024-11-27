@@ -131,7 +131,6 @@
     <ClCompile Include="atlas\atlas.cpp" />
     <ClCompile Include="button\button\button.cpp" />
     <ClCompile Include="global.cpp" />
-    <ClCompile Include="load.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="platform\AC_platform\AC_platform.cpp" />
     <ClCompile Include="platform\CE_platform\CE_platform.cpp" />
@@ -149,11 +148,14 @@
     <ClCompile Include="scene\select_level_scene\select_level_scene.cpp" />
     <ClCompile Include="scene\set_up_scene\set_up_scene.cpp" />
     <ClCompile Include="util\image_util\image_util.cpp" />
+    <ClCompile Include="vector2\vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation\animation.h" />
     <ClInclude Include="atlas\atlas.h" />
     <ClInclude Include="button\button\button.h" />
+    <ClInclude Include="button\menu_button\menu_setup_button.h" />
+    <ClInclude Include="button\menu_button\menu_start_button.h" />
     <ClInclude Include="platform\AC_platform\AC_platform.h" />
     <ClInclude Include="platform\CE_platform\CE_platform.h" />
     <ClInclude Include="platform\MLE_platform\MLE_platform.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="scene\select_level_scene\select_level_scene.h" />
     <ClInclude Include="scene\set_up_scene\set_up_scene.h" />
     <ClInclude Include="util\image_util\image_util.h" />
+    <ClInclude Include="vector2\vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

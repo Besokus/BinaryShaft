@@ -4,7 +4,7 @@ extern Scene* menu_scene;
 extern Scene* game_scene;
 extern Scene* select_level_scene;
 extern Scene* pause_scene;
-extern Scene* setup_scene;
+extern Scene* setup_scene; // 声明   // = 定义
 
 // 设置当前的场景
 void SceneManager::SetCurrentScene(Scene* scene)
@@ -43,7 +43,6 @@ void SceneManager::SwitchTo(SceneType type)
 	}
 	// 进入新场景
 	current_scene->OnEnter();
-
 }
 
 // 更新场景的函数

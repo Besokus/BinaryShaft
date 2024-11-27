@@ -7,11 +7,13 @@
 extern int level;
 
 extern IMAGE img_menu_background;
+extern IMAGE img_AC_platform;
 
 extern SceneManager scene_manager;
 
 extern Player* player;
 
+extern Platform* AC_platform;
 extern std::vector<Platform*> platform_list;
 
 // 初始化游戏界面
@@ -21,7 +23,9 @@ extern std::vector<Platform*> platform_list;
 // 3.平台数量,平台位置
 void GameScene::OnEnter()
 {
-	player->SetPosition(114, 514);
+	AC_platform->OnEnter(img_AC_platform);
+	AC_platform->SetPosition(514, 300);
+	player->SetPosition(514, 0);
 }
 
 // 更新游戏数据
@@ -47,6 +51,10 @@ void GameScene::OnUpdate()
 	// 生成新的平台到场景中
 	// GeneratePlatform(platform_list);
 
+	if (AC_platform->CheckCollision(player))
+		player->is_on_platform = true;
+	else
+		player->is_on_platform = false;
 	// 对于所有在场景中的平台,调用其更新方法
 	//for (Platform* platform : platform_list)
 	//{
@@ -68,6 +76,8 @@ void GameScene::OnDraw()
 
 	// 绘制玩家
 	player->OnDraw();
+
+	AC_platform->OnDraw();
 	// 
 	// 绘制平台
 	// for (Platform* platform : platform_list) 
@@ -87,8 +97,6 @@ void GameScene::OnDraw()
 void GameScene::OnInput(const ExMessage& msg)
 {
 	player->OnInput(msg);
-
-
 
 	if (msg.message == WM_KEYDOWN)
 	{

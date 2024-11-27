@@ -2,7 +2,7 @@
 
 extern Animation* animation_player_left;
 extern Animation* animation_player_right;
-extern Animation* animation_player_idle;
+extern Animation* animation_player_fall_idle;
 
 extern void PutImage(int x, int y, IMAGE* img);
 
@@ -10,12 +10,15 @@ extern IMAGE img_player_idle;
 
 Player::Player()
 {
+
 	current_animation = animation_player_right;
 
 	animation_player_right->SetInterval(50);
 	animation_player_right->SetLoop(true);
 	animation_player_left->SetInterval(50);
 	animation_player_left->SetLoop(true);
+	animation_player_fall_idle->SetInterval(50);
+	animation_player_fall_idle->SetLoop(true);
 }
 
 
@@ -33,29 +36,40 @@ void Player::OnUpdate()
 		current_animation = nullptr;
 	}
 
-	if (is_on_platform)
+	if (!is_on_platform)
 	{
-		std::cout << "玩家在平台上" << "\n";
+		velocity.y += gravity;
+		current_animation = animation_player_fall_idle;
 	}
 	else
 	{
-		std::cout << "玩家在空中" << "\n";
+		velocity.y = 0; // 等于平台速度
 	}
 
-	if (direction>0) 
+	if (!is_on_speed_platform)
 	{
-		position.x += PLAYER_SPEED;
+		if (direction > 0)
+		{
+			velocity.x = run_velocity;
+		}
+		else if (direction < 0)
+		{
+			velocity.x = -run_velocity;
+		}
+		else
+		{
+			velocity.x = 0;
+		}
+
 	}
-	else if(direction < 0)
-	{
-		position.x -= PLAYER_SPEED;
-	}
+
+	position += velocity;
+
 
 	if (current_animation)
 	{
 		current_animation->OnUpDate(delta);
 	}
-
 }
 
 void Player::OnDraw()
@@ -108,5 +122,5 @@ void Player::OnInput(const ExMessage& msg)
 void Player::SetPosition(int x, int y)
 {
 	position.x = x;
-	position.x = y;
+	position.y = y;
 }

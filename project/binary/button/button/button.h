@@ -72,19 +72,19 @@ private:
 	bool CheckCursorHit(int x, int y);
 };
 
-class StartButton :public Button
-{
-public:
-	StartButton(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTSTR path_img_pushed)
-		:Button(rect, path_img_idle, path_img_hovered, path_img_pushed) {}
-	~StartButton() = default;
-
-protected:
-	void OnClick()
-	{
-		scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
-	}
-};
+//class StartButton :public Button
+//{
+//public:
+//	StartButton(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTSTR path_img_pushed)
+//		:Button(rect, path_img_idle, path_img_hovered, path_img_pushed) {}
+//	~StartButton() = default;
+//
+//protected:
+//	void OnClick()
+//	{
+//		scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
+//	}
+//};
 
 class FindButton :public Button
 {
@@ -98,21 +98,6 @@ protected:
 	{
 	}
 };
-
-class SetUpButton :public Button 
-{
-public:
-	SetUpButton(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTSTR path_img_pushed)
-		:Button(rect, path_img_idle, path_img_hovered, path_img_pushed) {}
-	~SetUpButton() = default;
-
-protected:
-	void OnClick()
-	{
-		scene_manager.SwitchTo(SceneManager::SceneType::SetUp);
-	}
-};
-
 
 class AchievementButton :public Button 
 {
