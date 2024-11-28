@@ -28,13 +28,18 @@
 
 extern void FlipAtlas(Atlas& src, Atlas& dst);
 
+extern const int PLAYER_WIDTH = 70;
+extern const int PLAYER_HEIGHT = 70;
+
+extern const int PLATFORM_WIDTH = 100;
+extern const int PLATFORM_HEIGHT = 10;
+
 
 extern const int WINDOW_WIDTH = 1280;
 extern const int WINDOW_HEIGHT = 720;
 extern const int BUTTON_WIDTH = 175;
 extern const int BUTTON_HEIGHT = 45;
 
-extern const int PLAYER_HEIGHT = 64;
 
 // 定义bool变量
 bool running = true;
@@ -115,7 +120,7 @@ void LoadImageAndAtlas()
 	loadimage(&img_menu_background, _T("resources/menu_background.png"));
 
 	// 玩家默认图片
-	loadimage(&img_player_idle, _T("resources/player_idle_1.png"), 90, 90);
+	loadimage(&img_player_idle, _T("resources/player_idle_1.png"), PLAYER_WIDTH, PLAYER_HEIGHT);
 
 	// 玩家向左图集
 	atlas_player_left.LoadFromFile(_T("resources/left_walk_%d.png"), 6);
@@ -125,7 +130,7 @@ void LoadImageAndAtlas()
 	atlas_player_fall_idle.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
 
 	// 导入AC平台
-	loadimage(&img_AC_platform, _T("resources/AC_platform.png"), 150, 30);
+	loadimage(&img_AC_platform, _T("resources/AC_platform.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
 }
 
 
@@ -170,7 +175,6 @@ void LoadGameResources()
 	pause_scene = new PauseScene();
 	setup_scene = new SetUpScene();
 
-	AC_platform = new Platform();
 
 	animation_player_left = new Animation();
 	animation_player_right = new Animation();

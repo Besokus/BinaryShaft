@@ -20,24 +20,26 @@
 class Player
 {
 public:
-	const float run_velocity = 2.5;			// 设定x方向速度
-	const float speed_velocity = 0.1;		// 设定speed平台速度
-	const float gravity = 0.2;				// 设定重力加速度
+	const float run_velocity = 2.0f;			// 设定x方向速度
+	const float speed_velocity = 0.1f;			// 设定speed平台速度
+	const float gravity = 0.2f;					// 设定重力加速度
 
-	const int delta = 10;					// 设定间隔时间
+	const int delta = 10;						// 设定间隔时间
 public:
 	Animation* current_animation = nullptr;
-	
-	Vector2 position;	// 角色位置
-	Vector2 velocity;	// 角色速度
-	Vector2 size;		// 角色大小
 
-	POINT render_position;
+	Vector2 position = { 0,0 };	// 角色位置
+	Vector2 velocity = { 0,0 };	// 角色速度
+	Vector2 size = { 0,0 };		// 角色大小
+
+	POINT render_position = { 0,0 };
 
 	bool is_right_key_down = false;
 	bool is_left_key_down = false;
 
 	bool is_on_speed_platform = false;
+
+	float platform_velocity = 0;
 
 public:
 	bool is_on_platform = false;

@@ -12,33 +12,52 @@ extern IMAGE img_player_idle;
 extern Platform* AC_platform;
 extern std::vector<Platform*> platform_list;
 
+extern const int PLAYER_WIDTH;
+extern const int PLAYER_HEIGHT;
+
+extern const int PLATFORM_WIDTH;
+extern const int PLATFORM_HEIGHT;
+
+
 Player::Player()
 {
 	current_animation = nullptr;
 
-	animation_player_right->SetInterval(50);
+	animation_player_right->SetInterval(100);
 	animation_player_right->SetLoop(true);
 
-	animation_player_left->SetInterval(50);
+	animation_player_left->SetInterval(100);
 	animation_player_left->SetLoop(true);
 
-	animation_player_fall_idle->SetInterval(50);
+	animation_player_fall_idle->SetInterval(100);
 	animation_player_fall_idle->SetLoop(true);
 
 	size.x = 30;
-	size.y = 90;
+	size.y = 30;
 }
 
 
 void Player::OnUpdate()
 {
-	CheckCollison(AC_platform);
+	DWORD start_time = GetTickCount();
+
+	for (Platform* platform : platform_list)
+	{
+		CheckCollison(platform);
+		if (is_on_platform)
+			break;
+	}
 
 	// 更新玩家位置
 	UpdatePosition();
 
-	render_position.x = (int)position.x - 30;
-	render_position.y = (int)position.y;
+	DWORD end_time = GetTickCount();
+	DWORD delta_time = end_time - start_time;
+	if (delta_time < 1000 / 144)
+		Sleep(1000 / 144 - delta_time);
+
+	render_position.x = (int)position.x - 20;
+	render_position.y = (int)position.y - 40;
 
 	// 更新动画
 	if (current_animation)
@@ -54,18 +73,18 @@ void Player::OnDraw()
 
 	if (current_animation)
 	{
-		current_animation->OnDraw(render_position.x, render_position.y);
+		current_animation->OnDraw((int)render_position.x, (int)render_position.y);
 	}
 	else
 	{
-		PutImage(render_position.x, render_position.y, &img_player_idle);
+		PutImage((int)render_position.x, (int)render_position.y, &img_player_idle);
 	}
 
 	setlinecolor(RGB(0, 255, 0));
-	line(position.x, position.y, position.x + size.x, position.y);
-	line(position.x, position.y, position.x, position.y + 90);
-	line(position.x + size.x, position.y, position.x + size.x, position.y + 90);
-	line(position.x, position.y + 90, position.x + size.x, position.y + 90);
+	line((int)position.x, (int)position.y, (int)position.x + (int)size.x, (int)position.y);
+	line((int)position.x, (int)position.y, (int)position.x, (int)position.y + (int)size.y);
+	line((int)position.x + (int)size.x, (int)position.y, (int)position.x + (int)size.x, (int)position.y + (int)size.y);
+	line((int)position.x, (int)position.y + (int)size.y, (int)position.x + (int)size.x, (int)position.y + (int)size.y);
 }
 
 void Player::OnInput(const ExMessage& msg)
@@ -136,7 +155,7 @@ void Player::UpdatePosition()
 	}
 	else
 	{
-		velocity.y = 0; // 等于平台速度
+		velocity.y = -platform_velocity; // 等于平台速度
 	}
 
 	// 水平速度
@@ -165,18 +184,23 @@ void Player::CheckCollison(Platform* platform)
 
 	if (is_collision_x && is_collision_y)
 	{
-		float delta_pos_y = velocity.y;
-		float last_tick_foot_pos_y = position.y + size.y - delta_pos_y;
-		
-		if (last_tick_foot_pos_y <= platform->shape.y)
+		if (!platform->is_leave)
 		{
 			position.y = platform->shape.y - size.y;
-
+			platform_velocity = platform->up_velocity;
 			is_on_platform = true;
-			return;
 		}
 
+		platform->is_visited = true;
+
+		return;
 	}
+
+	if (!is_collision_x && platform->is_visited)
+	{
+		platform->is_leave = true;
+	}
+
 	is_on_platform = false;
 
 }

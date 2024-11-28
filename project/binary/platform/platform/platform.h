@@ -12,16 +12,22 @@
 
 */
 #include <graphics.h>
+#include "../../vector2/vector2.h"
 
 extern void PutImage(int x, int y, IMAGE* img);
 
 class Platform
 {
 public:
+    float up_velocity = 1.0f;
 
 	bool is_exist = true;
 
 	bool is_player_on = false; // 判断是否有玩家在上面
+
+	bool is_visited = false;
+
+	bool is_leave = false;
 
 	typedef struct CollisionShape
 	{
@@ -29,22 +35,28 @@ public:
 		float y;
 	}CollisionShape;
 
-	CollisionShape shape;
+	Vector2 velocity = { 0,-up_velocity };	// 平台速度
 
-	POINT render_position; // 渲染位置
+	CollisionShape shape = { 0,0 };
+
+	POINT render_position = { 0,0 }; // 渲染位置
 
 	IMAGE img_platform;
 public:
-	Platform() = default;
+	Platform(IMAGE img_platform)
+	{
+		this->img_platform = img_platform;
+		velocity.y = -up_velocity;
+	}
 
 	~Platform() = default;
 
 	// virtual void PlatformChange() = 0;
 
-	void OnEnter(IMAGE img_platform)
-	{
-		this->img_platform = img_platform;
-	}
+	//void OnEnter(IMAGE img_platform)
+	//{
+	//	this->img_platform = img_platform;
+	//}
 
 	void OnUpdate()
 	{
@@ -52,6 +64,8 @@ public:
 		{
 			//PlatformChange();
 		}
+
+		shape.y += velocity.y;
 
 		render_position.x = (int)shape.left;
 		render_position.y = (int)shape.y;
@@ -61,14 +75,14 @@ public:
 	{
 		PutImage(render_position.x, render_position.y, &img_platform);
 		setlinecolor(RGB(255, 0, 0));
-		line(shape.left, shape.y, shape.right, shape.y);
+		line((int)shape.left, (int)shape.y, (int)shape.right, (int)shape.y);
 	}
 
 	void SetPosition(int x, int y)
 	{
-		shape.left = (int)x;
-		shape.right = shape.left +150;
-		shape.y = (int)y;
+		shape.left = (float)x;
+		shape.right = shape.left + 100;
+		shape.y = (float)y;
 	}
 
 	//bool CheckCollision(Player* player)

@@ -27,12 +27,12 @@ int main()
 {
 
 	ExMessage msg;
-	const int FPS = 60;
+	const int FPS = 144;
 
 	LoadGameResources();
 
-	initgraph(1280, 720, EW_SHOWCONSOLE);// 显示外置控制台
-	// initgraph(1280, 720);
+	// initgraph(1280, 720, EW_SHOWCONSOLE);// 显示外置控制台
+	initgraph(1280, 720);
 
 	// 初始化界面
 

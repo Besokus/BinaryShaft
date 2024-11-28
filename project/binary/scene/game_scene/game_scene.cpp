@@ -4,6 +4,8 @@
 #include "../../platform/platform/platform.h"
 
 
+
+
 extern int level;
 
 extern IMAGE img_menu_background;
@@ -23,12 +25,18 @@ extern std::vector<Platform*> platform_list;
 // 3.平台数量,平台位置
 void GameScene::OnEnter()
 {
-	// 可能要换成析构函数
-	AC_platform->OnEnter(img_AC_platform);
-
-	AC_platform->SetPosition(514, 300);
-
 	player->SetPosition(514, 0);
+
+	platform_list.push_back(new Platform(img_AC_platform));
+	platform_list.back()->SetPosition(570, 514);
+	platform_list.push_back(new Platform(img_AC_platform));
+	platform_list.back()->SetPosition(330, 414);
+	platform_list.push_back(new Platform(img_AC_platform));
+	platform_list.back()->SetPosition(430, 314);
+	platform_list.push_back(new Platform(img_AC_platform));
+	platform_list.back()->SetPosition(500, 214);
+	platform_list.push_back(new Platform(img_AC_platform));
+	platform_list.back()->SetPosition(514, 114);
 }
 
 // 更新游戏数据
@@ -49,11 +57,18 @@ void GameScene::OnEnter()
 
 void GameScene::OnUpdate()
 {
-	player->OnUpdate();
-
-	AC_platform->OnUpdate();
 	// 生成新的平台到场景中
-	// GeneratePlatform(platform_list);
+	GeneratePlatform(platform_list);
+
+	if (!platform_list.empty())
+	{
+		for (Platform* platform : platform_list)
+		{
+			platform->OnUpdate();
+		}
+	}
+
+	player->OnUpdate();
 
 
 	// 对于所有在场景中的平台,调用其更新方法
@@ -62,7 +77,7 @@ void GameScene::OnUpdate()
 
 	//}
 
-	//DeletePlatform(platform_list);
+	DeletePlatform(platform_list);
 }
 
 void GameScene::OnDraw()
@@ -75,10 +90,16 @@ void GameScene::OnDraw()
 
 	putimage(0, 0, &img_menu_background);
 
+
+
+	for (Platform* platform : platform_list)
+	{
+		platform->OnDraw();
+	}
+
 	// 绘制玩家
 	player->OnDraw();
 
-	AC_platform->OnDraw();
 	// 
 	// 绘制平台
 	// for (Platform* platform : platform_list) 
@@ -112,9 +133,6 @@ void GameScene::OnInput(const ExMessage& msg)
 		}
 
 	}
-
-
-
 }
 
 void GameScene::OnExit()
@@ -124,27 +142,35 @@ void GameScene::OnExit()
 
 void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 {
+	const int MOD = 10;
 	// 间隔一段时间后更新平台
 	// INTERVAL的值可能需要随平台速度改变
-	const int INTERVAL = 200;
+	const int INTERVAL = 100;
 	static int counter = 0;
+
 	if ((++counter) % INTERVAL == 0)
 	{
-		// int seed = rand() % MOD;
+		int seed = rand() % MOD;
 		// 设置概率,生成不同的平台
 		// switch(seed){...}
-		// platform_list.push_back(new NULL_Platform());
-		// platform_list.push_back(new NULL_Platform());
-	}
 
+		// 生成位置
+		int generater_x = rand() % 300 +300;
+
+		platform_list.push_back(new Platform(img_AC_platform));
+		platform_list.back()->SetPosition(generater_x, 720);
+	}
 }
 
 void GameScene::DeletePlatform(std::vector<Platform*>& platform_list)
 {
-	for (Platform* platform : platform_list) {
-
-		// 此处写入坐标位置判定
-
+	for (Platform* platform : platform_list)
+	{
+		// 如果超出游戏范围
+		if (platform->shape.y < 50)
+		{
+			platform->Disappear();
+		}
 	}
 
 	for (size_t i = 0;i < platform_list.size();i++) {

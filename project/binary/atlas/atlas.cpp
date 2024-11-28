@@ -1,5 +1,8 @@
 #include "atlas.h"
 
+extern const int PLAYER_WIDTH;
+extern const int PLAYER_HEIGHT;
+
 void Atlas::LoadFromFile(LPCTSTR path_template, int num)
 {
 	img_list.clear();
@@ -10,7 +13,7 @@ void Atlas::LoadFromFile(LPCTSTR path_template, int num)
 	{
 		_stprintf_s(path_file, path_template, i + 1);
 
-		loadimage(&img_list[i], path_file, 90, 90);
+		loadimage(&img_list[i], path_file, PLAYER_WIDTH, PLAYER_HEIGHT);
 	}
 
 }
