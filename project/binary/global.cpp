@@ -43,7 +43,7 @@ extern const int BUTTON_HEIGHT = 45;
 
 // 定义bool变量
 bool running = true;
-bool is_dubug = false;
+bool is_debug = false;
 
 int level = 0;
 

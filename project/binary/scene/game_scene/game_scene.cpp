@@ -3,9 +3,7 @@
 #include "../../player/player.h"
 #include "../../platform/platform/platform.h"
 
-
-
-
+extern bool is_debug;
 extern int level;
 
 extern IMAGE img_menu_background;
@@ -23,10 +21,19 @@ extern std::vector<Platform*> platform_list;
 // 1.玩家位置
 // 2.分数
 // 3.平台数量,平台位置
+// 注意:
+// 1.暂停界面跳转到这,不应该重置参数
+// 2.其他界面跳转到这,应该重置参数
 void GameScene::OnEnter()
 {
+	// 设置玩家初始位置
 	player->SetPosition(514, 0);
 
+
+	// 重置平台参数
+	platform_list.clear();
+
+	// 放置初始的几个平台
 	platform_list.push_back(new Platform(img_AC_platform));
 	platform_list.back()->SetPosition(570, 514);
 	platform_list.push_back(new Platform(img_AC_platform));
@@ -53,8 +60,6 @@ void GameScene::OnEnter()
 // 4.平台随机刷新:
 //	
 // 5.平台delete:
-
-
 void GameScene::OnUpdate()
 {
 	// 生成新的平台到场景中
@@ -70,45 +75,28 @@ void GameScene::OnUpdate()
 
 	player->OnUpdate();
 
-
-	// 对于所有在场景中的平台,调用其更新方法
-	//for (Platform* platform : platform_list)
-	//{
-
-	//}
-
+	// 删除出界的平台
 	DeletePlatform(platform_list);
 }
 
 void GameScene::OnDraw()
 {
-	outtextxy(10, 10, _T("游戏绘图内容"));
-	static TCHAR text[64];
-	_stprintf_s(text, _T("level:%d"), level + 1);
-	outtextxy(10, 50, text);
-	outtextxy(10, 70, _T("P暂停 ESC退出到主菜单"));
-
+	// 绘制背景图
 	putimage(0, 0, &img_menu_background);
 
-
-
+	// 绘制平台
 	for (Platform* platform : platform_list)
 	{
 		platform->OnDraw();
 	}
 
 	// 绘制玩家
+
+
 	player->OnDraw();
 
-	// 
-	// 绘制平台
-	// for (Platform* platform : platform_list) 
-	// {
-	// 	  platform->OnDraw();
-	// }
-	//
+
 	// 绘制游戏窗口
-	// 
 	// 
 	// 绘制分数
 	// 
@@ -118,8 +106,10 @@ void GameScene::OnDraw()
 
 void GameScene::OnInput(const ExMessage& msg)
 {
+	// 玩家移动输入
 	player->OnInput(msg);
 
+	// 界面跳转
 	if (msg.message == WM_KEYDOWN)
 	{
 		switch (msg.vkcode)
@@ -130,14 +120,19 @@ void GameScene::OnInput(const ExMessage& msg)
 		case VK_ESCAPE:
 			scene_manager.SwitchTo(SceneManager::SceneType::Menu);
 			break;
+		case 'Z':
+			if (is_debug)
+				is_debug = false;
+			else
+				is_debug = true;
+			break;
 		}
-
 	}
 }
 
 void GameScene::OnExit()
 {
-	std::cout << "游戏退出" << std::endl;
+
 }
 
 void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
@@ -151,13 +146,16 @@ void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 	if ((++counter) % INTERVAL == 0)
 	{
 		int seed = rand() % MOD;
+
 		// 设置概率,生成不同的平台
 		// switch(seed){...}
 
 		// 生成位置
-		int generater_x = rand() % 300 +300;
+		int generater_x = rand() % 300 + 300;
 
+		// 将生成的平台加入链表
 		platform_list.push_back(new Platform(img_AC_platform));
+		// 设置初始位置
 		platform_list.back()->SetPosition(generater_x, 720);
 	}
 }
@@ -167,7 +165,7 @@ void GameScene::DeletePlatform(std::vector<Platform*>& platform_list)
 	for (Platform* platform : platform_list)
 	{
 		// 如果超出游戏范围
-		if (platform->shape.y < 50)
+		if (platform->shape.y < 0)
 		{
 			platform->Disappear();
 		}
@@ -177,10 +175,11 @@ void GameScene::DeletePlatform(std::vector<Platform*>& platform_list)
 		Platform* platform = platform_list[i];
 		if (!platform->CheckExist())
 		{
+			// 将平台移出[链表
 			std::swap(platform_list[i], platform_list.back());
 			platform_list.pop_back();
+			// 清空内存
 			delete platform;
 		}
 	}
-
 }

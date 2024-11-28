@@ -8,8 +8,6 @@
 	示例:
 		1.
 
-
-
 */
 #include <graphics.h>
 #include "../../vector2/vector2.h"
@@ -18,21 +16,21 @@ extern void PutImage(int x, int y, IMAGE* img);
 
 class Platform
 {
+private:
+	bool is_exist = true;		// 平台是否存在
 public:
-    float up_velocity = 1.0f;
+    float up_velocity = 1.0f;	// 平台上升速度
 
-	bool is_exist = true;
+	bool is_visited = false;    // 平台是否有玩家踩过
+	bool is_leave = false;		// 玩家是否离开过平台
 
-	bool is_player_on = false; // 判断是否有玩家在上面
-
-	bool is_visited = false;
-
-	bool is_leave = false;
+	int change_times = 1;
 
 	typedef struct CollisionShape
 	{
 		float left, right;
 		float y;
+
 	}CollisionShape;
 
 	Vector2 velocity = { 0,-up_velocity };	// 平台速度
@@ -43,60 +41,22 @@ public:
 
 	IMAGE img_platform;
 public:
-	Platform(IMAGE img_platform)
-	{
-		this->img_platform = img_platform;
-		velocity.y = -up_velocity;
-	}
+	Platform(IMAGE img_platform);
 
 	~Platform() = default;
 
-	// virtual void PlatformChange() = 0;
+	//virtual void PlatformChange();
 
-	//void OnEnter(IMAGE img_platform)
-	//{
-	//	this->img_platform = img_platform;
-	//}
+	void OnUpdate();
 
-	void OnUpdate()
-	{
-		if (is_player_on)
-		{
-			//PlatformChange();
-		}
+	void OnDraw();
 
-		shape.y += velocity.y;
+	void SetPosition(int x, int y);
 
-		render_position.x = (int)shape.left;
-		render_position.y = (int)shape.y;
-	}
+	// 平台消失方法
+	void Disappear();
 
-	void OnDraw()
-	{
-		PutImage(render_position.x, render_position.y, &img_platform);
-		setlinecolor(RGB(255, 0, 0));
-		line((int)shape.left, (int)shape.y, (int)shape.right, (int)shape.y);
-	}
+	// 检查平台是否存在
+	bool CheckExist();
 
-	void SetPosition(int x, int y)
-	{
-		shape.left = (float)x;
-		shape.right = shape.left + 100;
-		shape.y = (float)y;
-	}
-
-	//bool CheckCollision(Player* player)
-	//{
-	//	return false;
-	//}
-
-	void Disappear()
-	{
-		is_exist = false;
-	}
-
-	bool CheckExist()
-	{
-		return is_exist;
-	}
 };

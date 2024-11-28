@@ -1,16 +1,6 @@
 #include "player.h"
 #include "../platform/platform/platform.h"
-
-extern Animation* animation_player_left;
-extern Animation* animation_player_right;
-extern Animation* animation_player_fall_idle;
-
-extern void PutImage(int x, int y, IMAGE* img);
-
-extern IMAGE img_player_idle;
-
-extern Platform* AC_platform;
-extern std::vector<Platform*> platform_list;
+#pragma warning(disable:28159)
 
 extern const int PLAYER_WIDTH;
 extern const int PLAYER_HEIGHT;
@@ -18,6 +8,18 @@ extern const int PLAYER_HEIGHT;
 extern const int PLATFORM_WIDTH;
 extern const int PLATFORM_HEIGHT;
 
+extern bool is_debug;
+
+extern Animation* animation_player_left;
+extern Animation* animation_player_right;
+extern Animation* animation_player_fall_idle;
+
+extern IMAGE img_player_idle;
+
+extern Platform* AC_platform;
+extern std::vector<Platform*> platform_list;
+
+extern void PutImage(int x, int y, IMAGE* img);
 
 Player::Player()
 {
@@ -41,8 +43,13 @@ void Player::OnUpdate()
 {
 	DWORD start_time = GetTickCount();
 
+	// 检测碰撞
+	bool flag = false;
+
 	for (Platform* platform : platform_list)
 	{
+		if (platform->is_leave)
+			continue;
 		CheckCollison(platform);
 		if (is_on_platform)
 			break;
@@ -56,6 +63,7 @@ void Player::OnUpdate()
 	if (delta_time < 1000 / 144)
 		Sleep(1000 / 144 - delta_time);
 
+	// 更新渲染位置
 	render_position.x = (int)position.x - 20;
 	render_position.y = (int)position.y - 40;
 
@@ -69,22 +77,25 @@ void Player::OnUpdate()
 void Player::OnDraw()
 {
 	// 如果有动画则播放动画
-	// 没有动画,则放默认图片
-
 	if (current_animation)
 	{
 		current_animation->OnDraw((int)render_position.x, (int)render_position.y);
 	}
+	// 如果没有动画,则放默认图片
 	else
 	{
 		PutImage((int)render_position.x, (int)render_position.y, &img_player_idle);
 	}
 
-	setlinecolor(RGB(0, 255, 0));
-	line((int)position.x, (int)position.y, (int)position.x + (int)size.x, (int)position.y);
-	line((int)position.x, (int)position.y, (int)position.x, (int)position.y + (int)size.y);
-	line((int)position.x + (int)size.x, (int)position.y, (int)position.x + (int)size.x, (int)position.y + (int)size.y);
-	line((int)position.x, (int)position.y + (int)size.y, (int)position.x + (int)size.x, (int)position.y + (int)size.y);
+	// 调试辅助线
+	if (is_debug) 
+	{
+		setlinecolor(RGB(0, 255, 0));
+		line((int)position.x, (int)position.y, (int)position.x + (int)size.x, (int)position.y);
+		line((int)position.x, (int)position.y, (int)position.x, (int)position.y + (int)size.y);
+		line((int)position.x + (int)size.x, (int)position.y, (int)position.x + (int)size.x, (int)position.y + (int)size.y);
+		line((int)position.x, (int)position.y + (int)size.y, (int)position.x + (int)size.x, (int)position.y + (int)size.y);
+	}
 }
 
 void Player::OnInput(const ExMessage& msg)
@@ -179,28 +190,42 @@ void Player::UpdatePosition()
 
 void Player::CheckCollison(Platform* platform)
 {
+	// 判断x,y方向上是否发生碰撞
 	bool is_collision_x = ((max(position.x + size.x, platform->shape.right) - min(position.x, platform->shape.left)) <= (size.x + (platform->shape.right - platform->shape.left)));
 	bool is_collision_y = (platform->shape.y >= position.y && platform->shape.y <= position.y + size.y);
 
+	// 如果都发生碰撞
 	if (is_collision_x && is_collision_y)
 	{
+		// 如果没离开过平台,即是第一次踩在平台上
 		if (!platform->is_leave)
 		{
-			position.y = platform->shape.y - size.y;
+			// 修正y的值,使玩家正确地踩在平台上端
+			float next_pos_y = position.y + size.y + velocity.y;
+			if (next_pos_y > platform->shape.y)
+				position.y = platform->shape.y - size.y;
+
+
+			// 更新玩家Player基类中记录的平台速度
+			// 以方便玩家在平台上速度和平台同步
 			platform_velocity = platform->up_velocity;
+
+			// 标记玩家为在平台上
 			is_on_platform = true;
 		}
 
+		// 标记平台为被玩家踩过
 		platform->is_visited = true;
 
 		return;
 	}
 
+	// 如果x方向上不重叠 且 平台被踩过
 	if (!is_collision_x && platform->is_visited)
 	{
+		// 则标记玩家已离开该平台
 		platform->is_leave = true;
 	}
 
 	is_on_platform = false;
-
 }

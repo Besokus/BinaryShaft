@@ -36,6 +36,7 @@ public:
 
 	bool is_right_key_down = false;
 	bool is_left_key_down = false;
+	bool is_render = true;
 
 	bool is_on_speed_platform = false;
 
@@ -54,9 +55,11 @@ public:
 
 	void OnInput(const ExMessage& msg);
 
+	// 更新玩家位置
 	void UpdatePosition();
 
 	void SetPosition(int x, int y);
 
+	// 判断玩家是否与平台发生碰撞
 	void CheckCollison(Platform* platform);
 };
