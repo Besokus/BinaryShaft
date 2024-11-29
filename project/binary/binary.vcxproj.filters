@@ -97,6 +97,21 @@
     <Filter Include="头文件\vector2">
       <UniqueIdentifier>{9718fdc6-fcf4-4f40-ab59-eafa76df1a10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\scene\achievement_scene">
+      <UniqueIdentifier>{91c8b513-eb4e-4ac3-af78-c477d40bdf4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\achievement">
+      <UniqueIdentifier>{bd14dd5a-ff8e-4dda-a666-aec27394f5e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\death_scene">
+      <UniqueIdentifier>{eca69955-0008-4f2e-b418-930aeef3028d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\select_mode_scene">
+      <UniqueIdentifier>{43fd485f-7df3-42a0-9d62-b14cc5f120ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\show_detail_scene">
+      <UniqueIdentifier>{d78cd271-f0bb-4fa8-ab89-99d1cebe75fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -165,6 +180,18 @@
     <ClCompile Include="vector2\vector2.cpp">
       <Filter>头文件\vector2</Filter>
     </ClCompile>
+    <ClCompile Include="scene\achievement_scene\achievement_scene.cpp">
+      <Filter>头文件\scene\achievement_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="achievement\achievement.cpp">
+      <Filter>头文件\achievement</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\death_scene\death_scene.cpp">
+      <Filter>头文件\scene\death_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\select_mode_scene\select_mode_scene.cpp">
+      <Filter>头文件\scene\select_mode_scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation\animation.h">
@@ -232,6 +259,18 @@
     </ClInclude>
     <ClInclude Include="vector2\vector2.h">
       <Filter>头文件\vector2</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\achievement_scene\achievement_scene.h">
+      <Filter>头文件\scene\achievement_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="achievement\achievement.h">
+      <Filter>头文件\achievement</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\death_scene\death_scene.h">
+      <Filter>头文件\scene\death_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\select_mode_scene\select_mode_scene.h">
+      <Filter>头文件\scene\select_mode_scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

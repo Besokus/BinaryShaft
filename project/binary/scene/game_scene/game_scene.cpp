@@ -7,6 +7,7 @@ extern bool is_debug;
 extern int level;
 
 extern IMAGE img_menu_background;
+extern IMAGE img_game_background_1;
 extern IMAGE img_AC_platform;
 
 extern SceneManager scene_manager;
@@ -82,7 +83,7 @@ void GameScene::OnUpdate()
 void GameScene::OnDraw()
 {
 	// 绘制背景图
-	putimage(0, 0, &img_menu_background);
+	putimage(0, 0, &img_game_background_1);
 
 	// 绘制平台
 	for (Platform* platform : platform_list)
@@ -151,7 +152,7 @@ void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 		// switch(seed){...}
 
 		// 生成位置
-		int generater_x = rand() % 300 + 300;
+		int generater_x = rand() % 500;
 
 		// 将生成的平台加入链表
 		platform_list.push_back(new Platform(img_AC_platform));

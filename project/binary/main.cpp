@@ -25,17 +25,12 @@ extern void LoadGameResources();
 
 int main()
 {
-
 	ExMessage msg;
 	const int FPS = 144;
 
 	LoadGameResources();
 
-	// initgraph(1280, 720, EW_SHOWCONSOLE);// 显示外置控制台
-	initgraph(1280, 720);
-
-	// 初始化界面
-
+	initgraph(700, 700);
 
 	// 初始化场景为菜单
 	scene_manager.SetCurrentScene(menu_scene);
@@ -60,6 +55,7 @@ int main()
 		cleardevice();
 		// 根据更新内容,绘制新画面
 		scene_manager.OnDraw();
+		//line(500, 0, 500, 700);
 		FlushBatchDraw();
 
 		// 稳定帧数

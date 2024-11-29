@@ -7,7 +7,6 @@ extern int level;
 
 void SelectLevelScene::OnEnter()
 {
-	std::cout << "进入选关界面" << std::endl;
 	level = 0;
 }
 
