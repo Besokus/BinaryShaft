@@ -1,6 +1,11 @@
 #pragma once
 #include "../scene/scene.h"
 
+/*
+死亡界面
+负责人：阿氟
+*/
+
 class DeathScene :public Scene
 {
 private:
