@@ -35,24 +35,29 @@
 
 extern void FlipAtlas(Atlas& src, Atlas& dst);
 
-extern const int PLAYER_WIDTH = 70;
-extern const int PLAYER_HEIGHT = 70;
 
-extern const int PLATFORM_WIDTH = 100;
-extern const int PLATFORM_HEIGHT = 10;
+extern const int PLAYER_WIDTH = 70;		  // 玩家宽度
+extern const int PLAYER_HEIGHT = 70;	  // 玩家高度
+
+extern const int PLATFORM_WIDTH = 100;	  // 平台宽度
+extern const int PLATFORM_HEIGHT = 10;	  // 平台高度
 
 
-extern const int WINDOW_WIDTH = 720;
-extern const int WINDOW_HEIGHT = 1280;
+extern const int WINDOW_WIDTH = 700;	  // 窗口宽度
+extern const int WINDOW_HEIGHT = 700;	  // 窗口高度
+
 extern const int BUTTON_WIDTH = 175;
 extern const int BUTTON_HEIGHT = 45;
 
 
 // 定义bool变量
-bool running = true;
-bool is_debug = false;
+bool running = true;	// 游戏运行
+bool is_debug = false;  // 调试模式
 
-int level = 0;
+
+// 定义游戏全局参数
+int level = 0;          //关卡数
+
 
 // 定义图片对象
 IMAGE img_menu_background;
@@ -62,9 +67,6 @@ IMAGE img_menu_start_idle;
 IMAGE img_menu_start_hovered;
 IMAGE img_menu_start_pushed;
 
-IMAGE img_menu_find_idle;
-IMAGE img_menu_find_hovered;
-IMAGE img_menu_find_pushed;
 
 IMAGE img_player_idle;
 
@@ -86,12 +88,14 @@ RECT region_menu_find;
 RECT region_menu_setup;
 
 // 定义场景对象
-Scene* menu_scene = nullptr;
 Scene* game_scene = nullptr;
-Scene* select_level_scene = nullptr;
+Scene* menu_scene = nullptr;
+Scene* achievement_scene = nullptr;
+Scene* death_scene = nullptr;
+Scene* select_mode_scene = nullptr;
 Scene* pause_scene = nullptr;
+Scene* select_level_scene = nullptr;
 Scene* setup_scene = nullptr;
-
 
 SceneManager scene_manager;
 
@@ -116,7 +120,8 @@ void LoadImageAndAtlas()
 {
 	// 导入菜单背景
 	loadimage(&img_menu_background, _T("resources/menu_background.png"));
-	// 导入菜单背景
+
+	// 导入普通游戏背景
 	loadimage(&img_game_background_1, _T("resources/game_background_1.png"));
 
 	// 玩家默认图片
@@ -126,7 +131,7 @@ void LoadImageAndAtlas()
 	atlas_player_left.LoadFromFile(_T("resources/left_walk_%d.png"), 6);
 	// 玩家向右图集
 	FlipAtlas(atlas_player_left, atlas_player_right);
-
+	// 玩家下坠图集
 	atlas_player_fall_idle.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
 
 	// 导入AC平台
@@ -152,10 +157,14 @@ void LoadButton()
 
 void LoadGameResources()
 {
-	menu_scene = new MenuScene();
 	game_scene = new GameScene();
-	select_level_scene = new SelectLevelScene();
+	menu_scene = new MenuScene();
+	// achievement_scene = new AchievementScene();
+	death_scene = new DeathScene();
+	// show_detail_scene = new ShowDetailScene();
+	// select_mode_scene = new SelectModeScene();
 	pause_scene = new PauseScene();
+	select_level_scene = new SelectLevelScene();
 	setup_scene = new SetUpScene();
 
 
@@ -172,7 +181,6 @@ void LoadGameResources()
 	animation_player_left->SetAtlas(&atlas_player_left);
 	animation_player_right->SetAtlas(&atlas_player_right);
 	animation_player_fall_idle->SetAtlas(&atlas_player_fall_idle);
-
 
 }
 

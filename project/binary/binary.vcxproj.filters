@@ -112,6 +112,9 @@
     <Filter Include="头文件\scene\show_detail_scene">
       <UniqueIdentifier>{d78cd271-f0bb-4fa8-ab89-99d1cebe75fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\scene\CG_scene">
+      <UniqueIdentifier>{8931e5a2-958f-4b0c-a291-b83ffbf70469}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -192,6 +195,12 @@
     <ClCompile Include="scene\select_mode_scene\select_mode_scene.cpp">
       <Filter>头文件\scene\select_mode_scene</Filter>
     </ClCompile>
+    <ClCompile Include="scene\show_detail_scene\show_detail_scene.cpp">
+      <Filter>头文件\scene\show_detail_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\CG_scene\CG_scene.cpp">
+      <Filter>头文件\scene\CG_scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="animation\animation.h">
@@ -271,6 +280,21 @@
     </ClInclude>
     <ClInclude Include="scene\select_mode_scene\select_mode_scene.h">
       <Filter>头文件\scene\select_mode_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="button\select_mode_button\select_mode_challenge.h">
+      <Filter>头文件\button\select_mode_button</Filter>
+    </ClInclude>
+    <ClInclude Include="button\select_mode_button\select_mode_normal.h">
+      <Filter>头文件\button\select_mode_button</Filter>
+    </ClInclude>
+    <ClInclude Include="button\select_mode_button\select_mode_return.h">
+      <Filter>头文件\button\select_mode_button</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\show_detail_scene\show_detail_scene.h">
+      <Filter>头文件\scene\show_detail_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\CG_scene\CG_scene.h">
+      <Filter>头文件\scene\CG_scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,7 +10,6 @@ extern IMAGE img_menu_background;
 
 extern MenuStartButton* btn_menu_start;
 
-
 void MenuScene::OnEnter()
 {
 	btn_menu_start->OnEnter();

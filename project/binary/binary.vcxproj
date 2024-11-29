@@ -142,6 +142,7 @@
     <ClCompile Include="platform\WA_platform\WA_platform.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="scene\achievement_scene\achievement_scene.cpp" />
+    <ClCompile Include="scene\CG_scene\CG_scene.cpp" />
     <ClCompile Include="scene\death_scene\death_scene.cpp" />
     <ClCompile Include="scene\game_scene\game_scene.cpp" />
     <ClCompile Include="scene\menu_scene\menu_scene.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="scene\select_level_scene\select_level_scene.cpp" />
     <ClCompile Include="scene\select_mode_scene\select_mode_scene.cpp" />
     <ClCompile Include="scene\set_up_scene\set_up_scene.cpp" />
+    <ClCompile Include="scene\show_detail_scene\show_detail_scene.cpp" />
     <ClCompile Include="util\image_util\image_util.cpp" />
     <ClCompile Include="vector2\vector2.cpp" />
   </ItemGroup>
@@ -161,6 +163,9 @@
     <ClInclude Include="button\button\button.h" />
     <ClInclude Include="button\menu_button\menu_setup_button.h" />
     <ClInclude Include="button\menu_button\menu_start_button.h" />
+    <ClInclude Include="button\select_mode_button\select_mode_challenge.h" />
+    <ClInclude Include="button\select_mode_button\select_mode_normal.h" />
+    <ClInclude Include="button\select_mode_button\select_mode_return.h" />
     <ClInclude Include="platform\AC_platform\AC_platform.h" />
     <ClInclude Include="platform\CE_platform\CE_platform.h" />
     <ClInclude Include="platform\MLE_platform\MLE_platform.h" />
@@ -170,6 +175,7 @@
     <ClInclude Include="platform\WA_platform\WA_platform.h" />
     <ClInclude Include="player\player.h" />
     <ClInclude Include="scene\achievement_scene\achievement_scene.h" />
+    <ClInclude Include="scene\CG_scene\CG_scene.h" />
     <ClInclude Include="scene\death_scene\death_scene.h" />
     <ClInclude Include="scene\game_scene\game_scene.h" />
     <ClInclude Include="scene\menu_scene\menu_scene.h" />
@@ -179,6 +185,7 @@
     <ClInclude Include="scene\select_level_scene\select_level_scene.h" />
     <ClInclude Include="scene\select_mode_scene\select_mode_scene.h" />
     <ClInclude Include="scene\set_up_scene\set_up_scene.h" />
+    <ClInclude Include="scene\show_detail_scene\show_detail_scene.h" />
     <ClInclude Include="util\image_util\image_util.h" />
     <ClInclude Include="vector2\vector2.h" />
   </ItemGroup>
