@@ -115,6 +115,27 @@
     <Filter Include="头文件\scene\CG_scene">
       <UniqueIdentifier>{8931e5a2-958f-4b0c-a291-b83ffbf70469}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\items\item">
+      <UniqueIdentifier>{0d7a9a78-6d6d-4b7c-9fe1-3a58eb3e958e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\items\item_carefully_BBQ">
+      <UniqueIdentifier>{c22b5e60-97fd-4e35-9de7-c2a8f10a1252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\items\item_ctrl_Z">
+      <UniqueIdentifier>{cfe6ac13-60bd-4d2f-a046-3df2f1956b4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\items\item_helpme_awei">
+      <UniqueIdentifier>{e3c2bb9c-6ef6-45a3-abd4-fa8a0d74b5af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\items\item_hiraijin">
+      <UniqueIdentifier>{0a528f97-b23e-409b-b12f-149200539617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\items\item_once_again">
+      <UniqueIdentifier>{73d07343-93cd-4acc-b71e-8a916cf99e02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\items\item_the_world">
+      <UniqueIdentifier>{beef91b9-3bf7-4032-9948-14c90e72eb12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -150,26 +171,8 @@
     <ClCompile Include="util\image_util\image_util.cpp">
       <Filter>头文件\util\image_util</Filter>
     </ClCompile>
-    <ClCompile Include="platform\AC_platform\AC_platform.cpp">
-      <Filter>头文件\platform\AC_platform</Filter>
-    </ClCompile>
-    <ClCompile Include="platform\CE_platform\CE_platform.cpp">
-      <Filter>头文件\platform\CE_platform</Filter>
-    </ClCompile>
-    <ClCompile Include="platform\MLE_platform\MLE_platform.cpp">
-      <Filter>头文件\platform\MLE_platform</Filter>
-    </ClCompile>
-    <ClCompile Include="platform\NULL_platform\NULL_platform.cpp">
-      <Filter>头文件\platform\NULL_platform</Filter>
-    </ClCompile>
     <ClCompile Include="platform\platform\platform.cpp">
       <Filter>头文件\platform\platform</Filter>
-    </ClCompile>
-    <ClCompile Include="platform\TLE_platform\TLE_platform.cpp">
-      <Filter>头文件\platform\TLE_platform</Filter>
-    </ClCompile>
-    <ClCompile Include="platform\WA_platform\WA_platform.cpp">
-      <Filter>头文件\platform\WA_platform</Filter>
     </ClCompile>
     <ClCompile Include="scene\select_level_scene\select_level_scene.cpp">
       <Filter>头文件\scene\select_level_scene</Filter>
@@ -200,6 +203,27 @@
     </ClCompile>
     <ClCompile Include="scene\CG_scene\CG_scene.cpp">
       <Filter>头文件\scene\CG_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="items\item\item.cpp">
+      <Filter>头文件\items\item</Filter>
+    </ClCompile>
+    <ClCompile Include="items\item_carefully_BBQ\item_carefully_BBQ.cpp">
+      <Filter>头文件\items\item_carefully_BBQ</Filter>
+    </ClCompile>
+    <ClCompile Include="items\item_ctrl_Z\item_ctrl_Z.cpp">
+      <Filter>头文件\items\item_ctrl_Z</Filter>
+    </ClCompile>
+    <ClCompile Include="items\item_helpme_awei\item_helpme_awei.cpp">
+      <Filter>头文件\items\item_helpme_awei</Filter>
+    </ClCompile>
+    <ClCompile Include="items\item_hiraijin\item_hiraijin.cpp">
+      <Filter>头文件\items\item_hiraijin</Filter>
+    </ClCompile>
+    <ClCompile Include="items\item_once_again\item_once_again.cpp">
+      <Filter>头文件\items\item_once_again</Filter>
+    </ClCompile>
+    <ClCompile Include="items\item_the_world\item_the_world.cpp">
+      <Filter>头文件\items\item_the_world</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,10 +284,7 @@
     <ClInclude Include="button\button\button.h">
       <Filter>头文件\button\button</Filter>
     </ClInclude>
-    <ClInclude Include="button\menu_button\menu_setup_button.h">
-      <Filter>头文件\button\menu_button</Filter>
-    </ClInclude>
-    <ClInclude Include="button\menu_button\menu_start_button.h">
+    <ClInclude Include="button\menu_button\menu_button.h">
       <Filter>头文件\button\menu_button</Filter>
     </ClInclude>
     <ClInclude Include="vector2\vector2.h">
@@ -281,13 +302,7 @@
     <ClInclude Include="scene\select_mode_scene\select_mode_scene.h">
       <Filter>头文件\scene\select_mode_scene</Filter>
     </ClInclude>
-    <ClInclude Include="button\select_mode_button\select_mode_challenge.h">
-      <Filter>头文件\button\select_mode_button</Filter>
-    </ClInclude>
-    <ClInclude Include="button\select_mode_button\select_mode_normal.h">
-      <Filter>头文件\button\select_mode_button</Filter>
-    </ClInclude>
-    <ClInclude Include="button\select_mode_button\select_mode_return.h">
+    <ClInclude Include="button\select_mode_button\select_mode_button.h">
       <Filter>头文件\button\select_mode_button</Filter>
     </ClInclude>
     <ClInclude Include="scene\show_detail_scene\show_detail_scene.h">
@@ -295,6 +310,27 @@
     </ClInclude>
     <ClInclude Include="scene\CG_scene\CG_scene.h">
       <Filter>头文件\scene\CG_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="items\item\item.h">
+      <Filter>头文件\items\item</Filter>
+    </ClInclude>
+    <ClInclude Include="items\item_carefully_BBQ\item_carefully_BBQ.h">
+      <Filter>头文件\items\item_carefully_BBQ</Filter>
+    </ClInclude>
+    <ClInclude Include="items\item_ctrl_Z\item_ctrl_Z.h">
+      <Filter>头文件\items\item_ctrl_Z</Filter>
+    </ClInclude>
+    <ClInclude Include="items\item_helpme_awei\item_helpme_awei.h">
+      <Filter>头文件\items\item_helpme_awei</Filter>
+    </ClInclude>
+    <ClInclude Include="items\item_hiraijin\item_hiraijin.h">
+      <Filter>头文件\items\item_hiraijin</Filter>
+    </ClInclude>
+    <ClInclude Include="items\item_once_again\item_once_again.h">
+      <Filter>头文件\items\item_once_again</Filter>
+    </ClInclude>
+    <ClInclude Include="items\item_the_world\item_the_world.h">
+      <Filter>头文件\items\item_the_world</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

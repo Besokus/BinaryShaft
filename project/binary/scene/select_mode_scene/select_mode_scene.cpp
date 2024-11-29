@@ -1,66 +1,46 @@
 #include "select_mode_scene.h"
 #include "../scene_manager/scene_manager.h"
-
+#include "../../button/select_mode_button/select_mode_button.h"
 
 extern SceneManager scene_manager;
-extern int Mode_;
 
+extern SelectModeNormalButton* btn_select_mode_normal;// btn button
+extern SelectModeChallengeButton* btn_select_mode_challenge;
+extern SelectModeReturnButton* btn_select_mode_return;
 
-// extern SelectModeButton* btn_select_mode;
+extern IMAGE img_select_mode_background;
 
-
-void SelectModeScene::OnEnter() {
-//	btn_select_mode->OnEnter();
-
-	std::cout << "进入模式选择界面" << std::endl;
+void SelectModeScene::OnEnter() 
+{
+	btn_select_mode_normal->OnEnter();
+	btn_select_mode_challenge->OnEnter();
+	btn_select_mode_return->OnEnter();
 }
 
-void SelectModeScene::OnExit() {
-	std::cout << "退出模式选择界面" << std::endl;
-
-}
-
-//绘制模式选择界面
-void SelectModeScene::OnDraw() {
-	//putimage(275, 0, &img_select_mode_background);
-	//putimage(380, 180, &img_normal_mode_idle);
-	//putimage(650, 180, &img_challenge_mode_idle);
-	//阴影效果
-	settextcolor(RGB(156, 156, 156));
-	settextstyle(25, 0, L"微软雅黑");
-	//string Mode[MODENUM]{};//两个模式
-	//_sprintf_s(Mode, _T("当前模式:%s"), *Mode);
-	//outtextxy(10, 50, Mode[Mode_]);
-	outtextxy(20, 20, _T("按ESC返回上一页"));
-
-	settextcolor(RGB(255, 255, 255));
-	settextstyle(25, 0, L"微软雅黑");
-	outtextxy(23, 23, _T("按ESC返回上一页"));
-
-	//btn_select_mode->OnDraw();
+// 绘制模式选择界面
+void SelectModeScene::OnDraw() 
+{
+	putimage(0, 0, &img_select_mode_background);
+	
+	btn_select_mode_normal->OnDraw();
+	btn_select_mode_challenge->OnDraw();
+	btn_select_mode_return->OnDraw();
 
 }
 
 void SelectModeScene::OnInput(const ExMessage& msg) 
 {
-//	btn_select_mode->OnInput(msg);
-	switch (msg.vkcode)
-	{
-		/*case 'A':
-			Mode_ = (Mode_  + MODENUM) % MODENUM;
-			break;
-		case 'D':
-			Mode_ = (Mode_ ) % MODENUM;
-			break;*/
-	case VK_ESCAPE:
-		scene_manager.SwitchTo(SceneManager::SceneType::Menu);
-		break;
-	}
-
+	btn_select_mode_normal->OnInput(msg);
+	btn_select_mode_challenge->OnInput(msg);
+	btn_select_mode_return->OnInput(msg);
 }
 
 void SelectModeScene::OnUpdate() 
 {
 
-	std::cout << "正在选模式" << std::endl;
+}
+
+void SelectModeScene::OnExit()
+{
+
 }

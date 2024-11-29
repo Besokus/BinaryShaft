@@ -1,12 +1,11 @@
 #pragma once
 
 /*
-	负责人:
+	负责人:ja1u0va
 	功能:
 		1.
-		2.
 	示例:
-		1.
+
 
 */
 #include <graphics.h>
@@ -19,7 +18,7 @@ class Platform
 private:
 	bool is_exist = true;		// 平台是否存在
 public:
-    float up_velocity = 1.0f;	// 平台上升速度
+	float up_velocity = 1.0f;	// 平台上升速度
 
 	bool is_visited = false;    // 平台是否有玩家踩过
 	bool is_leave = false;		// 玩家是否离开过平台
@@ -45,7 +44,7 @@ public:
 
 	~Platform() = default;
 
-	//virtual void PlatformChange();
+	virtual void PlatformChange() = 0;
 
 	void OnUpdate();
 

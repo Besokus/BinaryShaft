@@ -2,19 +2,29 @@
 #include "../scene_manager/scene_manager.h"
 #include "../../player/player.h"
 #include "../../platform/platform/platform.h"
+#include "../../platform/AC_platform/AC_platform.h"
+#include "../../platform/WA_platform/WA_platform.h"
+#include "../../platform/NULL_platform/NULL_platform.h"
 
 extern bool is_debug;
 extern int level;
 
 extern IMAGE img_menu_background;
 extern IMAGE img_game_background_1;
+
+extern IMAGE img_NULL_platform;
 extern IMAGE img_AC_platform;
+extern IMAGE img_WA_platform;
+extern IMAGE img_CE_platform;
+extern IMAGE img_SPEED_RIGHT_platform;
+extern IMAGE img_SPEED_LEFT_platform;
+extern IMAGE img_TLE_platform;
+extern IMAGE img_MLE_platform;
 
 extern SceneManager scene_manager;
 
 extern Player* player;
 
-extern Platform* AC_platform;
 extern std::vector<Platform*> platform_list;
 
 // 初始化游戏界面
@@ -28,23 +38,22 @@ extern std::vector<Platform*> platform_list;
 void GameScene::OnEnter()
 {
 	// 设置玩家初始位置
-	player->SetPosition(514, 0);
-
+	player->SetPosition(200, 0);
 
 	// 重置平台参数
 	platform_list.clear();
 
 	// 放置初始的几个平台
-	platform_list.push_back(new Platform(img_AC_platform));
-	platform_list.back()->SetPosition(570, 514);
-	platform_list.push_back(new Platform(img_AC_platform));
-	platform_list.back()->SetPosition(330, 414);
-	platform_list.push_back(new Platform(img_AC_platform));
-	platform_list.back()->SetPosition(430, 314);
-	platform_list.push_back(new Platform(img_AC_platform));
-	platform_list.back()->SetPosition(500, 214);
-	platform_list.push_back(new Platform(img_AC_platform));
-	platform_list.back()->SetPosition(514, 114);
+	platform_list.push_back(new ACPlatform(img_AC_platform));
+	platform_list.back()->SetPosition(0, 514);
+	platform_list.push_back(new NULLPlatform(img_NULL_platform));
+	platform_list.back()->SetPosition(114, 414);
+	platform_list.push_back(new WAPlatform(img_WA_platform));
+	platform_list.back()->SetPosition(100, 314);
+	platform_list.push_back(new NULLPlatform(img_NULL_platform));
+	platform_list.back()->SetPosition(230, 214);
+	platform_list.push_back(new NULLPlatform(img_NULL_platform));
+	platform_list.back()->SetPosition(214, 114);
 }
 
 // 更新游戏数据
@@ -78,6 +87,12 @@ void GameScene::OnUpdate()
 
 	// 删除出界的平台
 	DeletePlatform(platform_list);
+
+	if (!player->is_alive)
+	{
+		//player->is_alive = true;
+		//scene_manager.SwitchTo(SceneManager::SceneType::Death);
+	}
 }
 
 void GameScene::OnDraw()
@@ -93,16 +108,14 @@ void GameScene::OnDraw()
 
 	// 绘制玩家
 
-
 	player->OnDraw();
 
 
-	// 绘制游戏窗口
-	// 
+	settextstyle(20, 0, _T("IPix"));
+	outtextxy(0, 0, _T("按Z开启调试模式"));
 	// 绘制分数
 	// 
 	// outtext(); // level(关卡数) living_time(存活时间) memory_size(地图大小)
-
 }
 
 void GameScene::OnInput(const ExMessage& msg)
@@ -138,6 +151,12 @@ void GameScene::OnExit()
 
 void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 {
+	// 这里等我回来改
+	// 这里等我回来改	
+	// 这里等我回来改
+	// 这里等我回来改
+	// 这里等我回来改
+	// 这里等我回来改
 	const int MOD = 10;
 	// 间隔一段时间后更新平台
 	// INTERVAL的值可能需要随平台速度改变
@@ -147,17 +166,53 @@ void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 	if ((++counter) % INTERVAL == 0)
 	{
 		int seed = rand() % MOD;
-
-		// 设置概率,生成不同的平台
-		// switch(seed){...}
+		
+		// seed
+		// 0~4 NULL
+		// 5   AC
+		// 6~7 WA
+		// 8   SPEED_RIGHT
+		// 9   SPEED_LEFT
 
 		// 生成位置
-		int generater_x = rand() % 500;
+		int generater_x = rand() % (500-100);
 
-		// 将生成的平台加入链表
-		platform_list.push_back(new Platform(img_AC_platform));
-		// 设置初始位置
-		platform_list.back()->SetPosition(generater_x, 720);
+		if (seed <= 4 && seed >= 0) 
+		{
+			// 将生成的平台加入链表
+			platform_list.push_back(new NULLPlatform(img_NULL_platform));
+			// 设置初始位置
+			platform_list.back()->SetPosition(generater_x, 720);
+		}
+		else if (seed == 5) 
+		{
+			// 将生成的平台加入链表
+			platform_list.push_back(new ACPlatform(img_AC_platform));
+			// 设置初始位置
+			platform_list.back()->SetPosition(generater_x, 720);
+		}
+		else if (seed == 6 || seed == 7)
+		{
+			// 将生成的平台加入链表
+			platform_list.push_back(new WAPlatform(img_WA_platform));
+			// 设置初始位置
+			platform_list.back()->SetPosition(generater_x, 720);
+		}
+		else if (seed == 8)
+		{
+			// 将生成的平台加入链表
+			platform_list.push_back(new WAPlatform(img_SPEED_RIGHT_platform));
+			// 设置初始位置
+			platform_list.back()->SetPosition(generater_x, 720);
+		}
+		else if (seed == 9)
+		{
+			// 将生成的平台加入链表
+			platform_list.push_back(new WAPlatform(img_SPEED_LEFT_platform));
+			// 设置初始位置
+			platform_list.back()->SetPosition(generater_x, 720);
+		}
+
 	}
 }
 

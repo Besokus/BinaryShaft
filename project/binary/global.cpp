@@ -27,10 +27,8 @@
 
 // 按钮相关头文件
 #include "button/button/button.h"
-
-// 菜单按钮
-#include "button/menu_button/menu_start_button.h"
-#include "button/menu_button/menu_setup_button.h"
+#include "button/menu_button/menu_button.h"
+#include "button/select_mode_button/select_mode_button.h"
 
 
 extern void FlipAtlas(Atlas& src, Atlas& dst);
@@ -40,15 +38,13 @@ extern const int PLAYER_WIDTH = 70;		  // 玩家宽度
 extern const int PLAYER_HEIGHT = 70;	  // 玩家高度
 
 extern const int PLATFORM_WIDTH = 100;	  // 平台宽度
-extern const int PLATFORM_HEIGHT = 10;	  // 平台高度
+extern const int PLATFORM_HEIGHT = 30;	  // 平台高度
 
 
 extern const int WINDOW_WIDTH = 700;	  // 窗口宽度
 extern const int WINDOW_HEIGHT = 700;	  // 窗口高度
 
-extern const int BUTTON_WIDTH = 175;
-extern const int BUTTON_HEIGHT = 45;
-
+extern const int LEVEL_NUM = 10;
 
 // 定义bool变量
 bool running = true;	// 游戏运行
@@ -60,18 +56,30 @@ int level = 0;          //关卡数
 
 
 // 定义图片对象
+// 背景图
+// 菜单
 IMAGE img_menu_background;
+// 选择模式
+IMAGE img_select_mode_background;
+// 选择关卡
+IMAGE img_select_level_background;
+// 普通模式
 IMAGE img_game_background_1;
+// 死亡
+IMAGE img_death_background;
 
-IMAGE img_menu_start_idle;
-IMAGE img_menu_start_hovered;
-IMAGE img_menu_start_pushed;
-
-
+// 玩家默认图片
 IMAGE img_player_idle;
 
+// 平台
+IMAGE img_NULL_platform;
 IMAGE img_AC_platform;
-
+IMAGE img_WA_platform;
+IMAGE img_CE_platform;
+IMAGE img_SPEED_RIGHT_platform;
+IMAGE img_SPEED_LEFT_platform;
+IMAGE img_TLE_platform;
+IMAGE img_MLE_platform;
 
 // 定义图集对象
 Atlas atlas_player_left;
@@ -79,13 +87,31 @@ Atlas atlas_player_right;
 Atlas atlas_player_fall_idle;
 
 // 定义按钮对象
+// 菜单
 MenuStartButton* btn_menu_start = nullptr;// btn button
+MenuSetUpButton* btn_menu_setup = nullptr;
+MenuShowDetailButton* btn_menu_show_detail = nullptr;
+MenuRankButton* btn_menu_rank = nullptr;
+MenuAchievementButton* btn_menu_achievement = nullptr;
+MenuExitButton* btn_menu_exit = nullptr;
+// 选择模式
+SelectModeNormalButton* btn_select_mode_normal = nullptr;// btn button
+SelectModeChallengeButton* btn_select_mode_challenge = nullptr;
+SelectModeReturnButton* btn_select_mode_return = nullptr;
 
 
 // 定义按钮的区域
+// 菜单
 RECT region_menu_start;
-RECT region_menu_find;
+RECT region_menu_show_detail;
 RECT region_menu_setup;
+RECT region_menu_rank;
+RECT region_menu_achievement;
+RECT region_menu_exit;
+// 选择模式
+RECT region_select_mode_normal;
+RECT region_select_mode_challenge;
+RECT region_select_mode_return;
 
 // 定义场景对象
 Scene* game_scene = nullptr;
@@ -110,7 +136,6 @@ Player* player = nullptr;
 // 定义平台对象
 // Platform 
 
-Platform* AC_platform = nullptr;
 std::vector<Platform*> platform_list;
 
 // 成就
@@ -121,8 +146,17 @@ void LoadImageAndAtlas()
 	// 导入菜单背景
 	loadimage(&img_menu_background, _T("resources/menu_background.png"));
 
+	// 导入选择模式背景
+	loadimage(&img_select_mode_background, _T("resources/select_mode_background.png"));
+
+	// 导入选择关卡背景
+	loadimage(&img_select_level_background, _T("resources/select_level_background.png"));
+
 	// 导入普通游戏背景
 	loadimage(&img_game_background_1, _T("resources/game_background_1.png"));
+
+	// 导入死亡背景
+	loadimage(&img_death_background, _T("resources/game_over.png"));
 
 	// 玩家默认图片
 	loadimage(&img_player_idle, _T("resources/player_idle_1.png"), PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -134,35 +168,139 @@ void LoadImageAndAtlas()
 	// 玩家下坠图集
 	atlas_player_fall_idle.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
 
-	// 导入AC平台
-	loadimage(&img_AC_platform, _T("resources/AC_platform.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
+
+	loadimage(&img_NULL_platform, _T("resources/NULL.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
+	loadimage(&img_AC_platform, _T("resources/AC.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
+	loadimage(&img_WA_platform, _T("resources/WA.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
+	loadimage(&img_CE_platform, _T("resources/CE.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
+	loadimage(&img_SPEED_RIGHT_platform, _T("resources/SPEED_RIGHT.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
+	loadimage(&img_SPEED_LEFT_platform, _T("resources/SPEED_LEFT.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
+	loadimage(&img_TLE_platform, _T("resources/TLE.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
+	loadimage(&img_MLE_platform, _T("resources/MLE.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
 }
 
 
 void LoadButton()
 {
-	// 导入start按键素材并且设置其范围
-	// 设定范围region
-	region_menu_start.left = 300;
-	region_menu_start.right = region_menu_start.left + BUTTON_WIDTH;
-	region_menu_start.top = 235;
-	region_menu_start.bottom = region_menu_start.top + BUTTON_HEIGHT;
+	// 菜单按钮
+	const int MENU_BUTTON_WIDTH = 115;
+	const int MENU_BUTTON_HEIGHT = 45;
+
+	// 导入start_game(开始游戏)按键素材并且设置其范围
+	region_menu_start.left = 200;
+	region_menu_start.right = region_menu_start.left + MENU_BUTTON_WIDTH;
+	region_menu_start.top = 210;
+	region_menu_start.bottom = region_menu_start.top + MENU_BUTTON_HEIGHT;
 
 	// 导入素材
 	btn_menu_start = new MenuStartButton(region_menu_start,
-		_T("resources/menu_start_idle.png"), _T("resources/menu_start_hovered.png"), _T("resources/menu_start_pushed.png"));
+		_T("resources/menu_start_game_idle.png"), _T("resources/menu_start_game_hovered.png"), _T("resources/menu_start_game_hovered.png"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
 
-	
+
+	// 导入show_detail(游戏说明)按键素材并且设置其范围
+	region_menu_show_detail.left = 200;
+	region_menu_show_detail.right = region_menu_show_detail.left + MENU_BUTTON_WIDTH;
+	region_menu_show_detail.top = 280;
+	region_menu_show_detail.bottom = region_menu_show_detail.top + MENU_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_menu_show_detail = new MenuShowDetailButton(region_menu_show_detail,
+		_T("resources/menu_show_detail_idle.png"), _T("resources/menu_show_detail_hovered.png"), _T("resources/menu_show_detail_hovered.png"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+
+
+	// 导入setup(游戏设置)按键素材并且设置其范围
+	region_menu_setup.left = 200;
+	region_menu_setup.right = region_menu_setup.left + MENU_BUTTON_WIDTH;
+	region_menu_setup.top = 350;
+	region_menu_setup.bottom = region_menu_setup.top + MENU_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_menu_setup = new MenuSetUpButton(region_menu_setup,
+		_T("resources/menu_setup_idle.png"), _T("resources/menu_setup_hovered.png"), _T("resources/menu_setup_hovered.png"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+
+
+	// 导入rank(排行榜)按键素材并且设置其范围
+	region_menu_rank.left = 370;
+	region_menu_rank.right = region_menu_rank.left + MENU_BUTTON_WIDTH;
+	region_menu_rank.top = 210;
+	region_menu_rank.bottom = region_menu_rank.top + MENU_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_menu_rank = new MenuRankButton(region_menu_rank,
+		_T("resources/menu_rank_idle.png"), _T("resources/menu_rank_hovered.png"), _T("menu_rank_hovered.png"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+
+
+	// 导入achievement(成就)按键素材并且设置其范围
+	region_menu_achievement.left = 370;
+	region_menu_achievement.right = region_menu_achievement.left + MENU_BUTTON_WIDTH;
+	region_menu_achievement.top = 280;
+	region_menu_achievement.bottom = region_menu_achievement.top + MENU_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_menu_achievement = new MenuAchievementButton(region_menu_achievement,
+		_T("resources/menu_achievement_idle.png"), _T("resources/menu_achievement_hovered.png"), _T("resources/menu_achievement_hovered.png"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+
+
+	// 导入exit(退出游戏)按键素材并且设置其范围
+	region_menu_exit.left = 370;
+	region_menu_exit.right = region_menu_exit.left + MENU_BUTTON_WIDTH;
+	region_menu_exit.top = 350;
+	region_menu_exit.bottom = region_menu_exit.top + MENU_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_menu_exit = new MenuExitButton(region_menu_exit,
+		_T("resources/menu_exit_idle.png"), _T("resources/menu_exit_hovered.png"), _T("resources/menu_exit_hovered.png"), MENU_BUTTON_WIDTH, MENU_BUTTON_HEIGHT);
+
+	//--------------------------------------------------------------------------------------------------------------------------
+
+	// 选择模式按钮
+	const int SELECT_MODE_BUTTON_WIDTH = 155;
+	const int SELECT_MODE_BUTTON_HEIGHT = 60;
+
+	// 导入normal(普通模式)按键素材并且设置其范围
+	region_select_mode_normal.left = 260;
+	region_select_mode_normal.right = region_select_mode_normal.left + SELECT_MODE_BUTTON_WIDTH;
+	region_select_mode_normal.top = 190;
+	region_select_mode_normal.bottom = region_select_mode_normal.top + SELECT_MODE_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_select_mode_normal = new SelectModeNormalButton(region_select_mode_normal,
+		_T("resources/select_mode_normal_idle.png"), _T("resources/select_mode_normal_hovered.png"), _T("resources/select_mode_normal_hovered.png"), SELECT_MODE_BUTTON_WIDTH, SELECT_MODE_BUTTON_HEIGHT);
+
+	// 导入challenge(挑战模式)按键素材并且设置其范围
+	region_select_mode_challenge.left = 260;
+	region_select_mode_challenge.right = region_select_mode_challenge.left + SELECT_MODE_BUTTON_WIDTH;
+	region_select_mode_challenge.top = 280;
+	region_select_mode_challenge.bottom = region_select_mode_challenge.top + SELECT_MODE_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_select_mode_challenge = new SelectModeChallengeButton(region_select_mode_challenge,
+		_T("resources/select_mode_challenge_idle.png"), _T("resources/select_mode_challenge_hovered.png"), _T("resources/select_mode_challenge_hovered.png"), SELECT_MODE_BUTTON_WIDTH, SELECT_MODE_BUTTON_HEIGHT);
+
+
+	// 导入return(返回菜单)按键素材并且设置其范围
+	region_select_mode_return.left = 260;
+	region_select_mode_return.right = region_select_mode_return.left + SELECT_MODE_BUTTON_WIDTH;
+	region_select_mode_return.top = 370;
+	region_select_mode_return.bottom = region_select_mode_return.top + SELECT_MODE_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_select_mode_return = new SelectModeReturnButton(region_select_mode_return,
+		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), SELECT_MODE_BUTTON_WIDTH, SELECT_MODE_BUTTON_HEIGHT);
+
 }
 
 void LoadGameResources()
 {
+	// 导入字体资源
+	AddFontResourceEx(_T("resources/IPix.ttf"), FR_PRIVATE, NULL);
+
 	game_scene = new GameScene();
 	menu_scene = new MenuScene();
 	// achievement_scene = new AchievementScene();
 	death_scene = new DeathScene();
 	// show_detail_scene = new ShowDetailScene();
-	// select_mode_scene = new SelectModeScene();
+	select_mode_scene = new SelectModeScene();
 	pause_scene = new PauseScene();
 	select_level_scene = new SelectLevelScene();
 	setup_scene = new SetUpScene();

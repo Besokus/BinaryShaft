@@ -36,18 +36,18 @@ public:
 
 	bool is_right_key_down = false;
 	bool is_left_key_down = false;
-	bool is_render = true;
-
 	bool is_on_speed_platform = false;
+	bool is_on_platform = false;
+	bool is_alive = true;
 
 	float platform_velocity = 0;
 
 public:
-	bool is_on_platform = false;
-public:
 	Player();
 
 	~Player() = default;
+
+	void OnEnter();
 
 	void OnUpdate();
 
@@ -62,4 +62,6 @@ public:
 
 	// 判断玩家是否与平台发生碰撞
 	void CheckCollison(Platform* platform);
+
+	void CheckAlive();
 };

@@ -38,6 +38,10 @@ Player::Player()
 	size.y = 30;
 }
 
+void Player::OnEnter()
+{
+	is_alive = true;
+}
 
 void Player::OnUpdate()
 {
@@ -72,6 +76,8 @@ void Player::OnUpdate()
 	{
 		current_animation->OnUpDate(delta);
 	}
+
+	CheckAlive();
 }
 
 void Player::OnDraw()
@@ -88,7 +94,7 @@ void Player::OnDraw()
 	}
 
 	// 调试辅助线
-	if (is_debug) 
+	if (is_debug)
 	{
 		setlinecolor(RGB(0, 255, 0));
 		line((int)position.x, (int)position.y, (int)position.x + (int)size.x, (int)position.y);
@@ -186,6 +192,12 @@ void Player::UpdatePosition()
 	// 位置随速度变化
 	// 这里是重载了向量运算,所以不用分别在x,y方向更改
 	position += velocity;
+
+	// 判断是否出界
+	if (position.x < 0)
+		position.x = 0;
+	if (position.x + 70 > 500)
+		position.x = 500 - 70;
 }
 
 void Player::CheckCollison(Platform* platform)
@@ -228,4 +240,14 @@ void Player::CheckCollison(Platform* platform)
 	}
 
 	is_on_platform = false;
+}
+
+void Player::CheckAlive()
+{
+	if (position.y < 0 || position.y>700)
+	{
+
+		is_alive = false;
+
+	}
 }

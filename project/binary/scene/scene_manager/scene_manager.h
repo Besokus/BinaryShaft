@@ -25,7 +25,11 @@ public:
 		Pause,
 		SetUp,
 		SelectLevel,
-		
+		SelectMode,
+		Death,
+		ShowDetail,
+		Rank,
+		Achievemnt
 
 	};
 public:

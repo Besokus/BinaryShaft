@@ -8,11 +8,10 @@
 
 class SelectLevelScene :public Scene
 {
-public:
-	const int LEVELNUM = 20;
+
 private:
-
-
+	bool is_A_down = false;
+	bool is_D_down = false;
 public:
 	SelectLevelScene() = default;
 	~SelectLevelScene() = default;

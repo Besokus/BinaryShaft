@@ -1,10 +1,13 @@
 #include "scene_manager.h"
 
-extern Scene* menu_scene;
 extern Scene* game_scene;
-extern Scene* select_level_scene;
+extern Scene* menu_scene;
+extern Scene* achievement_scene;
+extern Scene* death_scene;
+extern Scene* select_mode_scene;
 extern Scene* pause_scene;
-extern Scene* setup_scene; // 声明   // = 定义
+extern Scene* select_level_scene;
+extern Scene* setup_scene;
 
 // 设置当前的场景
 void SceneManager::SetCurrentScene(Scene* scene)
@@ -18,6 +21,12 @@ void SceneManager::SetCurrentScene(Scene* scene)
 // 实现场景间的切换
 void SceneManager::SwitchTo(SceneType type)
 {
+	if (current_scene == pause_scene && type == SceneType::Game)
+	{
+		current_scene = game_scene;
+		return;
+	}
+
 	// 退出旧场景
 	current_scene->OnExit();
 	// 选择新场景
@@ -37,6 +46,12 @@ void SceneManager::SwitchTo(SceneType type)
 		break;
 	case SceneType::SetUp:
 		current_scene = setup_scene;
+		break;
+	case SceneType::SelectMode:
+		current_scene = select_mode_scene;
+		break;
+	case SceneType::Death:
+		current_scene = death_scene;
 		break;
 	default:
 		break;

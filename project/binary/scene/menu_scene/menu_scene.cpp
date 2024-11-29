@@ -1,56 +1,63 @@
 #include "menu_scene.h"
 #include "../../button/button/button.h"
-#include "../../button/menu_button/menu_start_button.h"
-#include "../../button/menu_button/menu_setup_button.h"
+#include "../../button/menu_button/menu_button.h"
 
 extern bool running;
 extern SceneManager scene_manager;
 
-extern IMAGE img_menu_background;
+extern MenuStartButton* btn_menu_start;// btn button
+extern MenuSetUpButton* btn_menu_setup;
+extern MenuShowDetailButton* btn_menu_show_detail;
+extern MenuRankButton* btn_menu_rank;
+extern MenuAchievementButton* btn_menu_achievement;
+extern MenuExitButton* btn_menu_exit;
 
-extern MenuStartButton* btn_menu_start;
+extern IMAGE img_menu_background;
 
 void MenuScene::OnEnter()
 {
 	btn_menu_start->OnEnter();
+	btn_menu_show_detail->OnEnter();
+	btn_menu_setup->OnEnter();
+	btn_menu_rank->OnEnter();
+	btn_menu_achievement->OnEnter();
+	btn_menu_exit->OnEnter();
 
-	std::cout << "进入主菜单" << std::endl;
 }
 
 void MenuScene::OnUpdate()
 {
-	std::cout << "主菜单正在运行" << std::endl;
 }
 
 void MenuScene::OnDraw()
 {
 	putimage(0, 0, &img_menu_background);
-	btn_menu_start->OnDraw();
 
-	// outtextxy(10, 10, _T("A选关 D退出"));
+	btn_menu_start->OnDraw();
+	btn_menu_show_detail->OnDraw();
+	btn_menu_setup->OnDraw();
+	btn_menu_rank->OnDraw();
+	btn_menu_achievement->OnDraw();
+	btn_menu_exit->OnDraw();
+
 }
 
 void MenuScene::OnInput(const ExMessage& msg)
 {
 	btn_menu_start->OnInput(msg);
-
+	btn_menu_show_detail->OnInput(msg);
+	btn_menu_setup->OnInput(msg);
+	btn_menu_rank->OnInput(msg);
+	btn_menu_achievement->OnInput(msg);
+	btn_menu_exit->OnInput(msg);
 
 	if (msg.message == WM_KEYDOWN)
 	{
-		switch (msg.vkcode)
-		{
-		case 'A':
-			scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
-			break;
-		case 'D':
-			running = false;
-			break;
 
-		}
 	}
 }
 
 void MenuScene::OnExit()
 {
-	std::cout << "主菜单退出" << std::endl;
+
 }

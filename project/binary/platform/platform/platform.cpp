@@ -2,6 +2,7 @@
 
 extern bool is_debug;
 
+
 Platform::Platform(IMAGE img_platform)
 {
 	this->img_platform = img_platform;
@@ -12,14 +13,14 @@ void Platform::OnUpdate()
 {
 	if (is_visited && change_times > 0)
 	{
-		//PlatformChange();
+		PlatformChange();
 		change_times--;
 	}
 
 	shape.y += velocity.y;
 
 	render_position.x = (int)shape.left;
-	render_position.y = (int)shape.y;
+	render_position.y = (int)shape.y - 20;
 }
 
 
