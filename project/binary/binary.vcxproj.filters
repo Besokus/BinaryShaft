@@ -136,6 +136,9 @@
     <Filter Include="头文件\items\item_the_world">
       <UniqueIdentifier>{beef91b9-3bf7-4032-9948-14c90e72eb12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\map">
+      <UniqueIdentifier>{beb7c92b-194c-4c0d-baea-da6bf0fa4c22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -331,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="items\item_the_world\item_the_world.h">
       <Filter>头文件\items\item_the_world</Filter>
+    </ClInclude>
+    <ClInclude Include="map\map.h">
+      <Filter>头文件\map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,12 +7,11 @@ class ACPlatform :public Platform
 {
 public:
 	ACPlatform(IMAGE img_platform) :Platform(img_platform) {}
-	void PlatformChange()
+	void PlatformChange(Player* player)
 	{
 		if (is_visited) 
 		{
 			img_platform = img_NULL_platform;
 		}
-
 	}
 };

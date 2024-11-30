@@ -35,7 +35,7 @@ Player::Player()
 	animation_player_fall_idle->SetLoop(true);
 
 	size.x = 30;
-	size.y = 30;
+	size.y = 50;
 }
 
 void Player::OnEnter()
@@ -49,14 +49,26 @@ void Player::OnUpdate()
 
 	// 检测碰撞
 	bool flag = false;
-
-	for (Platform* platform : platform_list)
+	//如果脚下有平台则只检测是否离开了脚下的平台
+	if (down_platform != nullptr)
 	{
-		if (platform->is_leave)
-			continue;
-		CheckCollison(platform);
-		if (is_on_platform)
-			break;
+		if (down_platform->CheckLeave(this))
+		{
+			is_on_platform = false;
+			this->down_platform->is_on_platform = false;
+			this->down_platform = nullptr;
+		}
+	}
+	else//如果没有则遍历
+	{
+		for (Platform* platform : platform_list)
+		{
+			//if (platform->is_leave)
+			//	continue;
+			platform->CheckCollison(this);
+			if (is_on_platform)
+				break;
+		}
 	}
 
 	// 更新玩家位置
@@ -69,7 +81,7 @@ void Player::OnUpdate()
 
 	// 更新渲染位置
 	render_position.x = (int)position.x - 20;
-	render_position.y = (int)position.y - 40;
+	render_position.y = (int)position.y - 20;
 
 	// 更新动画
 	if (current_animation)
@@ -100,7 +112,18 @@ void Player::OnDraw()
 		line((int)position.x, (int)position.y, (int)position.x + (int)size.x, (int)position.y);
 		line((int)position.x, (int)position.y, (int)position.x, (int)position.y + (int)size.y);
 		line((int)position.x + (int)size.x, (int)position.y, (int)position.x + (int)size.x, (int)position.y + (int)size.y);
+		setlinecolor(RGB(255, 0, 0));
 		line((int)position.x, (int)position.y + (int)size.y, (int)position.x + (int)size.x, (int)position.y + (int)size.y);
+		TCHAR text[64];
+		_stprintf_s(text, _T("%f"), velocity.y);
+		outtextxy(0, 80, text);
+		TCHAR text2[64];
+		_stprintf_s(text2, _T("%d"), jumping_time);
+		outtextxy(0, 110, text2);
+		if(is_on_platform)
+			outtextxy(0, 50, _T("YES"));
+		else
+			outtextxy(0, 50, _T("NO"));
 	}
 }
 
@@ -119,6 +142,13 @@ void Player::OnInput(const ExMessage& msg)
 		case 'd':
 			is_right_key_down = true;
 			break;
+		case ' ':
+			if (is_on_platform)
+			{
+				is_jumping = true;
+				jumping_time = 10;
+			}
+			break;
 		}
 		break;
 	case WM_KEYUP:
@@ -131,6 +161,9 @@ void Player::OnInput(const ExMessage& msg)
 		case 'D':
 		case 'd':
 			is_right_key_down = false;
+			break;
+		case ' ':
+			is_jumping = false;
 			break;
 		}
 		break;
@@ -160,33 +193,61 @@ void Player::UpdatePosition()
 		current_animation = nullptr;
 	}
 
+	if (is_on_platform || is_jumping)
+	{
+		if (jumping_time >= 0 && is_jumping)
+		{
+			velocity.y = -10;
+			is_on_platform = false;
+			if (this->down_platform != nullptr)
+			{
+				this->down_platform->is_on_platform = false;
+				this->down_platform = nullptr;
+			}
+			jumping_time--;
+		}
+	}
+
 	// 竖直速度
 	// 如果不在平台上,则竖直方向上自由落体,
 	// 如果在平台上,则竖直方向上速度为平台速度
 	if (!is_on_platform)
 	{
-		velocity.y += gravity;
+		if (velocity.y < max_speed_y)
+			velocity.y += gravity;
+		else
+			velocity.y = max_speed_y;
 
 		// 并改变动画
 		current_animation = animation_player_fall_idle;
-	}
-	else
-	{
-		velocity.y = -platform_velocity; // 等于平台速度
 	}
 
 	// 水平速度
 	if (direction > 0)
 	{
-		velocity.x = run_velocity;
+		if (velocity.x == 0)
+		{
+			velocity.x = 1.5f;
+		}
+		if (velocity.x < run_velocity)
+			velocity.x += acceleration_x;
+		else
+			velocity.x = run_velocity;
 	}
 	else if (direction < 0)
 	{
-		velocity.x = -run_velocity;
+		if (velocity.x == 0)
+		{
+			velocity.x = -1.5f;
+		}
+		if (velocity.x > -run_velocity)
+			velocity.x -= acceleration_x;
+		else
+			velocity.x = -run_velocity;
 	}
 	else
 	{
-		velocity.x = 0;
+			velocity.x = 0;
 	}
 
 	// 位置随速度变化
@@ -196,15 +257,16 @@ void Player::UpdatePosition()
 	// 判断是否出界
 	if (position.x < 0)
 		position.x = 0;
-	if (position.x + 70 > 500)
-		position.x = 500 - 70;
+	if (position.x + 70 > 550)
+		position.x = 550 - 70;
 }
 
 void Player::CheckCollison(Platform* platform)
 {
+	platform->is_on_platform = false;
 	// 判断x,y方向上是否发生碰撞
 	bool is_collision_x = ((max(position.x + size.x, platform->shape.right) - min(position.x, platform->shape.left)) <= (size.x + (platform->shape.right - platform->shape.left)));
-	bool is_collision_y = (platform->shape.y >= position.y && platform->shape.y <= position.y + size.y);
+	bool is_collision_y = (platform->shape.top >= position.y && platform->shape.top <= position.y + size.y);
 
 	// 如果都发生碰撞
 	if (is_collision_x && is_collision_y)
@@ -214,8 +276,8 @@ void Player::CheckCollison(Platform* platform)
 		{
 			// 修正y的值,使玩家正确地踩在平台上端
 			float next_pos_y = position.y + size.y + velocity.y;
-			if (next_pos_y > platform->shape.y)
-				position.y = platform->shape.y - size.y;
+			if (next_pos_y > platform->shape.top)
+				position.y = platform->shape.top - size.y;
 
 
 			// 更新玩家Player基类中记录的平台速度
@@ -225,6 +287,12 @@ void Player::CheckCollison(Platform* platform)
 			// 标记玩家为在平台上
 			is_on_platform = true;
 		}
+
+		if(!platform->is_on_platform)
+		velocity.y = platform->velocity.y;
+
+		platform->is_on_platform = true;
+		is_on_platform = true;
 
 		// 标记平台为被玩家踩过
 		platform->is_visited = true;

@@ -19,6 +19,9 @@
 #include "scene/select_level_scene/select_level_scene.h"	// 选择关卡界面
 #include "scene/set_up_scene/set_up_scene.h"				// 设置界面
 
+// 关卡相关头文件
+#include "map/map.h"
+
 // 玩家相关头文件
 #include "player/player.h"
 
@@ -140,6 +143,22 @@ std::vector<Platform*> platform_list;
 
 // 成就
 //std::vector<Achievement*> achievement_list;
+struct Map_massage map_massage[11] =
+{
+	//速度、通关分数、{AC, WA, NULL, speed, bounce, MLE, TLE, CE}、
+	//{仔细烧烤、回溯、阿伟助我、飞雷神、再来一次、世界！（时停）}
+	{1.0f, 100, {40,20,20,10,10,0,0,0}, {0,0,0,0,0,0} },
+	{1.0f, 100, {40,20,20,10,10,0,0,0}, {0,0,1,0,0,0} },
+	{1.0f, 100, {40,20,10,10,10,10,0,0}, {0,0,1,0,0,0} },
+	{1.3f, 100, {40,20,10,10,5,5,0,0}, {0,0,1,0,0,1} },
+	{1.3f, 100, {40,20,10,5,5,5,5,10}, {0,0,1,0,1,1} },
+	{1.3f, 100, {40,20,5,5,5,0,24,1}, {0,1,0,0,1,1} },
+	{1.5f, 100, {40,20,5,5,5,24,0,1}, {1,0,0,0,1,1} },
+	{1.5f, 100, {30,20,10,10,10,10,10,0}, {0,1,1,1,0,0} },
+	{1.5f, 100, {30,20,10,10,10,0,0,20}, {0,0,1,1,0,1} },
+	{1.8f, 100, {25,25,5,5,5,15,15,5}, {1,1,0,0,0,1} },
+	{1.0f, 2147483647, {40,20,20,10,10,0,0,0}, {0,0,0,0,0,0} }
+};
 
 void LoadImageAndAtlas()
 {
@@ -321,5 +340,3 @@ void LoadGameResources()
 	animation_player_fall_idle->SetAtlas(&atlas_player_fall_idle);
 
 }
-
-

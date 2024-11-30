@@ -10,8 +10,11 @@
 */
 #include <graphics.h>
 #include "../../vector2/vector2.h"
+#include "../../player/player.h"
 
 extern void PutImage(int x, int y, IMAGE* img);
+
+class Player;
 
 class Platform
 {
@@ -22,13 +25,14 @@ public:
 
 	bool is_visited = false;    // 平台是否有玩家踩过
 	bool is_leave = false;		// 玩家是否离开过平台
+	bool is_on_platform = false;// 玩家是否在平台上
 
 	int change_times = 1;
 
 	typedef struct CollisionShape
 	{
 		float left, right;
-		float y;
+		float top, bottom;
 
 	}CollisionShape;
 
@@ -44,7 +48,7 @@ public:
 
 	~Platform() = default;
 
-	virtual void PlatformChange() = 0;
+	virtual void PlatformChange(Player* player) = 0;
 
 	void OnUpdate();
 
@@ -58,4 +62,7 @@ public:
 	// 检查平台是否存在
 	bool CheckExist();
 
+	void CheckCollison(Player* player);
+
+	bool CheckLeave(Player* player);
 };

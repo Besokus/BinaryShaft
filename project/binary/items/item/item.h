@@ -1,15 +1,7 @@
 #pragma once
 #include "../../player/player.h"
 #include "../../scene/game_scene/game_scene.h"
-struct Map_Msg
-{
-	int length;
-	int width;
-	int speed;
-	int score;
-	std::vector<int> platform_weight;
-	std::vector<bool> item_choice;
-};
+#include"../../map/map.h"
 
 class item
 {

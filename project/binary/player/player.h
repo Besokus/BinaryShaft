@@ -17,14 +17,17 @@
 #include <graphics.h>
 #include <iostream>
 
+class Platform;
+
 class Player
 {
 public:
-	const float run_velocity = 2.0f;			// 设定x方向速度
+	const float run_velocity = 4.0f;			// 设定x方向速度
 	const float speed_velocity = 0.1f;			// 设定speed平台速度
-	const float gravity = 0.2f;					// 设定重力加速度
-
+	const float gravity = 0.5f;				// 设定重力加速度
+	const float acceleration_x = 0.2f;
 	const int delta = 10;						// 设定间隔时间
+	const float max_speed_y = 10;                //最高y轴速度
 public:
 	Animation* current_animation = nullptr;
 
@@ -39,8 +42,12 @@ public:
 	bool is_on_speed_platform = false;
 	bool is_on_platform = false;
 	bool is_alive = true;
+	bool is_jumping = false;
+	int jumping_time = 10;
 
 	float platform_velocity = 0;
+
+	Platform* down_platform = nullptr;
 
 public:
 	Player();

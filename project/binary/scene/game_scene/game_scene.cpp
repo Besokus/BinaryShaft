@@ -37,8 +37,14 @@ extern std::vector<Platform*> platform_list;
 // 2.其他界面跳转到这,应该重置参数
 void GameScene::OnEnter()
 {
+	// 重置随机数种子
+	srand((unsigned)time(NULL));
+
 	// 设置玩家初始位置
 	player->SetPosition(200, 0);
+
+	//初始化关卡信息
+	map_msg=new Map_Msg(level);
 
 	// 重置平台参数
 	platform_list.clear();
@@ -221,7 +227,7 @@ void GameScene::DeletePlatform(std::vector<Platform*>& platform_list)
 	for (Platform* platform : platform_list)
 	{
 		// 如果超出游戏范围
-		if (platform->shape.y < 0)
+		if (platform->shape.top < 0)
 		{
 			platform->Disappear();
 		}

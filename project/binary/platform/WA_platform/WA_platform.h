@@ -7,7 +7,7 @@ class WAPlatform :public Platform
 {
 public:
 	WAPlatform(IMAGE img_platform) :Platform(img_platform) {}
-	void PlatformChange()
+	void PlatformChange(Player* player)
 	{
 		if (is_visited)
 		{
