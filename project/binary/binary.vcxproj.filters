@@ -145,6 +145,27 @@
     <Filter Include="头文件\platform\speed_platform">
       <UniqueIdentifier>{6c4108a4-bdb9-45ed-ac4e-1475b4e20d1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\button\pause_button">
+      <UniqueIdentifier>{c1fc5152-4394-433c-8e27-0e4afbe193fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button\achievement_button">
+      <UniqueIdentifier>{240df5b8-6e27-4b1d-91e3-98aa02d8ad6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button\music_control_button">
+      <UniqueIdentifier>{2d042593-b295-44eb-9c3a-8e5291d1cd5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button\showus_button">
+      <UniqueIdentifier>{3da11b0e-840c-4ef7-8599-0e929539ab6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\shouus_scene">
+      <UniqueIdentifier>{7882ea88-3473-4e74-98ca-e422c5525630}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\win_scene">
+      <UniqueIdentifier>{148c6338-f09f-4778-80d8-6b2a1694a4cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button\win_button">
+      <UniqueIdentifier>{4d4f50c1-ede4-4d73-86c9-30b2826776de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -233,6 +254,12 @@
     </ClCompile>
     <ClCompile Include="items\item_the_world\item_the_world.cpp">
       <Filter>头文件\items\item_the_world</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\shouus_scene\showus_scene.cpp">
+      <Filter>头文件\scene\shouus_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\win_scene\win_scene.cpp">
+      <Filter>头文件\scene\win_scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -349,6 +376,27 @@
     </ClInclude>
     <ClInclude Include="platform\speed_platform\speed_platform.h">
       <Filter>头文件\platform\speed_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="button\pause_button\pause_button.h">
+      <Filter>头文件\button\pause_button</Filter>
+    </ClInclude>
+    <ClInclude Include="button\achievement_button\achievement_button.h">
+      <Filter>头文件\button\achievement_button</Filter>
+    </ClInclude>
+    <ClInclude Include="button\music_control_button\music_control_button.h">
+      <Filter>头文件\button\music_control_button</Filter>
+    </ClInclude>
+    <ClInclude Include="button\showus_button\showus_button.h">
+      <Filter>头文件\button\showus_button</Filter>
+    </ClInclude>
+    <ClInclude Include="button\win_butoon\win_button.h">
+      <Filter>头文件\button\win_button</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\shouus_scene\shouus_scene.h">
+      <Filter>头文件\scene\shouus_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\win_scene\win_scene.h">
+      <Filter>头文件\scene\win_scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

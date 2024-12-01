@@ -11,11 +11,16 @@
 */
 
 #include "../scene/scene.h"
-
+#include<iostream>
+#include<fstream>
+#include <string>
+using namespace std;
 class SetUpScene :public Scene
 {
 
 private:
+	string m_bk;
+	string m_eff;
 
 public:
 	SetUpScene() = default;
@@ -30,5 +35,8 @@ public:
 	void OnInput(const ExMessage& msg);
 
 	void OnExit();
+
+	string GetElement(string x);
+	void SetElement(string choose, string x);
 
 };

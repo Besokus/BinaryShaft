@@ -10,7 +10,7 @@
 // 场景相关头文件
 #include "scene/game_scene/game_scene.h"					// 游戏界面
 #include "scene/menu_scene/menu_scene.h"					// 菜单界面
-//#include "scene/achievement_scene/achievement_scene.h"		// 成就界面
+#include "scene/achievement_scene/achievement_scene.h"		// 成就界面
 #include "scene/death_scene/death_scene.h"					// 死亡界面
 #include "scene/select_mode_scene/select_mode_scene.h"		// 选择模式界面
 #include "scene/pause_scene/pause_scene.h"					// 暂停界面
@@ -18,6 +18,9 @@
 #include "scene/scene_manager/scene_manager.h"				// 场景管理器
 #include "scene/select_level_scene/select_level_scene.h"	// 选择关卡界面
 #include "scene/set_up_scene/set_up_scene.h"				// 设置界面
+#include "scene/CG_scene/CG_scene.h"				        // CG界面
+#include "scene/win_scene/win_scene.h"				        // 胜利界面
+#include "scene/shouus_scene/shouus_scene.h"		        // 关于我们界面
 
 // 关卡相关头文件
 #include "map/map.h"
@@ -32,6 +35,11 @@
 #include "button/button/button.h"
 #include "button/menu_button/menu_button.h"
 #include "button/select_mode_button/select_mode_button.h"
+#include"button/pause_button/pause_button.h"
+#include"button/achievement_button/achievement_button.h"
+#include"button/music_control_button/music_control_button.h"
+#include "button/showus_button/showus_button.h"
+#include "button/win_butoon/win_button.h"
 
 
 extern void FlipAtlas(Atlas& src, Atlas& dst);
@@ -56,6 +64,7 @@ bool is_debug = false;  // 调试模式
 
 // 定义游戏全局参数
 int level = 0;          //关卡数
+int page = 0;  //游戏说明页数
 
 
 // 定义图片对象
@@ -70,6 +79,22 @@ IMAGE img_select_level_background;
 IMAGE img_game_background_1;
 // 死亡
 IMAGE img_death_background;
+// 成就
+IMAGE img_achievement_background;
+//暂停
+IMAGE img_pause_background;
+//通关
+IMAGE img_ending_background;
+//游戏说明
+IMAGE img_detail_background;
+IMAGE img_ending_detail;
+IMAGE img_death_detail;
+//排行榜界面
+IMAGE img_rank_background;
+//胜利
+IMAGE img_win_background;
+//关于我们
+IMAGE img_showus_background;
 
 // 玩家默认图片
 IMAGE img_player_idle;
@@ -88,6 +113,7 @@ IMAGE img_MLE_platform;
 Atlas atlas_player_left;
 Atlas atlas_player_right;
 Atlas atlas_player_fall_idle;
+Atlas atlas_CG;
 
 // 定义按钮对象
 // 菜单
@@ -97,11 +123,27 @@ MenuShowDetailButton* btn_menu_show_detail = nullptr;
 MenuRankButton* btn_menu_rank = nullptr;
 MenuAchievementButton* btn_menu_achievement = nullptr;
 MenuExitButton* btn_menu_exit = nullptr;
+//音量按钮
+MusicBKUP* btn_musicbkup = nullptr;
+MusicBKDown* btn_musicbkdown = nullptr;
+MusicEFUP* btn_musiceffup = nullptr;
+MusicEFDown* btn_musiceffdown = nullptr;
 // 选择模式
 SelectModeNormalButton* btn_select_mode_normal = nullptr;// btn button
 SelectModeChallengeButton* btn_select_mode_challenge = nullptr;
 SelectModeReturnButton* btn_select_mode_return = nullptr;
-
+//暂停界面按钮
+PauseBackGameButton* btn_pause_backgame = nullptr;
+PauseBackMenuButton* btn_pause_backmenu = nullptr;
+PauseSetUpButton* btn_pause_setup = nullptr;
+// 成就
+AchievementReturnMenuButton* btn_achievement_rtmenu = nullptr;
+AchievementDetailButton* btn_achievement_detail = nullptr;
+//关于我们
+ShowUsButton* btn_showus_return = nullptr;
+//胜利
+WinNextButton* btn_win_next = nullptr;
+WinReturnButton* btn_win_return = nullptr;
 
 // 定义按钮的区域
 // 菜单
@@ -111,10 +153,27 @@ RECT region_menu_setup;
 RECT region_menu_rank;
 RECT region_menu_achievement;
 RECT region_menu_exit;
+//暂停界面
+RECT region_pause_backgame;
+RECT region_pause_backmenu;
+RECT region_pause_setup;
 // 选择模式
 RECT region_select_mode_normal;
 RECT region_select_mode_challenge;
 RECT region_select_mode_return;
+// 成就
+RECT region_achievement_rtmenu;
+RECT region_achievement_detail;
+//音量加减按钮区域
+RECT region_setting_musicbkup;
+RECT region_setting_musicbkdown;
+RECT region_setting_musiceffup;
+RECT region_setting_musiceffdown;
+//关于我们
+RECT region_showus_return;
+//胜利
+RECT region_win_next;
+RECT region_win_return;
 
 // 定义场景对象
 Scene* game_scene = nullptr;
@@ -125,6 +184,11 @@ Scene* select_mode_scene = nullptr;
 Scene* pause_scene = nullptr;
 Scene* select_level_scene = nullptr;
 Scene* setup_scene = nullptr;
+Scene* detail_scene = nullptr;
+Scene* rank_scene = nullptr;
+Scene* win_scene = nullptr;
+Scene* CG_scene = nullptr;
+Scene* showus_scene = nullptr;
 
 SceneManager scene_manager;
 
@@ -143,20 +207,22 @@ std::vector<Platform*> platform_list;
 
 // 成就
 //std::vector<Achievement*> achievement_list;
+
+//关卡数据
 struct Map_massage map_massage[11] =
 {
 	//速度、通关分数、{AC, WA, NULL, speed, bounce, MLE, TLE, CE}、
 	//{仔细烧烤、回溯、阿伟助我、飞雷神、再来一次、世界！（时停）}
 	{1.0f, 100, {40,20,20,10,10,0,0,0}, {0,0,0,0,0,0} },
-	{1.0f, 100, {40,20,20,10,10,0,0,0}, {0,0,1,0,0,0} },
-	{1.0f, 100, {40,20,10,10,10,10,0,0}, {0,0,1,0,0,0} },
-	{1.3f, 100, {40,20,10,10,5,5,0,0}, {0,0,1,0,0,1} },
-	{1.3f, 100, {40,20,10,5,5,5,5,10}, {0,0,1,0,1,1} },
-	{1.3f, 100, {40,20,5,5,5,0,24,1}, {0,1,0,0,1,1} },
-	{1.5f, 100, {40,20,5,5,5,24,0,1}, {1,0,0,0,1,1} },
-	{1.5f, 100, {30,20,10,10,10,10,10,0}, {0,1,1,1,0,0} },
-	{1.5f, 100, {30,20,10,10,10,0,0,20}, {0,0,1,1,0,1} },
-	{1.8f, 100, {25,25,5,5,5,15,15,5}, {1,1,0,0,0,1} },
+	{1.0f, 120, {40,20,20,10,10,0,0,0}, {0,0,1,0,0,0} },
+	{1.0f, 130, {40,20,10,10,10,10,0,0}, {0,0,1,0,0,0} },
+	{1.3f, 150, {40,20,10,10,5,5,0,0}, {0,0,1,0,0,1} },
+	{1.3f, 200, {40,20,10,5,5,5,5,10}, {0,0,1,0,1,1} },
+	{1.3f, 200, {40,20,5,5,5,0,24,1}, {0,1,0,0,1,1} },
+	{1.5f, 250, {40,20,5,5,5,24,0,1}, {1,0,0,0,1,1} },
+	{1.5f, 250, {30,20,10,10,10,10,10,0}, {0,1,1,1,0,0} },
+	{1.5f, 300, {30,20,10,10,10,0,0,20}, {0,0,1,1,0,1} },
+	{1.8f, 320, {25,25,5,5,5,15,15,5}, {1,1,0,0,0,1} },
 	{1.0f, 2147483647, {40,20,20,10,10,0,0,0}, {0,0,0,0,0,0} }
 };
 
@@ -177,6 +243,29 @@ void LoadImageAndAtlas()
 	// 导入死亡背景
 	loadimage(&img_death_background, _T("resources/game_over.png"));
 
+	// 导入成就背景
+	loadimage(&img_achievement_background, _T("resources/show_detail_background.png"));//achievement_background
+
+	//导入通关背景
+	loadimage(&img_ending_background, _T("resources/ending_1.png"));
+
+	// 导入胜利背景
+	loadimage(&img_win_background, _T("resources/TEMP_win_background.png"));
+
+	// 导入关于我们背景
+	loadimage(&img_showus_background, _T("resources/TEMP_showus_background.png"));
+
+	//导入游戏说明背景图
+	loadimage(&img_detail_background, _T("resources/detail_scene_background.jpg"));
+	loadimage(&img_ending_detail, _T("resources/ending_1.png"), 190, 190, false);
+	loadimage(&img_death_detail, _T("resources/game_over.png"), 190, 190, false);
+
+	//导入排行榜背景
+	loadimage(&img_rank_background, _T("resources/rank_scene_background.png"));
+
+	//导入暂停界面背景
+	loadimage(&img_pause_background, _T("resources/pause_background.png"), 700, 700);
+
 	// 玩家默认图片
 	loadimage(&img_player_idle, _T("resources/player_idle_1.png"), PLAYER_WIDTH, PLAYER_HEIGHT);
 
@@ -186,6 +275,9 @@ void LoadImageAndAtlas()
 	FlipAtlas(atlas_player_left, atlas_player_right);
 	// 玩家下坠图集
 	atlas_player_fall_idle.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
+
+	// CG图集
+	atlas_CG.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
 
 
 	loadimage(&img_NULL_platform, _T("resources/NULL.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
@@ -307,6 +399,142 @@ void LoadButton()
 	btn_select_mode_return = new SelectModeReturnButton(region_select_mode_return,
 		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), SELECT_MODE_BUTTON_WIDTH, SELECT_MODE_BUTTON_HEIGHT);
 
+	//--------------------------------------------------------------------------------------------------------------------------
+
+	// 关于我们按钮
+	const int SHOWUS_BUTTON_WIDTH = 155;
+	const int SHOWUS_BUTTON_HEIGHT = 60;
+
+	// 导入showus_return按键素材并且设置其范围
+	region_showus_return.left = 520;
+	region_showus_return.right = region_showus_return.left + SHOWUS_BUTTON_WIDTH;
+	region_showus_return.top = 600;
+	region_showus_return.bottom = region_showus_return.top + SHOWUS_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_showus_return = new ShowUsButton(region_showus_return,
+		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), SHOWUS_BUTTON_WIDTH, SHOWUS_BUTTON_HEIGHT);
+
+	//--------------------------------------------------------------------------------------------------------------------------
+
+	//胜利按钮
+	const int WIN_BUTTON_WIDTH = 155;
+	const int WIN_BUTTON_HEIGHT = 60;
+
+	// 导入win_return按键素材并且设置其范围
+	region_win_return.left = 155;
+	region_win_return.right = region_win_return.left + WIN_BUTTON_WIDTH;
+	region_win_return.top = 450;
+	region_win_return.bottom = region_win_return.top + WIN_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_win_return = new WinReturnButton(region_win_return,
+		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), WIN_BUTTON_WIDTH, WIN_BUTTON_HEIGHT);
+
+	// 导入win_next按键素材并且设置其范围
+	region_win_next.left = 390;
+	region_win_next.right = region_win_next.left + WIN_BUTTON_WIDTH;
+	region_win_next.top = 450;
+	region_win_next.bottom = region_win_next.top + WIN_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_win_next = new WinNextButton(region_win_next,
+		_T("resources/select_mode_normal_idle.png"), _T("resources/select_mode_normal_hovered.png"), _T("resources/select_mode_normal_hovered.png"), WIN_BUTTON_WIDTH, WIN_BUTTON_HEIGHT);
+
+
+	//---------------------------------------------------------------------------------------------
+	//导入音量加减按钮素材
+
+	//音量按钮大小常量
+	const int MUSIC_SET_BUTTON_WIDTH = 55;
+	const int MUSIC_SET_BUTTON_HEIGHT = 45;
+	region_setting_musicbkup.left = 540;
+	region_setting_musicbkup.right = region_setting_musicbkup.left + MUSIC_SET_BUTTON_WIDTH;
+	region_setting_musicbkup.top = 330;
+	region_setting_musicbkup.bottom = region_setting_musicbkup.top + MUSIC_SET_BUTTON_HEIGHT;
+
+	btn_musicbkup = new MusicBKUP(region_setting_musicbkup,
+		_T("resources/musicup_idle.png"), _T("resources/musicup_hovered.png"), _T("resources/musicup_hovered.png"), MUSIC_SET_BUTTON_WIDTH, MUSIC_SET_BUTTON_HEIGHT);
+
+	region_setting_musicbkdown.left = 600;
+	region_setting_musicbkdown.right = region_setting_musicbkdown.left + MUSIC_SET_BUTTON_WIDTH;
+	region_setting_musicbkdown.top = 330;
+	region_setting_musicbkdown.bottom = region_setting_musicbkdown.top + MUSIC_SET_BUTTON_HEIGHT;
+
+	btn_musicbkdown = new MusicBKDown(region_setting_musicbkdown,
+		_T("resources/musicdown_idle.png"), _T("resources/musicdown_hovered.png"), _T("resources/musicdown_hovered.png"), MUSIC_SET_BUTTON_WIDTH, MUSIC_SET_BUTTON_HEIGHT);
+
+	//音效加减
+	region_setting_musiceffup.left = 540;
+	region_setting_musiceffup.right = region_setting_musiceffup.left + MUSIC_SET_BUTTON_WIDTH;
+	region_setting_musiceffup.top = 390;
+	region_setting_musiceffup.bottom = region_setting_musiceffup.top + MUSIC_SET_BUTTON_HEIGHT;
+
+	btn_musiceffup = new MusicEFUP(region_setting_musiceffup,
+		_T("resources/musicup_idle.png"), _T("resources/musicup_hovered.png"), _T("resources/musicup_hovereded.png"), MUSIC_SET_BUTTON_WIDTH, MUSIC_SET_BUTTON_HEIGHT);
+
+	region_setting_musiceffdown.left = 600;
+	region_setting_musiceffdown.right = region_setting_musiceffdown.left + MUSIC_SET_BUTTON_WIDTH;
+	region_setting_musiceffdown.top = 390;
+	region_setting_musiceffdown.bottom = region_setting_musiceffdown.top + MUSIC_SET_BUTTON_HEIGHT;
+
+	btn_musiceffdown = new MusicEFDown(region_setting_musiceffdown,
+		_T("resources/musicdown_idle.png"), _T("resources/musicdown_hovered.png"), _T("resources/musicdown_hovered.png"), MUSIC_SET_BUTTON_WIDTH, MUSIC_SET_BUTTON_HEIGHT);
+
+	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//暂停界面按钮
+	const int PAUSE_MODE_BUTTON_WIDTH = 155;
+	const int PAUSE_MODE_BUTTON_HEIGHT = 60;
+
+	//设置返回游戏按钮范围
+	region_pause_backgame.left = 260;
+	region_pause_backgame.right = region_pause_backgame.left + PAUSE_MODE_BUTTON_WIDTH;
+	region_pause_backgame.top = 190;
+	region_pause_backgame.bottom = region_pause_backgame.top + PAUSE_MODE_BUTTON_HEIGHT;
+
+	//导入素材
+	btn_pause_backgame = new PauseBackGameButton(region_pause_backgame,
+		_T("resources/pause_backgame_idle.png"), _T("resources/pause_backgame_hovered.png"), _T("resources/pause_backgame_hovered.png"), PAUSE_MODE_BUTTON_WIDTH, PAUSE_MODE_BUTTON_HEIGHT);
+
+	//设置返回菜单界面
+	region_pause_backmenu.left = 260;
+	region_pause_backmenu.right = region_pause_backmenu.left + PAUSE_MODE_BUTTON_WIDTH;
+	region_pause_backmenu.top = 280;
+	region_pause_backmenu.bottom = region_pause_backmenu.top + PAUSE_MODE_BUTTON_HEIGHT;
+
+	//导入素材
+	btn_pause_backmenu = new PauseBackMenuButton(region_pause_backmenu,
+		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), PAUSE_MODE_BUTTON_WIDTH, PAUSE_MODE_BUTTON_HEIGHT);
+
+	//设置设置按钮
+	region_pause_setup.left = 260;
+	region_pause_setup.right = region_pause_setup.left + PAUSE_MODE_BUTTON_WIDTH;
+	region_pause_setup.top = 370;
+	region_pause_setup.bottom = region_pause_setup.top + PAUSE_MODE_BUTTON_HEIGHT;
+
+	//导入素材
+	btn_pause_setup = new PauseSetUpButton(region_pause_setup,
+		_T("resources/menu_setup_idle.png"), _T("resources/menu_setup_hovered.png"), _T("resources/menu_setup_hovered.png"), PAUSE_MODE_BUTTON_WIDTH, PAUSE_MODE_BUTTON_HEIGHT);
+
+	//--------------------------------------------------------------------------------------------------------------------------
+
+	// 成就模式按钮
+	const int ACHIEVEMENT_MODE_BUTTON_WIDTH = 130;
+	const int ACHIEVEMENT_MODE_BUTTON_HEIGHT = 60;
+
+
+	// 导入rtmenu(返回菜单)按键素材并且设置其范围
+	region_achievement_rtmenu.left = 250;
+	region_achievement_rtmenu.right = region_achievement_rtmenu.left + ACHIEVEMENT_MODE_BUTTON_WIDTH;
+	region_achievement_rtmenu.top = 350;
+	region_achievement_rtmenu.bottom = region_achievement_rtmenu.top + ACHIEVEMENT_MODE_BUTTON_HEIGHT;
+
+	//导入素材
+	btn_achievement_rtmenu = new AchievementReturnMenuButton(region_menu_achievement,
+		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), SELECT_MODE_BUTTON_WIDTH, SELECT_MODE_BUTTON_HEIGHT);
+
+	//导入detail(展示详细信息)
 }
 
 void LoadGameResources()

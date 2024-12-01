@@ -1,5 +1,9 @@
 #pragma once
 #include "../scene/scene.h"
+#include "../scene_manager/scene_manager.h"
+#include "../../button/button/button.h"
+#include"../../button/achievement_button/achievement_button.h"
+#include <iostream>	
 
 /*
 成就界面
@@ -7,13 +11,13 @@
 	功能：根据需求文档，完成功能，填充素材
 */
 
-class AchieveScene :public Scene
+class AchievementScene :public Scene
 {
 private:
 
 public:
-	AchieveScene() = default;
-	~AchieveScene() = default;
+	AchievementScene() = default;
+	~AchievementScene() = default;
 
 	void OnEnter();
 

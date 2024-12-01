@@ -10,6 +10,10 @@
 
 */
 #include "../scene/scene.h"
+#include<string>
+#include<fstream>
+#include<iostream>
+using namespace std;
 
 class SceneManager
 {
@@ -29,9 +33,16 @@ public:
 		Death,
 		ShowDetail,
 		Rank,
-		Achievemnt
-
+		Achievemnt,
+		Next,
+		Win,
+		CG,
 	};
+	typedef enum Choose
+	{
+		music_BK = 1,
+		music_EFF
+	}opt;
 public:
 	SceneManager() = default;
 	~SceneManager() = default;
@@ -50,4 +61,38 @@ public:
 
 	// 接受输入的函数
 	void OnInput(const ExMessage& msg);
+
+	//设置静态操作文件函数
+	static void Opertate_File(opt choice, string x)
+	{
+		switch (choice)
+		{
+		case music_BK:
+		{
+			ofstream ofs("resources/Music_Data/Music_Bk.txt");
+			if (ofs.is_open())
+			{
+				ofs << x << endl;
+			}
+			else
+				printf("Error!\n");
+			ofs.close();
+			break;
+		}
+
+		case music_EFF:
+		{
+			ofstream ofs("resources/Music_Data/Music_Eff.txt");
+			if (ofs.is_open())
+			{
+				ofs << x << endl;
+			}
+			else
+				printf("Error!\n");
+			ofs.close();
+			break;
+		}
+
+		}
+	}
 };

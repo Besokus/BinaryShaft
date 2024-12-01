@@ -153,7 +153,9 @@
     <ClCompile Include="scene\select_level_scene\select_level_scene.cpp" />
     <ClCompile Include="scene\select_mode_scene\select_mode_scene.cpp" />
     <ClCompile Include="scene\set_up_scene\set_up_scene.cpp" />
+    <ClCompile Include="scene\shouus_scene\showus_scene.cpp" />
     <ClCompile Include="scene\show_detail_scene\show_detail_scene.cpp" />
+    <ClCompile Include="scene\win_scene\win_scene.cpp" />
     <ClCompile Include="util\image_util\image_util.cpp" />
     <ClCompile Include="vector2\vector2.cpp" />
   </ItemGroup>
@@ -161,9 +163,14 @@
     <ClInclude Include="achievement\achievement.h" />
     <ClInclude Include="animation\animation.h" />
     <ClInclude Include="atlas\atlas.h" />
+    <ClInclude Include="button\achievement_button\achievement_button.h" />
     <ClInclude Include="button\button\button.h" />
     <ClInclude Include="button\menu_button\menu_button.h" />
+    <ClInclude Include="button\music_control_button\music_control_button.h" />
+    <ClInclude Include="button\pause_button\pause_button.h" />
     <ClInclude Include="button\select_mode_button\select_mode_button.h" />
+    <ClInclude Include="button\showus_button\showus_button.h" />
+    <ClInclude Include="button\win_butoon\win_button.h" />
     <ClInclude Include="items\item\item.h" />
     <ClInclude Include="items\item_carefully_BBQ\item_carefully_BBQ.h" />
     <ClInclude Include="items\item_ctrl_Z\item_ctrl_Z.h" />
@@ -193,7 +200,9 @@
     <ClInclude Include="scene\select_level_scene\select_level_scene.h" />
     <ClInclude Include="scene\select_mode_scene\select_mode_scene.h" />
     <ClInclude Include="scene\set_up_scene\set_up_scene.h" />
+    <ClInclude Include="scene\shouus_scene\shouus_scene.h" />
     <ClInclude Include="scene\show_detail_scene\show_detail_scene.h" />
+    <ClInclude Include="scene\win_scene\win_scene.h" />
     <ClInclude Include="util\image_util\image_util.h" />
     <ClInclude Include="vector2\vector2.h" />
   </ItemGroup>

@@ -1,6 +1,8 @@
 #pragma once
 #include "../scene/scene.h"
 #include "../scene_manager/scene_manager.h"
+#include "easyx.h"
+#include <iostream>
 
 /*
 	游戏说明界面
@@ -13,7 +15,8 @@ class ShowDetailScene : public Scene
 {
 
 private:
-
+	bool is_A_down = false;
+	bool is_D_down = false;
 
 public:
 	ShowDetailScene() = default;

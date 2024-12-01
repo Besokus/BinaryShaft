@@ -33,6 +33,7 @@
 */
 #include <graphics.h>
 #include "../../scene/scene_manager/scene_manager.h"
+#include"../../scene/set_up_scene/set_up_scene.h"
 
 extern SceneManager scene_manager;
 
