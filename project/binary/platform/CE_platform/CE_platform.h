@@ -6,7 +6,7 @@ class CEPlatform :public Platform
 public:
 	CEPlatform(IMAGE img_platform, Map_Msg* map_msg) :Platform(img_platform, map_msg) {}
 	/*
-	负责人：
+	负责人：土豆
 	功能：
 		1.如果direction为0， 游戏失败，修改玩家血量为0
 		2.如果不为0，回满玩家的血量

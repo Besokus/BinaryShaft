@@ -7,7 +7,7 @@ extern Scene* death_scene;
 extern Scene* select_mode_scene;
 extern Scene* pause_scene;
 extern Scene* select_level_scene;
-extern Scene* setup_scene;
+extern SetUpScene* setup_scene;
 
 // 设置当前的场景
 void SceneManager::SetCurrentScene(Scene* scene)

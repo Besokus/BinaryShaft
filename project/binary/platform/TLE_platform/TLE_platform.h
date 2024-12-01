@@ -6,7 +6,7 @@ class TLEPlatform :public Platform
 public:
 	TLEPlatform(IMAGE img_platform, Map_Msg* map_msg) :Platform(img_platform, map_msg) {}
 	/*
-	负责人：
+	负责人：涵
 	功能：
 		1.分数-2，修改地图speed的大小，增加0.2
 		2.如果方向不为0，缩小0.2的速度，不低于0.6

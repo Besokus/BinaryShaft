@@ -1,11 +1,11 @@
 #include"item_carefully_BBQ.h"
 
 /*
-	负责人：
+	负责人：Minato
 	参数：地图、人物指针信息
 	功能：
 		1.将指针信息存储到protected中的信息中
-		2.根据设计文档，初始化time_keeper、cd、duration、is_cding、istriggered。
+		2.根据doc设计文档，初始化time_keeper、cd、duration、is_cding、istriggered。
 */
 item_carefully_BBQ::item_carefully_BBQ(Player* player, Map_Msg* map_msg)
 {

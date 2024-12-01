@@ -56,6 +56,7 @@ extern const int WINDOW_WIDTH = 700;	  // 窗口宽度
 extern const int WINDOW_HEIGHT = 700;	  // 窗口高度
 
 extern const int LEVEL_NUM = 10;
+extern const int PAGE_NUM = 10;
 
 // 定义bool变量
 bool running = true;	// 游戏运行
@@ -183,7 +184,7 @@ Scene* death_scene = nullptr;
 Scene* select_mode_scene = nullptr;
 Scene* pause_scene = nullptr;
 Scene* select_level_scene = nullptr;
-Scene* setup_scene = nullptr;
+SetUpScene* setup_scene = nullptr;
 Scene* detail_scene = nullptr;
 Scene* rank_scene = nullptr;
 Scene* win_scene = nullptr;

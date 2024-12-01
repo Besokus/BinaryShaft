@@ -6,7 +6,7 @@ class NULLPlatform :public Platform
 public:
 	NULLPlatform(IMAGE img_platform, Map_Msg* map_msg) :Platform(img_platform, map_msg) {}
 	/*
-	负责人：
+	负责人：涵
 	功能：
 		1.无事发生，不用写
 	*/

@@ -6,7 +6,7 @@ class MLEPlatform :public Platform
 public:
 	MLEPlatform(IMAGE img_platform, Map_Msg* map_msg) :Platform(img_platform, map_msg) {}
 	/*
-	负责人：
+	负责人：土豆
 	功能：
 		1.分数-2，修改地图limit的范围，左右各缩小10
 		2.如果方向不为0，则增大地图范围，左右各10，不超过（0，550）

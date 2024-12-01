@@ -10,6 +10,7 @@
 
 */
 #include "../scene/scene.h"
+#include"../set_up_scene/set_up_scene.h"
 #include<string>
 #include<fstream>
 #include<iostream>

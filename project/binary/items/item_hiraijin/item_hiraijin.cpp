@@ -1,7 +1,7 @@
 #include"item_hiraijin.h"
 
 /*
-	负责人：
+	负责人：指端琴长
 	参数：地图、人物指针信息
 	功能：
 		1.将指针信息存储到protected中的信息中
