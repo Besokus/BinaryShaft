@@ -329,8 +329,6 @@ void LoadGameResources()
 	animation_player_right = new Animation();
 	animation_player_fall_idle = new Animation();
 
-	player = new Player();
-
 	LoadButton();
 
 	LoadImageAndAtlas();

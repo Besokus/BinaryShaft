@@ -11,6 +11,7 @@
 #include <graphics.h>
 #include "../../vector2/vector2.h"
 #include "../../player/player.h"
+#include "../../map/map.h"
 
 extern void PutImage(int x, int y, IMAGE* img);
 
@@ -29,6 +30,8 @@ public:
 
 	int change_times = 1;
 
+	Map_Msg* map_msg = nullptr; // ´¢´æ¹Ø¿¨ÐÅÏ¢
+
 	typedef struct CollisionShape
 	{
 		float left, right;
@@ -44,11 +47,11 @@ public:
 
 	IMAGE img_platform;
 public:
-	Platform(IMAGE img_platform);
+	Platform(IMAGE img_platform, Map_Msg* map_msg);
 
 	~Platform() = default;
 
-	virtual void PlatformChange(Player* player) = 0;
+	virtual void PlatformChange(Player* player, int direction = 0) = 0;
 
 	void OnUpdate();
 

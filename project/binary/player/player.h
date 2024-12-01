@@ -18,6 +18,7 @@
 #include <iostream>
 
 class Platform;
+class Map_Msg;
 
 class Player
 {
@@ -45,12 +46,16 @@ public:
 	bool is_jumping = false;
 	int jumping_time = 10;
 
+	int health = 12;
+
 	float platform_velocity = 0;
 
 	Platform* down_platform = nullptr;
 
+	Map_Msg* map_msg = nullptr;
+
 public:
-	Player();
+	Player(Map_Msg* map_msg);
 
 	~Player() = default;
 

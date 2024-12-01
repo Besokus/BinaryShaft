@@ -15,8 +15,8 @@ class Map_Msg
 {
 public:
 	int level;
-	//int length;
-	//int width;
+	int left_limit;
+	int right_limit;
 	float speed;
 	int score;
 	int target_score;
@@ -30,6 +30,17 @@ public:
 		target_score = map_massage[level].target_score;
 		platform_weight.insert(platform_weight.begin(), map_massage[level].platform_weight.begin(), map_massage[level].platform_weight.end());
 		item_choice.insert(item_choice.begin(), map_massage[level].item_choice.begin(), map_massage[level].item_choice.end());
+		left_limit = 0;
+		right_limit = 550;
 	}
 	~Map_Msg() {}
+	/*
+	* 负责人：
+	* 功能：
+		1.绘制分数，绘制目标分数，绘制两条边界limit的线，绘制当前速度倍率，绘制关卡数
+	*/
+	void OnDraw()
+	{
+
+	}
 };

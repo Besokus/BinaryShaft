@@ -173,10 +173,12 @@
     <ClInclude Include="items\item_the_world\item_the_world.h" />
     <ClInclude Include="map\map.h" />
     <ClInclude Include="platform\AC_platform\AC_platform.h" />
+    <ClInclude Include="platform\bounce_platform\bounce_platform.h" />
     <ClInclude Include="platform\CE_platform\CE_platform.h" />
     <ClInclude Include="platform\MLE_platform\MLE_platform.h" />
     <ClInclude Include="platform\NULL_platform\NULL_platform.h" />
     <ClInclude Include="platform\platform\platform.h" />
+    <ClInclude Include="platform\speed_platform\speed_platform.h" />
     <ClInclude Include="platform\TLE_platform\TLE_platform.h" />
     <ClInclude Include="platform\WA_platform\WA_platform.h" />
     <ClInclude Include="player\player.h" />

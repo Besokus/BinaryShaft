@@ -21,7 +21,7 @@ extern std::vector<Platform*> platform_list;
 
 extern void PutImage(int x, int y, IMAGE* img);
 
-Player::Player()
+Player::Player(Map_Msg* map_msg)
 {
 	current_animation = nullptr;
 
@@ -36,6 +36,10 @@ Player::Player()
 
 	size.x = 30;
 	size.y = 50;
+
+	this->map_msg = map_msg;
+
+
 }
 
 void Player::OnEnter()
@@ -105,6 +109,9 @@ void Player::OnDraw()
 		PutImage((int)render_position.x, (int)render_position.y, &img_player_idle);
 	}
 
+	// 绘制血量
+	health;
+
 	// 调试辅助线
 	if (is_debug)
 	{
@@ -143,7 +150,7 @@ void Player::OnInput(const ExMessage& msg)
 			is_right_key_down = true;
 			break;
 		case ' ':
-			if (is_on_platform)
+			if (is_on_platform)//重置跳跃时间
 			{
 				is_jumping = true;
 				jumping_time = 10;
@@ -193,6 +200,7 @@ void Player::UpdatePosition()
 		current_animation = nullptr;
 	}
 
+	//跳跃
 	if (is_on_platform || is_jumping)
 	{
 		if (jumping_time >= 0 && is_jumping)
@@ -255,10 +263,10 @@ void Player::UpdatePosition()
 	position += velocity;
 
 	// 判断是否出界
-	if (position.x < 0)
-		position.x = 0;
-	if (position.x + 70 > 550)
-		position.x = 550 - 70;
+	if (position.x < map_msg->left_limit)
+		position.x = (float)map_msg->left_limit;
+	if (position.x + 70 > map_msg->right_limit)
+		position.x = (float)map_msg->right_limit - 70;
 }
 
 void Player::CheckCollison(Platform* platform)

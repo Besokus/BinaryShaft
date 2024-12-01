@@ -3,10 +3,11 @@
 extern bool is_debug;
 
 
-Platform::Platform(IMAGE img_platform)
+Platform::Platform(IMAGE img_platform, Map_Msg* map_msg)
 {
 	this->img_platform = img_platform;
 	velocity.y = -up_velocity;
+	this->map_msg = map_msg;
 }
 
 void Platform::OnUpdate()
@@ -15,6 +16,9 @@ void Platform::OnUpdate()
 	{
 		change_times--;
 	}
+	
+	velocity.y = -up_velocity;
+	velocity.y *= map_msg->speed;
 
 	shape.top += velocity.y;
 	shape.bottom = shape.top + 20;
@@ -68,7 +72,7 @@ bool Platform::CheckExist()
 	return is_exist;
 }
 
-void Platform::CheckCollison(Player* player)
+void Platform::CheckCollison(Player* player)	//碰撞检测
 {
 	float player_top = player->position.y;
 	float player_bottom = player->position.y + player->size.y;
@@ -94,7 +98,7 @@ void Platform::CheckCollison(Player* player)
 
 				// 更新玩家Player基类中记录的平台速度
 				// 以方便玩家在平台上速度和平台同步
-				player->platform_velocity = up_velocity;
+				player->platform_velocity = up_velocity * map_msg->speed;
 
 				//修改玩家的速度与平台相同
 				player->velocity.y = velocity.y;
@@ -103,11 +107,14 @@ void Platform::CheckCollison(Player* player)
 			player->is_on_platform = true;//标记已经在平台上
 			player->down_platform = this;//标记此为脚下平台
 			is_visited = true;
+			this->PlatformChange(player);
 		}
 		if (player_right-2>shape.left&&player_left+2<shape.right&&player_top + 1 >= shape.top)
 		{
 			player->velocity.y = 1;
 			player->is_jumping = false;
+			is_visited = true;
+			this->PlatformChange(player, 1);
 		}
 		if ((player_bottom>shape.bottom || player_top<shape.top)&&player_left < shape.left)
 		{

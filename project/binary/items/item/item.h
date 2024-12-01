@@ -3,9 +3,13 @@
 #include "../../scene/game_scene/game_scene.h"
 #include"../../map/map.h"
 
+class Map_Msg;
+class Player;
+
 class item
 {
 protected:
+	int id;//道具id
 	int time_keeper;//计时器
 	int cd;//道具cd
 	int duration;//道具持续时间
@@ -17,7 +21,9 @@ public:
 	item() = default;
 	~item() = default;
 
-	void OnUpdate();
+	void OnInput(const ExMessage& msg);
+
+	virtual void OnUpdate();
 
 	virtual void OnDarw() = 0;
 

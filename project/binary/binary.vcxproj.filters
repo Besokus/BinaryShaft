@@ -139,6 +139,12 @@
     <Filter Include="头文件\map">
       <UniqueIdentifier>{beb7c92b-194c-4c0d-baea-da6bf0fa4c22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\platform\bounce_platform">
+      <UniqueIdentifier>{655d4ab2-11dd-466b-8106-2905a992ad49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\platform\speed_platform">
+      <UniqueIdentifier>{6c4108a4-bdb9-45ed-ac4e-1475b4e20d1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -337,6 +343,12 @@
     </ClInclude>
     <ClInclude Include="map\map.h">
       <Filter>头文件\map</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\bounce_platform\bounce_platform.h">
+      <Filter>头文件\platform\bounce_platform</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\speed_platform\speed_platform.h">
+      <Filter>头文件\platform\speed_platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
