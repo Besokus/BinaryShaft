@@ -260,7 +260,7 @@ void LoadImageAndAtlas()
 	loadimage(&img_death_background, _T("resources/game_over.png"));
 
 	// 导入成就背景
-	loadimage(&img_achievement_background, _T("resources/show_detail_background.png"));//achievement_background
+	loadimage(&img_achievement_background, _T("resources/achievement_background.png"));//achievement_background
 
 	//导入通关背景
 	loadimage(&img_ending_background, _T("resources/ending_1.png"));
@@ -540,17 +540,17 @@ void LoadButton()
 
 	// 成就模式按钮
 	const int ACHIEVEMENT_MODE_BUTTON_WIDTH = 130;
-	const int ACHIEVEMENT_MODE_BUTTON_HEIGHT = 60;
+	const int ACHIEVEMENT_MODE_BUTTON_HEIGHT = 50;
 
 
 	// 导入rtmenu(返回菜单)按键素材并且设置其范围
-	region_achievement_rtmenu.left = 250;
+	region_achievement_rtmenu.left = 470;
 	region_achievement_rtmenu.right = region_achievement_rtmenu.left + ACHIEVEMENT_MODE_BUTTON_WIDTH;
-	region_achievement_rtmenu.top = 350;
+	region_achievement_rtmenu.top = 470;
 	region_achievement_rtmenu.bottom = region_achievement_rtmenu.top + ACHIEVEMENT_MODE_BUTTON_HEIGHT;
 
 	//导入素材
-	btn_achievement_rtmenu = new AchievementReturnMenuButton(region_menu_achievement,
+	btn_achievement_rtmenu = new AchievementReturnMenuButton(region_achievement_rtmenu,
 		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), SELECT_MODE_BUTTON_WIDTH, SELECT_MODE_BUTTON_HEIGHT);
 
 	//导入detail(展示详细信息)

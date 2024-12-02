@@ -122,12 +122,6 @@ void SelectLevelScene::OnInput(const ExMessage& msg)
 		case 'D':
 			is_D_down = false;
 			break;
-		case VK_RETURN:
-			scene_manager.SwitchTo(SceneManager::SceneType::Game);
-			break;
-		case VK_ESCAPE:
-			scene_manager.SwitchTo(SceneManager::SceneType::Menu);
-			break;
 		}
 	}
 

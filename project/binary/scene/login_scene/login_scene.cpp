@@ -59,7 +59,7 @@ void LoginScene::OnDraw()
 		_stprintf_s(text2, _T("µÚ%d¹Ø"), data_list[i].unlocked_level);
 		outtextxy(320, 255 + i * 50, text2);
 
-
+		settextcolor(RGB(255, 255, 255));
 	}
 
 	btn_login_new->OnDraw();
@@ -94,7 +94,7 @@ void LoginScene::OnInput(const ExMessage& msg)
 			}
 			else
 			{
-				current_idx = (current_idx + 1) % 3;
+				current_idx = (current_idx + 1) % data_list.size();
 				current_data = &data_list[current_idx];
 			}
 			break;
@@ -109,12 +109,12 @@ void LoginScene::OnInput(const ExMessage& msg)
 			}
 			else
 			{
-				current_idx = (current_idx - 1 + 3) % 3;
+				current_idx = (current_idx - 1 + data_list.size()) % data_list.size();
 				current_data = &data_list[current_idx];
 			}
 			break;
 		case VK_RETURN:
-			scene_manager.SwitchTo(SceneManager::SceneType::Game);
+			scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
 		}
 
 	}

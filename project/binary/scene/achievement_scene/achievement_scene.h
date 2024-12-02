@@ -14,7 +14,10 @@
 class AchievementScene :public Scene
 {
 private:
-
+	const int PAGE_NUM = 20;
+	bool is_A_down = false;
+	bool is_D_down = false;
+	int current_page = 0;
 public:
 	AchievementScene() = default;
 	~AchievementScene() = default;

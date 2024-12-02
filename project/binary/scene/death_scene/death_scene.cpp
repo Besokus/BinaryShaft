@@ -7,8 +7,10 @@ extern IMAGE img_death_background;
 
 void DeathScene::OnEnter()
 {
-	// 可以在这里初始化死亡界面的特定 资源或状态
-	// 比如显示玩家的死亡信息、分数等
+	static TCHAR text[64];
+	_stprintf_s(text, _T("最终得分:%d !"), 114514);
+
+	MessageBox(GetHWnd(), text, _T("Game Over"), MB_OK);
 }
 
 void DeathScene::OnUpdate()
@@ -36,18 +38,6 @@ void DeathScene::OnDraw()
 	//outtextxy(10, 30, text);
 	//outtextxy(10, 50, _T("按任意键返回主菜单"));
 	putimage(0, 0, &img_death_background);
-
-	// 记录函数调用次数,确保窗口只跳出一次
-	static int cnt = 0;
-	cnt++;
-	if (cnt == 1)
-	{
-		static TCHAR text[64];
-		_stprintf_s(text, _T("最终得分:%d !"), 114514);
-
-		MessageBox(GetHWnd(), text, _T("Game Over"), MB_OK);
-	}
-
 }
 
 void DeathScene::OnInput(const ExMessage& msg)

@@ -404,11 +404,11 @@
     <ClInclude Include="scene\login_scene\login_scene.h">
       <Filter>头文件\scene\login_scene</Filter>
     </ClInclude>
-    <ClInclude Include="data.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="button\login_button\login_button.h">
       <Filter>头文件\button\login_button</Filter>
+    </ClInclude>
+    <ClInclude Include="data.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

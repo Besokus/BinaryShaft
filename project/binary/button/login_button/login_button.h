@@ -32,8 +32,8 @@ protected:
 		}
 
 		Data new_data;
-		wchar_t s[10];
-		InputBox(s, 10, L"输入玩家姓名\n请输入英文名哦");
+		wchar_t s[12];
+		InputBox(s, 12, L"输入玩家姓名\n请输入英文名哦");
 
 		wcstombs(new_data.name, s, sizeof(new_data.name));
 

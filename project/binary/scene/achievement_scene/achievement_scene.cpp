@@ -2,23 +2,25 @@
 #include "achievement_scene.h"
 #include "../scene_manager/scene_manager.h"
 #include"../../button/achievement_button/achievement_button.h"
-#include "../../achievement/achievement.h"
 #include "../../button/button/button.h"
+#include "../../data.h"
 #include <vector>
-extern bool running;
+
 extern SceneManager scene_manager;
 
-extern std::vector<Achievement*> achievement_list; // 假设这是存储所有成就的全局变量
 extern AchievementReturnMenuButton* btn_achievement_rtmenu;
-extern AchievementDetailButton* btn_achievement_detail;
 extern IMAGE img_achievement_background;
 
+extern vector<Data> data_list;
+extern Data* current_data;
 
 void AchievementScene::OnEnter()
 {
     // 初始化成就界面，可能包括加载成就数据或重置界面状态/
     btn_achievement_rtmenu->OnEnter();
     //btn_achievement_detail->OnEnter();
+    current_data = &data_list[0];
+    current_data->unlocked_achievement[1]=true;
 }
 //
 void AchievementScene::OnUpdate()
@@ -40,30 +42,90 @@ void AchievementScene::OnDraw() {
     putimage(0, 0, &img_achievement_background);
     
     btn_achievement_rtmenu->OnDraw();
-    //btn_achievement_detail->OnDraw();
 
-    //    // 绘制成就界面，展示已解锁的成就
-    //    static TCHAR text[256];
-    //    int y_offset = 10; // 初始的y坐标偏移量
-    //
-    //    for (Achievement* achievement : achievement_list) {
-    //        if (achievement->IsUnlocked()) {
-    //            // 使用_stprintf_s或其他字符串格式化函数来设置文本
-    //            _stprintf_s(text, _T("成就: %s\n"), achievement->GetName().c_str());
-    //
-    //            // DrawMultilineText(10, y_offset, text); //可能存在多行输出情况，不太清楚这个函数存在的必要大不大
-    //
-    //            outtextxy(10, y_offset, text);
-    //            y_offset += 20; // 增加y坐标偏移量以绘制下一个成就
-    //
-    //            // 如果需要，还可以添加其他信息，如成就描述或解锁日期
-    //        }
-    //    }
-    //
-    //    // 可以在界面底部添加一些提示信息或导航按钮
-    // outtextxy(10, y_offset + 20, _T("按ESC返回主菜单"));
+    setbkmode(TRANSPARENT);
+
+    settextstyle(30, 0, _T("IPix"));
+
+    static TCHAR text[64];
+    _stprintf_s(text, _T("第%d页"), current_page + 1);
+
+    outtextxy(195, 520, text);
+
+    if (is_A_down)
+    {
+        settextcolor(RGB(255, 255, 0));
+        outtextxy(100, 520, _T("A"));
+        outtextxy(150, 520, _T("<"));
+        settextcolor(RGB(255, 255, 255));
+    }
+    else
+    {
+        outtextxy(100, 520, _T("A"));
+        outtextxy(150, 520, _T("<"));
+    }
+
+    if (is_D_down)
+    {
+        settextcolor(RGB(255, 255, 0));
+        outtextxy(340, 520, _T("D"));
+        outtextxy(290, 520, _T(">"));
+        settextcolor(RGB(255, 255, 255));
+    }
+    else
+    {
+        outtextxy(340, 520, _T("D"));
+        outtextxy(290, 520, _T(">"));
+    }
+
+    if (current_data == nullptr)
+    {
+        settextstyle(50, 0, _T("IPix"));
+        outtextxy(100, 350, _T("请先选择存档!!"));
+
+        return;
+    }
+
+    if (!current_data->unlocked_achievement[current_page])
+    {
+        settextstyle(45, 0, _T("IPix"));
+        outtextxy(50, 260, _T("???"));
+
+        settextstyle(35, 0, _T("IPix"));
+        outtextxy(50, 320, _T("?????"));
+        
+        return;
+    }
+
+    switch (current_page)
+    {
+    case 0:
+        break;
+    case 1:
+        settextstyle(45, 0, _T("IPix"));
+        outtextxy(50, 260, _T("盖亚！！"));
+
+        settextstyle(35, 0, _T("IPix"));
+        outtextxy(50, 320, _T("触发条件:踩上CE"));
+
+        settextstyle(35, 0, _T("IPix"));
+        outtextxy(50, 400, _T(""));
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    case 5:
+        break;
+    case 6:
+        break;
+    }
+
 }
-//
+
+
 void AchievementScene::OnInput(const ExMessage& msg) {
     btn_achievement_rtmenu->OnInput(msg);
     
@@ -77,7 +139,27 @@ void AchievementScene::OnInput(const ExMessage& msg) {
         case VK_ESCAPE:
             scene_manager.SwitchTo(SceneManager::SceneType::Menu);
             break;
-            // 可以添加其他按键处理逻辑，比如查看成就详情等
+        case 'A':
+            current_page = (current_page - 1 + PAGE_NUM) % PAGE_NUM;
+            is_A_down = true;
+            break;
+        case 'D':
+            current_page = (current_page + 1) % PAGE_NUM;
+            is_D_down = true;
+            break;
         }
     }
+    if (msg.message == WM_KEYUP)
+    {
+        switch (msg.vkcode)
+        {
+        case 'A':
+            is_A_down = false;
+            break;
+        case 'D':
+            is_D_down = false;
+            break;
+        }
+    }
+
 }
