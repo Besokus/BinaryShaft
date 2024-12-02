@@ -35,12 +35,29 @@ public:
 	}
 	~Map_Msg() {}
 	/*
-	* 负责人：
+	* 负责人：余某
 	* 功能：
 		1.绘制分数，绘制目标分数，绘制两条边界limit的线，绘制当前速度倍率，绘制关卡数
 	*/
 	void OnDraw()
 	{
-
+		if (level != 10)
+		{
+			TCHAR level_msg[64];
+			_stprintf_s(level_msg, _T("第%d关"), level + 1);
+			TCHAR target_msg[64];
+			_stprintf_s(target_msg, _T("目标分数：%d"), target_score);
+			TCHAR score_msg[64];
+			_stprintf_s(score_msg, _T("当前分数：%d"), score);
+			TCHAR speed_msg[64];
+			_stprintf_s(speed_msg, _T("当前速度：x%.2f"), speed);
+			outtextxy(530, 250, level_msg);
+			outtextxy(530, 300, target_msg);
+			outtextxy(530, 350, score_msg);
+			outtextxy(530, 400, speed_msg);
+			setlinecolor(RGB(0, 0, 255));
+			line(left_limit, 0, left_limit, 700);
+			line(right_limit - 50, 0, right_limit - 50, 700);
+		}
 	}
 };

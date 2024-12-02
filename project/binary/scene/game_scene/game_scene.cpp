@@ -140,7 +140,8 @@ void GameScene::OnUpdate()
 
 	player->OnUpdate();
 
-	current_item->OnUpdate();
+	if (current_item != nullptr)
+		current_item->OnUpdate();
 
 	// 删除出界的平台
 	DeletePlatform(platform_list);

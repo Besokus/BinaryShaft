@@ -99,6 +99,7 @@ IMAGE img_showus_background;
 
 // 玩家默认图片
 IMAGE img_player_idle;
+IMAGE img_player_health;
 
 // 平台
 IMAGE img_NULL_platform;
@@ -269,6 +270,7 @@ void LoadImageAndAtlas()
 
 	// 玩家默认图片
 	loadimage(&img_player_idle, _T("resources/player_idle_1.png"), PLAYER_WIDTH, PLAYER_HEIGHT);
+	loadimage(&img_player_health, _T("resources/player_health.png"), 16, 16);
 
 	// 玩家向左图集
 	atlas_player_left.LoadFromFile(_T("resources/left_walk_%d.png"), 6);
@@ -484,7 +486,7 @@ void LoadButton()
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//暂停界面按钮
+	//暂停界面按钮
 	const int PAUSE_MODE_BUTTON_WIDTH = 155;
 	const int PAUSE_MODE_BUTTON_HEIGHT = 60;
 

@@ -15,6 +15,7 @@ extern Animation* animation_player_right;
 extern Animation* animation_player_fall_idle;
 
 extern IMAGE img_player_idle;
+extern IMAGE img_player_health;
 
 extern Platform* AC_platform;
 extern std::vector<Platform*> platform_list;
@@ -110,7 +111,24 @@ void Player::OnDraw()
 	}
 
 	// 绘制血量
-	health;
+	if (health <= 6 && health > 0)
+	{
+		for (int i = 0; i < health; i++)
+		{
+			PutImage(510 + 20 * i, 200 , &img_player_health);
+		}
+	}
+	else if (health > 6 && health <= 12)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			PutImage(530 + 20 * i, 200, &img_player_health);
+		}
+		for (int i = 0; i < health - 6; i++)
+		{
+			PutImage(530 + 20 * i, 220, &img_player_health);
+		}
+	}
 
 	// 调试辅助线
 	if (is_debug)
