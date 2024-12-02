@@ -15,9 +15,6 @@ public:
 	*/
 	void PlatformChange(Player* player, int direction = 0)
 	{
-		if (is_visited)
-		{
-			img_platform = img_NULL_platform;
-		}
+		
 	}
 };

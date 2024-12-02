@@ -7,10 +7,78 @@
 		1.将指针信息存储到protected中的信息中
 		2.根据设计文档，初始化time_keeper=0、cd、duration、is_cding、istriggered。
 */
+
+
+extern Atlas atlas_item_help;
+
+
 item_helpme_awei::item_helpme_awei(Player* player, Map_Msg* map_msg)
 {
-
+	this->id = 3;
+	cd = 20 * 60;
+	time_keeper = 0;
+	duration = 20 * 60;
+	is_cding = 0;
+	istriggered = 0;
+	this->player = player;
+	this->map_msg = map_msg;
 }
+
+
+void item_helpme_awei::OnUpdate()
+{
+	if (istriggered)
+	{
+		time_keeper++;
+		if (time_keeper >= duration)
+		{
+			istriggered = false;
+			is_cding = true;
+			this->end_trigger();
+			time_keeper = 0;
+		}
+		else
+		{
+			if (map_msg->score < duration_score)
+			{
+				map_msg->score = duration_score;
+			}
+			if (map_msg->score > duration_score)
+			{
+				duration_score = map_msg->score;
+			}
+			if (player->health < duration_health)
+			{
+				player->health = duration_health;
+			}
+			if (player->health > duration_health)
+			{
+				duration_health = player->health;
+			}
+
+
+			if (map_msg->speed > duration_help_speed)//加速
+			{
+				map_msg->speed = duration_help_speed;
+			}
+
+			if ((map_msg->right_limit - map_msg->left_limit) < duration_limit)
+			{
+				map_msg->right_limit = duration_limit;
+			}
+		}
+	}
+	else if (is_cding)
+	{
+		time_keeper++;
+		if (time_keeper >= cd)
+		{
+			is_cding = false;
+			time_keeper = 0;
+		}
+	}
+}
+
 
 /*
 	负责人：
@@ -20,7 +88,15 @@ item_helpme_awei::item_helpme_awei(Player* player, Map_Msg* map_msg)
 */
 void item_helpme_awei::OnDarw()
 {
-	
+	DWORD start_time = GetTickCount();
+	if (is_cding == 0)//cd好了，time_keeper不动
+	{
+		putimage(550, 100, atlas_item_help.GetImage(0));
+	}
+	else//有20s的cd，所以搞19张正在cd的图片
+	{
+		putimage(550, 100, atlas_item_help.GetImage(cd - time_keeper));
+	}
 }
 
 /*
@@ -31,6 +107,12 @@ void item_helpme_awei::OnDarw()
 */
 void item_helpme_awei::triggering()
 {
+	istriggered = 1;
+	duration_score = map_msg->score;
+	duration_help_speed = map_msg->speed;
+	duration_limit = map_msg->right_limit - map_msg->left_limit;
+	duration_health = player->health;
+	//记下使用道具时的信息
 
 }
 

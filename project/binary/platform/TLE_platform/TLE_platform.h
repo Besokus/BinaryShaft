@@ -1,6 +1,8 @@
 #pragma once
 #include "../platform/platform.h"
 
+extern IMAGE img_NULL_platform;
+
 class TLEPlatform :public Platform
 {
 public:
@@ -14,9 +16,6 @@ public:
 	*/
 	void PlatformChange(Player* player, int direction = 0)
 	{
-		if (is_visited)
-		{
-
-		}
+		
 	}
 };

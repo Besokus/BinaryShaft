@@ -12,6 +12,6 @@ public:
 	*/
 	void PlatformChange(Player* player, int direction = 0)
 	{
-
+		
 	}
 };

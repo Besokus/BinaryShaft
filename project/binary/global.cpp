@@ -117,6 +117,9 @@ Atlas atlas_player_right;
 Atlas atlas_player_fall_idle;
 Atlas atlas_CG;
 
+// 道具图集
+Atlas atlas_item_help;
+
 // 定义按钮对象
 // 菜单
 MenuStartButton* btn_menu_start = nullptr;// btn button
@@ -281,6 +284,9 @@ void LoadImageAndAtlas()
 
 	// CG图集
 	atlas_CG.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
+
+	// 阿伟助我道具图集
+	atlas_item_help.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
 
 
 	loadimage(&img_NULL_platform, _T("resources/NULL.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);

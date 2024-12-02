@@ -298,7 +298,7 @@ void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 			break;
 		case 5://MLE
 			// 将生成的平台加入链表
-			platform_list.push_back(new ACPlatform(img_MLE_platform, map_msg));
+			platform_list.push_back(new MLEPlatform(img_MLE_platform, map_msg));
 			// 设置初始位置
 			platform_list.back()->SetPosition(generater_x, 720);
 			break;

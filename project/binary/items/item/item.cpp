@@ -11,7 +11,7 @@ void item::OnUpdate()
 	if (istriggered)
 	{
 		time_keeper++;
-		if (time_keeper == duration)
+		if (time_keeper >= duration)
 		{
 			istriggered = false;
 			is_cding = true;
@@ -22,7 +22,7 @@ void item::OnUpdate()
 	else if (is_cding)
 	{
 		time_keeper++;
-		if (time_keeper == cd)
+		if (time_keeper >= cd)
 		{
 			is_cding = false;
 			time_keeper = 0;
