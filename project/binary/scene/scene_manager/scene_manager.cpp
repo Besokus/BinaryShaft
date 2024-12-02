@@ -8,6 +8,8 @@ extern Scene* select_mode_scene;
 extern Scene* pause_scene;
 extern Scene* select_level_scene;
 extern SetUpScene* setup_scene;
+extern Scene* showdetail_scene;
+extern Scene* login_scene;
 
 // 设置当前的场景
 void SceneManager::SetCurrentScene(Scene* scene)
@@ -52,6 +54,15 @@ void SceneManager::SwitchTo(SceneType type)
 		break;
 	case SceneType::Death:
 		current_scene = death_scene;
+		break;
+	case SceneType::Achievemnt:
+		current_scene = achievement_scene;
+		break;
+	case SceneType::ShowDetail:
+		current_scene = showdetail_scene;
+		break;
+	case SceneType::Login:
+		current_scene = login_scene;
 		break;
 	default:
 		break;

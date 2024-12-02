@@ -20,7 +20,9 @@
 #include "scene/set_up_scene/set_up_scene.h"				// 设置界面
 #include "scene/CG_scene/CG_scene.h"				        // CG界面
 #include "scene/win_scene/win_scene.h"				        // 胜利界面
-#include "scene/shouus_scene/shouus_scene.h"		        // 关于我们界面
+
+#include "scene/show_detail_scene/show_detail_scene.h"		// 关于我们界面
+#include "scene/login_scene/login_scene.h"					// 注册,登入界面
 
 // 关卡相关头文件
 #include "map/map.h"
@@ -40,6 +42,7 @@
 #include"button/music_control_button/music_control_button.h"
 #include "button/showus_button/showus_button.h"
 #include "button/win_butoon/win_button.h"
+#include "button/login_button/login_button.h"
 
 
 extern void FlipAtlas(Atlas& src, Atlas& dst);
@@ -65,7 +68,8 @@ bool is_debug = false;  // 调试模式
 
 // 定义游戏全局参数
 int level = 0;          //关卡数
-int page = 0;  //游戏说明页数
+
+int page = 0;           //游戏说明页数
 
 
 // 定义图片对象
@@ -82,20 +86,28 @@ IMAGE img_game_background_1;
 IMAGE img_death_background;
 // 成就
 IMAGE img_achievement_background;
-//暂停
+
+// 暂停
 IMAGE img_pause_background;
-//通关
+
+// 通关
 IMAGE img_ending_background;
-//游戏说明
+
+// 游戏说明
 IMAGE img_detail_background;
 IMAGE img_ending_detail;
 IMAGE img_death_detail;
-//排行榜界面
+
+// 排行榜界面
 IMAGE img_rank_background;
-//胜利
+
+// 胜利
 IMAGE img_win_background;
-//关于我们
-IMAGE img_showus_background;
+
+// 关于我们
+IMAGE img_showdetail_background;
+// 登录
+IMAGE img_login_background;
 
 // 玩家默认图片
 IMAGE img_player_idle;
@@ -137,18 +149,26 @@ MusicEFDown* btn_musiceffdown = nullptr;
 SelectModeNormalButton* btn_select_mode_normal = nullptr;// btn button
 SelectModeChallengeButton* btn_select_mode_challenge = nullptr;
 SelectModeReturnButton* btn_select_mode_return = nullptr;
-//暂停界面按钮
+
+// 暂停界面按钮
 PauseBackGameButton* btn_pause_backgame = nullptr;
 PauseBackMenuButton* btn_pause_backmenu = nullptr;
 PauseSetUpButton* btn_pause_setup = nullptr;
 // 成就
 AchievementReturnMenuButton* btn_achievement_rtmenu = nullptr;
 AchievementDetailButton* btn_achievement_detail = nullptr;
-//关于我们
+
+// 关于我们
 ShowUsButton* btn_showus_return = nullptr;
-//胜利
+
+// 胜利
 WinNextButton* btn_win_next = nullptr;
 WinReturnButton* btn_win_return = nullptr;
+// 登录界面login
+LoginNewButton* btn_login_new = nullptr;
+LoginDeleteButton* btn_login_delete = nullptr;
+LoginReturnButton* btn_login_return = nullptr;
+
 
 // 定义按钮的区域
 // 菜单
@@ -169,16 +189,23 @@ RECT region_select_mode_return;
 // 成就
 RECT region_achievement_rtmenu;
 RECT region_achievement_detail;
-//音量加减按钮区域
+// 音量加减按钮区域
 RECT region_setting_musicbkup;
 RECT region_setting_musicbkdown;
 RECT region_setting_musiceffup;
 RECT region_setting_musiceffdown;
-//关于我们
+
+// 关于我们
 RECT region_showus_return;
-//胜利
+
+// 胜利
 RECT region_win_next;
 RECT region_win_return;
+// 登录界面login
+RECT region_login_new;
+RECT region_login_delete;
+RECT region_login_return;
+
 
 // 定义场景对象
 Scene* game_scene = nullptr;
@@ -193,7 +220,9 @@ Scene* detail_scene = nullptr;
 Scene* rank_scene = nullptr;
 Scene* win_scene = nullptr;
 Scene* CG_scene = nullptr;
-Scene* showus_scene = nullptr;
+
+Scene* showdetail_scene = nullptr;
+Scene* login_scene = nullptr;
 
 SceneManager scene_manager;
 
@@ -249,7 +278,7 @@ void LoadImageAndAtlas()
 	loadimage(&img_death_background, _T("resources/game_over.png"));
 
 	// 导入成就背景
-	loadimage(&img_achievement_background, _T("resources/show_detail_background.png"));//achievement_background
+	loadimage(&img_achievement_background, _T("resources/achievement_background.png"));//achievement_background
 
 	//导入通关背景
 	loadimage(&img_ending_background, _T("resources/ending_1.png"));
@@ -258,18 +287,25 @@ void LoadImageAndAtlas()
 	loadimage(&img_win_background, _T("resources/TEMP_win_background.png"));
 
 	// 导入关于我们背景
-	loadimage(&img_showus_background, _T("resources/TEMP_showus_background.png"));
 
-	//导入游戏说明背景图
+	loadimage(&img_showdetail_background, _T("resources/TEMP_showus_background.png"));
+
+
+	// 导入游戏说明背景图
 	loadimage(&img_detail_background, _T("resources/detail_scene_background.jpg"));
 	loadimage(&img_ending_detail, _T("resources/ending_1.png"), 190, 190, false);
 	loadimage(&img_death_detail, _T("resources/game_over.png"), 190, 190, false);
 
-	//导入排行榜背景
+
+	// 导入排行榜背景
 	loadimage(&img_rank_background, _T("resources/rank_scene_background.png"));
 
-	//导入暂停界面背景
+
+	// 导入暂停界面背景
 	loadimage(&img_pause_background, _T("resources/pause_background.png"), 700, 700);
+
+	// 导入登录login界面背景
+	loadimage(&img_login_background, _T("resources/login_background.png"), 700, 700);
 
 	// 玩家默认图片
 	loadimage(&img_player_idle, _T("resources/player_idle_1.png"), PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -492,11 +528,12 @@ void LoadButton()
 
 	//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-	//暂停界面按钮
+//暂停界面按钮
 	const int PAUSE_MODE_BUTTON_WIDTH = 155;
 	const int PAUSE_MODE_BUTTON_HEIGHT = 60;
 
-	//设置返回游戏按钮范围
+	// 设置返回游戏按钮范围
+	// 设置返回游戏按钮范围
 	region_pause_backgame.left = 260;
 	region_pause_backgame.right = region_pause_backgame.left + PAUSE_MODE_BUTTON_WIDTH;
 	region_pause_backgame.top = 190;
@@ -530,20 +567,61 @@ void LoadButton()
 
 	// 成就模式按钮
 	const int ACHIEVEMENT_MODE_BUTTON_WIDTH = 130;
-	const int ACHIEVEMENT_MODE_BUTTON_HEIGHT = 60;
+	const int ACHIEVEMENT_MODE_BUTTON_HEIGHT = 50;
 
 
 	// 导入rtmenu(返回菜单)按键素材并且设置其范围
-	region_achievement_rtmenu.left = 250;
+
+	region_achievement_rtmenu.left = 470;
 	region_achievement_rtmenu.right = region_achievement_rtmenu.left + ACHIEVEMENT_MODE_BUTTON_WIDTH;
-	region_achievement_rtmenu.top = 350;
+
+	region_achievement_rtmenu.top = 470;
 	region_achievement_rtmenu.bottom = region_achievement_rtmenu.top + ACHIEVEMENT_MODE_BUTTON_HEIGHT;
 
 	//导入素材
-	btn_achievement_rtmenu = new AchievementReturnMenuButton(region_menu_achievement,
+
+	btn_achievement_rtmenu = new AchievementReturnMenuButton(region_achievement_rtmenu,
 		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), SELECT_MODE_BUTTON_WIDTH, SELECT_MODE_BUTTON_HEIGHT);
 
 	//导入detail(展示详细信息)
+
+	//--------------------------------------------------------------------------------------------------------------------------
+
+	// 登录界面按钮login
+	const int LOGIN_BUTTON_WIDTH = 130;
+	const int LOGIN_BUTTON_HEIGHT = 50;
+
+
+	// 导入新建存档按键素材并且设置其范围
+	region_login_new.left = 85;
+	region_login_new.right = region_login_new.left + ACHIEVEMENT_MODE_BUTTON_WIDTH;
+	region_login_new.top = 480;
+	region_login_new.bottom = region_login_new.top + ACHIEVEMENT_MODE_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_login_new = new LoginNewButton(region_login_new,
+		_T("resources/login_new_archive_idle.png"), _T("resources/login_new_archive_hovered.png"), _T("resources/login_new_archive_hovered.png"), LOGIN_BUTTON_WIDTH, LOGIN_BUTTON_HEIGHT);
+
+	
+	// 导入删除存档按键素材并且设置其范围
+	region_login_delete.left = 290;
+	region_login_delete.right = region_login_delete.left + ACHIEVEMENT_MODE_BUTTON_WIDTH;
+	region_login_delete.top = 480;
+	region_login_delete.bottom = region_login_delete.top + ACHIEVEMENT_MODE_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_login_delete = new LoginDeleteButton(region_login_delete,
+		_T("resources/login_delete_archive_idle.png"), _T("resources/login_delete_archive_hovered.png"), _T("resources/login_delete_archive_hovered.png"), LOGIN_BUTTON_WIDTH, LOGIN_BUTTON_HEIGHT);
+
+	// 导入返回菜单按键素材并且设置其范围
+	region_login_return.left = 505;
+	region_login_return.right = region_login_return.left + ACHIEVEMENT_MODE_BUTTON_WIDTH;
+	region_login_return.top = 480;
+	region_login_return.bottom = region_login_return.top + ACHIEVEMENT_MODE_BUTTON_HEIGHT;
+
+	// 导入素材
+	btn_login_return = new LoginReturnButton(region_login_return,
+		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), LOGIN_BUTTON_WIDTH, LOGIN_BUTTON_HEIGHT);
 }
 
 void LoadGameResources()
@@ -553,14 +631,17 @@ void LoadGameResources()
 
 	game_scene = new GameScene();
 	menu_scene = new MenuScene();
-	// achievement_scene = new AchievementScene();
+	
+	achievement_scene = new AchievementScene();
 	death_scene = new DeathScene();
-	// show_detail_scene = new ShowDetailScene();
+
+	showdetail_scene = new ShowDetailScene();
 	select_mode_scene = new SelectModeScene();
 	pause_scene = new PauseScene();
 	select_level_scene = new SelectLevelScene();
 	setup_scene = new SetUpScene();
-
+	// rank_scene = new RankScene();
+	login_scene = new LoginScene();
 
 	animation_player_left = new Animation();
 	animation_player_right = new Animation();

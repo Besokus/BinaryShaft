@@ -5,6 +5,8 @@ extern void PutImage(int x, int y, IMAGE* img);
 Button::Button(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTSTR path_img_pushed, int width, int height)
 {
 	region = rect;
+	this->height = height;
+	this->width = width;
 
 	loadimage(&img_idle, path_img_idle, width, height);
 	loadimage(&img_hovered, path_img_hovered, width, height);

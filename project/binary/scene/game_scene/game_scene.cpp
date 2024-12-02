@@ -61,7 +61,7 @@ void GameScene::OnEnter()
 	player->SetPosition(200, 0);
 
 	// 初始化道具信息
-	for (int i = 0;i<map_msg->item_choice.size();i++)
+	for (int i = 0;i < map_msg->item_choice.size();i++)
 	{
 		if (map_msg->item_choice[i])
 		{
@@ -148,8 +148,9 @@ void GameScene::OnUpdate()
 
 	if (!player->is_alive)
 	{
-		//player->is_alive = true;
-		//scene_manager.SwitchTo(SceneManager::SceneType::Death);
+
+		player->is_alive = true;
+		scene_manager.SwitchTo(SceneManager::SceneType::Death);
 	}
 }
 
@@ -168,7 +169,7 @@ void GameScene::OnDraw()
 	player->OnDraw();
 
 	//绘制道具
-	if(current_item!=nullptr)
+	if (current_item != nullptr)
 		current_item->OnDarw();
 
 	//绘制信息
@@ -262,7 +263,7 @@ void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 			}
 		}
 		// 生成位置
-		int generater_x = rand() % (500-100);
+		int generater_x = rand() % (500 - 100);
 		// { AC, WA, NULL, speed, bounce, MLE, TLE, CE }
 		switch (type)
 		{
@@ -298,6 +299,7 @@ void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 			break;
 		case 5://MLE
 			// 将生成的平台加入链表
+
 			platform_list.push_back(new MLEPlatform(img_MLE_platform, map_msg));
 			// 设置初始位置
 			platform_list.back()->SetPosition(generater_x, 720);
@@ -335,7 +337,8 @@ void GameScene::DeletePlatform(std::vector<Platform*>& platform_list)
 		Platform* platform = platform_list[i];
 		if (!platform->CheckExist())
 		{
-			// 将平台移出[链表
+
+			// 将平台移出链表
 			std::swap(platform_list[i], platform_list.back());
 			platform_list.pop_back();
 			// 清空内存

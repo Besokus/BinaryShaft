@@ -11,18 +11,7 @@
 
 class SelectModeScene : public Scene
 {
-
-private:
-
-
 public:
-	const int MODENUM = 2;
-
-	enum class ModeType {
-		normal,
-		challenge,
-	};
-
 	SelectModeScene() = default;
 	~SelectModeScene() = default;
 

@@ -18,6 +18,7 @@ private:
 	bool is_A_down = false;
 	bool is_D_down = false;
 
+
 public:
 	ShowDetailScene() = default;
 	~ShowDetailScene() = default;
