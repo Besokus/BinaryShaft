@@ -55,8 +55,8 @@ private:
 	IMAGE img_idle;
 	IMAGE img_hovered;
 	IMAGE img_pushed;
-	int width;
-	int height;
+	int width = 0;
+	int height = 0;
 
 protected:
 	virtual void OnClick() = 0;

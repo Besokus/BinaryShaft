@@ -1,14 +1,24 @@
 #pragma once
+
+/*
+	负责人:
+	功能:
+		1.
+		2.
+	示例:
+		1.
+*/
+
 #include "../scene/scene.h"
-#include "../scene_manager/scene_manager.h"
-#include "../../button/button/button.h"
 #include <iostream>	
-class ShowUsScene :public Scene
+
+class LoginScene :public Scene
 {
+
 private:
 
 public:
-	ShowUsScene() = default;
+	LoginScene() = default;
 
 	void OnEnter();
 
@@ -21,4 +31,3 @@ public:
 	void OnExit();
 
 };
-

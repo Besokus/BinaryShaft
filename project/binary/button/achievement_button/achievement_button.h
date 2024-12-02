@@ -28,7 +28,8 @@ public:
     ~AchievementDetailButton() = default;
 
 protected:
-    void OnClick() override {
+    void OnClick() override 
+    {
         // 这里可以添加查看成就详细信息的逻辑，比如打开一个对话框或切换到另一个界面显示详细信息
         // 假设我们有一个函数ShowAchievementDetail来显示详细信息
         //ShowAchievementDetail(achievementId_);

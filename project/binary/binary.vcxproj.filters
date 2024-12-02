@@ -157,14 +157,17 @@
     <Filter Include="头文件\button\showus_button">
       <UniqueIdentifier>{3da11b0e-840c-4ef7-8599-0e929539ab6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\scene\shouus_scene">
-      <UniqueIdentifier>{7882ea88-3473-4e74-98ca-e422c5525630}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\scene\win_scene">
       <UniqueIdentifier>{148c6338-f09f-4778-80d8-6b2a1694a4cd}</UniqueIdentifier>
     </Filter>
     <Filter Include="头文件\button\win_button">
       <UniqueIdentifier>{4d4f50c1-ede4-4d73-86c9-30b2826776de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\scene\login_scene">
+      <UniqueIdentifier>{8fe23144-9db3-4384-aea0-bddbaf7f4217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button\login_button">
+      <UniqueIdentifier>{879a5623-dee5-46e0-8673-a44fdf699d2c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -255,11 +258,14 @@
     <ClCompile Include="items\item_the_world\item_the_world.cpp">
       <Filter>头文件\items\item_the_world</Filter>
     </ClCompile>
-    <ClCompile Include="scene\shouus_scene\showus_scene.cpp">
-      <Filter>头文件\scene\shouus_scene</Filter>
-    </ClCompile>
     <ClCompile Include="scene\win_scene\win_scene.cpp">
       <Filter>头文件\scene\win_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="memory.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\login_scene\login_scene.cpp">
+      <Filter>头文件\scene\login_scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,11 +398,17 @@
     <ClInclude Include="button\win_butoon\win_button.h">
       <Filter>头文件\button\win_button</Filter>
     </ClInclude>
-    <ClInclude Include="scene\shouus_scene\shouus_scene.h">
-      <Filter>头文件\scene\shouus_scene</Filter>
-    </ClInclude>
     <ClInclude Include="scene\win_scene\win_scene.h">
       <Filter>头文件\scene\win_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\login_scene\login_scene.h">
+      <Filter>头文件\scene\login_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="data.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="button\login_button\login_button.h">
+      <Filter>头文件\button\login_button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

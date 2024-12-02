@@ -12,11 +12,13 @@ extern std::vector<Achievement*> achievement_list; // 假设这是存储所有成就的全局
 extern AchievementReturnMenuButton* btn_achievement_rtmenu;
 extern AchievementDetailButton* btn_achievement_detail;
 extern IMAGE img_achievement_background;
+
+
 void AchievementScene::OnEnter()
 {
-    //    // 初始化成就界面，可能包括加载成就数据或重置界面状态/
+    // 初始化成就界面，可能包括加载成就数据或重置界面状态/
     btn_achievement_rtmenu->OnEnter();
-    btn_achievement_detail->OnEnter();
+    //btn_achievement_detail->OnEnter();
 }
 //
 void AchievementScene::OnUpdate()
@@ -36,8 +38,10 @@ void AchievementScene::OnUpdate()
 
 void AchievementScene::OnDraw() {
     putimage(0, 0, &img_achievement_background);
+    
     btn_achievement_rtmenu->OnDraw();
-    btn_achievement_detail->OnDraw();
+    //btn_achievement_detail->OnDraw();
+
     //    // 绘制成就界面，展示已解锁的成就
     //    static TCHAR text[256];
     //    int y_offset = 10; // 初始的y坐标偏移量
@@ -61,9 +65,11 @@ void AchievementScene::OnDraw() {
 }
 //
 void AchievementScene::OnInput(const ExMessage& msg) {
-    btn_achievement_detail->OnInput(msg);
-    btn_achievement_detail->OnInput(msg);
-    //    // 处理用户输入，比如按键事件
+    btn_achievement_rtmenu->OnInput(msg);
+    
+    //btn_achievement_detail->OnInput(msg);
+    
+    // 处理用户输入，比如按键事件
     if (msg.message == WM_KEYDOWN)
     {
         switch (msg.vkcode)

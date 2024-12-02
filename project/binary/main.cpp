@@ -22,15 +22,20 @@ extern Scene* select_Level_scene;
 extern std::vector<Platform*> platform_list;
 
 extern void LoadGameResources();
+extern void ReadData();
+extern void WriteData();
 
 int main()
 {
 	ExMessage msg;
 	const int FPS = 144;
 
+	// 导入游戏素材资源
 	LoadGameResources();
+	// 读取游戏存储数据
+	ReadData();
 
-	initgraph(700, 700);
+	initgraph(700, 700, EX_SHOWCONSOLE);
 
 	// 初始化场景为菜单
 	scene_manager.SetCurrentScene(menu_scene);
@@ -66,6 +71,8 @@ int main()
 	}
 
 	EndBatchDraw();
+
+	WriteData();
 
 	return 0;
 }

@@ -15,7 +15,7 @@ public:
 protected:
 	void OnClick()
 	{
-		scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
+		scene_manager.SwitchTo(SceneManager::SceneType::Login);
 	}
 };
 

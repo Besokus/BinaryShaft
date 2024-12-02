@@ -5,8 +5,6 @@
 extern SceneManager scene_manager;
 extern IMAGE img_death_background;
 
-extern Player* player;
-
 void DeathScene::OnEnter()
 {
 	// 可以在这里初始化死亡界面的特定 资源或状态
@@ -15,12 +13,8 @@ void DeathScene::OnEnter()
 
 void DeathScene::OnUpdate()
 {
-	// 更新逻辑，比如倒计时到重启或主菜单
-	// 这里可以有一个简单的计时器，当长时间没有下一步操作时，直接跳到主菜单
-	// 感觉也可以不要
 
-	player->is_alive = true;
-	player->SetPosition(200, 10);
+
 }
 
 int DeathScene::GetPlayerScore()
@@ -42,17 +36,28 @@ void DeathScene::OnDraw()
 	//outtextxy(10, 30, text);
 	//outtextxy(10, 50, _T("按任意键返回主菜单"));
 	putimage(0, 0, &img_death_background);
+
+	// 记录函数调用次数,确保窗口只跳出一次
+	static int cnt = 0;
+	cnt++;
+	if (cnt == 1)
+	{
+		static TCHAR text[64];
+		_stprintf_s(text, _T("最终得分:%d !"), 114514);
+
+		MessageBox(GetHWnd(), text, _T("Game Over"), MB_OK);
+	}
+
 }
 
 void DeathScene::OnInput(const ExMessage& msg)
 {
-	// 处理输入，比如检测按键来切换到主菜单或其他场景
+
 	if (msg.message == WM_KEYUP)
 	{
-		flushmessage(-1);
 		// 切换到主菜单场景
-
-		//scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
+		scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
 	}
+
 
 }
