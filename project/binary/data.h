@@ -33,6 +33,12 @@ struct Data {
 
 	void UpdateAchievement()
 	{
+
+		// 0 自由落体          从底部脱离了这个世界
+		if (num_death >= 1)
+		{
+			unlocked_achievement[1] = true;
+		}
 		// 1 我是谁，我在哪     出栈(即第一次死亡)
 		if (num_death >= 1)
 		{

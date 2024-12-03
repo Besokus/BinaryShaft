@@ -42,6 +42,7 @@ void PauseScene::OnInput(const ExMessage& msg)
 	btn_pause_backgame->OnInput(msg);
 	btn_pause_backmenu->OnInput(msg);
 	btn_pause_setup->OnInput(msg);
+
 	switch (msg.vkcode)
 	{
 	case VK_ESCAPE:

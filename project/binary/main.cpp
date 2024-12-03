@@ -11,6 +11,9 @@
 // 去除GetTickCount()函数的警告
 #pragma warning(disable:28159)
 
+// mciSendString
+#pragma comment(lib,"Winmm.lib")
+
 extern bool running;
 
 extern SceneManager scene_manager;

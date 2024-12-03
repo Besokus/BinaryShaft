@@ -33,6 +33,17 @@ void SelectModeScene::OnInput(const ExMessage& msg)
 	btn_select_mode_normal->OnInput(msg);
 	btn_select_mode_challenge->OnInput(msg);
 	btn_select_mode_return->OnInput(msg);
+
+	if (msg.message == WM_KEYDOWN)
+	{
+		switch (msg.vkcode)
+		{
+		case VK_ESCAPE:
+			scene_manager.SwitchTo(SceneManager::SceneType::Login);
+			break;
+		}
+	}
+
 }
 
 void SelectModeScene::OnUpdate() 

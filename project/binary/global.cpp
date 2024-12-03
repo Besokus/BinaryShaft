@@ -310,8 +310,8 @@ void LoadImageAndAtlas()
 	{
 		TCHAR path_file[256];
 
-		_stprintf_s(path_file, _T("resources/achievement_%d.png"), i);
-		loadimage(&img_achievement[i], path_file, 100, 100);
+		_stprintf_s(path_file, _T("resources/achievement_%d.jpg"), i);
+		loadimage(&img_achievement[i], path_file, 150, 150);
 	}
 
 	// 玩家默认图片
@@ -631,6 +631,17 @@ void LoadButton()
 		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), LOGIN_BUTTON_WIDTH, LOGIN_BUTTON_HEIGHT);
 }
 
+void LoadMusic() 
+{
+	mciSendString(_T("open resources/bgm_menu_1.MP3 alias bgm_menu_1"), NULL, 0, NULL);
+
+	mciSendString(_T("open resources/bgm_normal_1.MP3 alias bgm_normal_1"), NULL, 0, NULL);
+
+	mciSendString(_T("open resources/bgm_ending_1.MP3 alias bgm_ending_1"), NULL, 0, NULL);
+
+	mciSendString(_T("open resources/bgm_challenge_1.MP3 alias bgm_challenge_1"), NULL, 0, NULL);
+}
+
 void LoadGameResources()
 {
 	// 导入字体资源
@@ -658,8 +669,11 @@ void LoadGameResources()
 
 	LoadImageAndAtlas();
 
+	LoadMusic();
+
 	animation_player_left->SetAtlas(&atlas_player_left);
 	animation_player_right->SetAtlas(&atlas_player_right);
 	animation_player_fall_idle->SetAtlas(&atlas_player_fall_idle);
 
 }
+
