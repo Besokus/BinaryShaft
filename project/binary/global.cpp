@@ -123,6 +123,9 @@ IMAGE img_SPEED_LEFT_platform;
 IMAGE img_TLE_platform;
 IMAGE img_MLE_platform;
 
+// 成就
+IMAGE img_achievement[20];
+
 // 定义图集对象
 Atlas atlas_player_left;
 Atlas atlas_player_right;
@@ -239,9 +242,6 @@ Player* player = nullptr;
 
 std::vector<Platform*> platform_list;
 
-// 成就
-//std::vector<Achievement*> achievement_list;
-
 //关卡数据
 struct Map_massage map_massage[11] =
 {
@@ -286,26 +286,33 @@ void LoadImageAndAtlas()
 	// 导入胜利背景
 	loadimage(&img_win_background, _T("resources/TEMP_win_background.png"));
 
-	// 导入关于我们背景
-
-	loadimage(&img_showdetail_background, _T("resources/TEMP_showus_background.png"));
-
 
 	// 导入游戏说明背景图
 	loadimage(&img_detail_background, _T("resources/detail_scene_background.jpg"));
-	loadimage(&img_ending_detail, _T("resources/ending_1.png"), 190, 190, false);
-	loadimage(&img_death_detail, _T("resources/game_over.png"), 190, 190, false);
 
+	// 导入游戏胜利背景
+	loadimage(&img_ending_detail, _T("resources/ending_1.png"), 190, 190, false);
+
+	// 导入游戏失败背景
+	loadimage(&img_death_detail, _T("resources/game_over.png"), 190, 190, false);
 
 	// 导入排行榜背景
 	loadimage(&img_rank_background, _T("resources/rank_scene_background.png"));
-
 
 	// 导入暂停界面背景
 	loadimage(&img_pause_background, _T("resources/pause_background.png"), 700, 700);
 
 	// 导入登录login界面背景
 	loadimage(&img_login_background, _T("resources/login_background.png"), 700, 700);
+
+	// 导入成就图片
+	for (int i = 0;i < 20;i++)
+	{
+		TCHAR path_file[256];
+
+		_stprintf_s(path_file, _T("resources/achievement_%d.png"), i);
+		loadimage(&img_achievement[i], path_file, 100, 100);
+	}
 
 	// 玩家默认图片
 	loadimage(&img_player_idle, _T("resources/player_idle_1.png"), PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -602,7 +609,7 @@ void LoadButton()
 	btn_login_new = new LoginNewButton(region_login_new,
 		_T("resources/login_new_archive_idle.png"), _T("resources/login_new_archive_hovered.png"), _T("resources/login_new_archive_hovered.png"), LOGIN_BUTTON_WIDTH, LOGIN_BUTTON_HEIGHT);
 
-	
+
 	// 导入删除存档按键素材并且设置其范围
 	region_login_delete.left = 290;
 	region_login_delete.right = region_login_delete.left + ACHIEVEMENT_MODE_BUTTON_WIDTH;
@@ -631,7 +638,7 @@ void LoadGameResources()
 
 	game_scene = new GameScene();
 	menu_scene = new MenuScene();
-	
+
 	achievement_scene = new AchievementScene();
 	death_scene = new DeathScene();
 

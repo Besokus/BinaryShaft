@@ -71,7 +71,8 @@ int main()
 	}
 
 	EndBatchDraw();
-
+	
+	// 写入游戏数据
 	WriteData();
 
 	return 0;
