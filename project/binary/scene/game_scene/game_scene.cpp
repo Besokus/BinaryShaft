@@ -61,6 +61,8 @@ void GameScene::OnEnter()
 	player->SetPosition(200, 0);
 
 	// 初始化道具信息
+	item_list.clear();
+	current_item = nullptr;
 	for (int i = 0;i < map_msg->item_choice.size();i++)
 	{
 		if (map_msg->item_choice[i])
@@ -93,6 +95,7 @@ void GameScene::OnEnter()
 	if (!item_list.empty())
 	{
 		current_item = *(item_list.begin());
+		current_item_num = 0;
 	}
 
 	// 重置平台参数
@@ -140,8 +143,9 @@ void GameScene::OnUpdate()
 
 	player->OnUpdate();
 
-	if (current_item != nullptr)
-		current_item->OnUpdate();
+	if (!map_msg->item_choice.empty())
+		if (current_item != nullptr)
+			current_item->OnUpdate();
 
 	// 删除出界的平台
 	DeletePlatform(platform_list);
@@ -169,8 +173,9 @@ void GameScene::OnDraw()
 	player->OnDraw();
 
 	//绘制道具
-	if (current_item != nullptr)
-		current_item->OnDarw();
+	if (!map_msg->item_choice.empty())
+		if (current_item != nullptr)
+			current_item->OnDarw();
 
 	//绘制信息
 	map_msg->OnDraw();
@@ -185,8 +190,9 @@ void GameScene::OnInput(const ExMessage& msg)
 	player->OnInput(msg);
 
 	//道具输入
-	if (current_item != nullptr)
-		current_item->OnInput(msg);
+	if (!map_msg->item_choice.empty())
+		if (current_item != nullptr)
+			current_item->OnInput(msg);
 
 	// 界面跳转
 	if (msg.message == WM_KEYDOWN)
@@ -220,24 +226,29 @@ void GameScene::OnExit()
 {
 	delete player;
 	delete map_msg;
-	for (auto i = item_list.begin(); i != item_list.end(); i++)
+	while (!item_list.empty())
 	{
-		delete* i;
+		auto x = item_list.back();
+		item_list.pop_back();
+		delete x;
+		current_item = nullptr;
 	}
 }
 
 void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 {
-	// 这里等我回来改
-	// 这里等我回来改	
-	// 这里等我回来改
-	// 这里等我回来改
-	// 这里等我回来改
-	// 这里等我回来改
 	const int MOD = 100;
 	// 间隔一段时间后更新平台
 	// INTERVAL的值可能需要随平台速度改变
-	const int INTERVAL = 100;
+	int INTERVAL = 100;
+	if (map_msg->speed > 0)
+	{
+		INTERVAL = (int)(100 / map_msg->speed);
+	}
+	else if (map_msg->speed <= 0)
+	{
+		INTERVAL = 2147483647;
+	}
 	static int counter = 0;
 
 	if ((++counter) % INTERVAL == 0)
@@ -293,13 +304,12 @@ void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 			break;
 		case 4://bounce
 			// 将生成的平台加入链表
-			platform_list.push_back(new bounce_Platform(img_NULL_platform, map_msg));//有图了再说
+			platform_list.push_back(new bounce_Platform(img_SPEED_LEFT_platform, map_msg));//有图了再说
 			// 设置初始位置
 			platform_list.back()->SetPosition(generater_x, 720);
 			break;
 		case 5://MLE
 			// 将生成的平台加入链表
-
 			platform_list.push_back(new MLEPlatform(img_MLE_platform, map_msg));
 			// 设置初始位置
 			platform_list.back()->SetPosition(generater_x, 720);

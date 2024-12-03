@@ -254,10 +254,10 @@ struct Map_massage map_massage[11] =
 	{1.3f, 200, {40,20,10,5,5,5,5,10}, {0,0,1,0,1,1} },
 	{1.3f, 200, {40,20,5,5,5,0,24,1}, {0,1,0,0,1,1} },
 	{1.5f, 250, {40,20,5,5,5,24,0,1}, {1,0,0,0,1,1} },
-	{1.5f, 250, {30,20,10,10,10,10,10,0}, {0,1,1,1,0,0} },
-	{1.5f, 300, {30,20,10,10,10,0,0,20}, {0,0,1,1,0,1} },
-	{1.8f, 320, {25,25,5,5,5,15,15,5}, {1,1,0,0,0,1} },
-	{1.0f, 2147483647, {40,20,20,10,10,0,0,0}, {0,0,0,0,0,0} }
+	{1.5f, 250, {35,20,10,10,10,10,5,0}, {0,1,1,1,0,0} },
+	{1.5f, 300, {35,15,10,10,10,0,0,20}, {0,0,1,1,0,1} },
+	{1.8f, 320, {35,21,5,5,5,12,12,5}, {1,1,0,0,0,1} },
+	{1.3f, 2147483647, {35,21,10,6,6,9,9,4}, {0,0,0,0,0,0} }
 };
 
 void LoadImageAndAtlas()
@@ -287,7 +287,6 @@ void LoadImageAndAtlas()
 	loadimage(&img_win_background, _T("resources/TEMP_win_background.png"));
 
 	// 导入关于我们背景
-
 	loadimage(&img_showdetail_background, _T("resources/TEMP_showus_background.png"));
 
 
@@ -323,7 +322,6 @@ void LoadImageAndAtlas()
 
 	// 阿伟助我道具图集
 	atlas_item_help.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
-
 
 	loadimage(&img_NULL_platform, _T("resources/NULL.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
 	loadimage(&img_AC_platform, _T("resources/AC.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);

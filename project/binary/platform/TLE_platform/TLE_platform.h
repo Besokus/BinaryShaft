@@ -1,8 +1,6 @@
 #pragma once
 #include "../platform/platform.h"
 
-extern IMAGE img_NULL_platform;
-
 class TLEPlatform :public Platform
 {
 public:
@@ -14,8 +12,39 @@ public:
 		2.如果方向不为0，缩小0.2的速度，不低于0.6
 		3.修改贴图为NULL，通过标记，以上两个效果总共只触发一次（不是两个各一次，只有一次）
 	*/
+	//触发标记
+	bool is_platform = false;
 	void PlatformChange(Player* player, int direction = 0)
 	{
-		
+		//检验标记
+		if (is_platform == false)
+		{
+			if (is_visited)
+			{
+				//修改贴图为NULL
+				img_platform = img_NULL_platform;
+				//如果为0分数-2，修改地图speed的大小，增加0.2
+				if (!direction)
+				{
+					map_msg->score -= 2;
+					map_msg->speed += 0.2f;
+					player->velocity.y -= 0.2f;
+				}
+				//如果不为0缩小0.2的速度，不低于0.6
+				else
+				{
+					if (map_msg->speed >= 0.8)
+					{
+						map_msg->speed -= 0.2f;
+					}
+					else
+					{
+						map_msg->speed = 0.6f;
+					}
+				}
+				//通过标记使只能触发一次
+				is_platform = true;
+			}
+		}
 	}
 };

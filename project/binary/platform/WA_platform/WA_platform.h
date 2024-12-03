@@ -13,8 +13,32 @@ public:
 		1.改变贴图为NULL
 		2.玩家血量-1，分数-4，通过标记使只能触发一次
 	*/
+	//触发标记
+	bool is_platform = false;
 	void PlatformChange(Player* player, int direction = 0)
 	{
-		
+		//检验标记
+		if (is_platform == false)
+		{
+			if (is_visited)
+			{
+				//修改贴图为NULL
+				img_platform = img_NULL_platform;
+				if (!direction)
+				{				
+					//玩家血量-1，分数-4
+					map_msg->score -= 4;
+					if(player->health>0)
+					player->health -= 1;
+				}
+				else
+				{
+					if(player->health<12)
+					player->health += 1;
+				}
+				//通过标记使只能触发一次
+				is_platform = true;
+			}
+		}
 	}
 };
