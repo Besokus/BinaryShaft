@@ -37,6 +37,11 @@ public:
 		return !istriggered && !is_cding;
 	}
 
+	bool is_in_duration()
+	{
+		return istriggered;
+	}
+
 	void OnInput(const ExMessage& msg);
 
 	void DrawBlackOverlay(int x, int y, int width, int height, float overlay_ratio);

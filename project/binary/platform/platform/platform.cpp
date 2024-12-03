@@ -112,6 +112,11 @@ void Platform::CheckCollison(Player* player)	//Åö×²¼ì²â
 		if (player_right-2>shape.left&&player_left+2<shape.right&&player_top + 1 >= shape.top)
 		{
 			player->velocity.y = 1;
+			if (map_msg->speed < 0)
+			{
+				player->velocity.y = 3;
+				player->position.y -= 2;
+			}
 			player->is_jumping = false;
 			is_visited = true;
 			this->PlatformChange(player, 1);

@@ -40,9 +40,11 @@ void item::OnInput(const ExMessage& msg)
 		case 'Q':
 		case 'e':
 		case 'E':
-			if(this->id!=5)
-				if(!istriggered&&!is_cding)
+			if (this->id != 5)
+			{
+				if (!istriggered && !is_cding)
 					this->triggering();
+			}
 			break;
 		}
 	}

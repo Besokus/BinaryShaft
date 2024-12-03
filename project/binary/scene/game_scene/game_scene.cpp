@@ -160,6 +160,14 @@ void GameScene::OnUpdate()
 	// É¾³ı³ö½çµÄÆ½Ì¨
 	DeletePlatform(platform_list);
 
+	//ÅĞ¶ÏÊ¤Àû
+	if (map_msg->score >= map_msg->target_score)
+	{
+		scene_manager.SwitchTo(SceneManager::SceneType::Win);
+	}
+
+	//ÅĞ¶ÏËÀÍö
+	bool flag = 1;
 	if (!player->is_alive)
 	{
 		if (this->map_msg->item_choice[4])
@@ -169,14 +177,23 @@ void GameScene::OnUpdate()
 				if ((*i)->get_id() == 5)
 				{
 					if ((*i)->is_ready())
+					{
 						(*i)->triggering();
+						player->is_alive = true;
+						flag = 0;
+					}
 					else
+					{
 						break;
+					}
 				}
 			}
 		}
-		player->is_alive = true;
-		scene_manager.SwitchTo(SceneManager::SceneType::Death);
+		if (flag)
+		{
+			pause_back = 0;
+			scene_manager.SwitchTo(SceneManager::SceneType::Death);
+		}
 	}
 }
 
@@ -238,8 +255,11 @@ void GameScene::OnInput(const ExMessage& msg)
 		case VK_CONTROL:
 			if (!item_list.empty())
 			{
-				current_item_num = (current_item_num + 1) % item_list.size();
-				current_item = item_list[current_item_num];
+				if (!current_item->is_in_duration())
+				{
+					current_item_num = (current_item_num + 1) % item_list.size();
+					current_item = item_list[current_item_num];
+				}
 			}
 			break;
 		}

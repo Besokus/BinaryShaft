@@ -9,7 +9,7 @@
 */
 item_the_world::item_the_world(Player* player, Map_Msg* map_msg)
 {
-	this->id = 5;
+	this->id = 6;
 	cd = 20 * 60;
 	time_keeper = 0;
 	duration = 5 * 60;
