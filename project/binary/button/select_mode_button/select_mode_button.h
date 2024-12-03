@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../button/button.h"
+extern int level;
 
 // ÆÕÍ¨Ä£Ê½
 class SelectModeNormalButton :public Button
@@ -29,7 +30,8 @@ public:
 protected:
 	void OnClick()
 	{
-		scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
+		level = 10;
+		scene_manager.SwitchTo(SceneManager::SceneType::Game);
 	}
 };
 

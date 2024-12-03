@@ -13,6 +13,8 @@ extern MusicBKDown* btn_musicbkdown;
 extern MusicEFUP* btn_musiceffup;
 extern MusicEFDown* btn_musiceffdown;
 
+extern bool pause_back;
+
 //需要的单张图片
 //IMAGE img_set;
 IMAGE img_setting_bk;
@@ -93,7 +95,14 @@ void SetUpScene::OnInput(const ExMessage& msg)
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
 	{
 		printf("EXIT\n");
-		scene_manager.SwitchTo(SceneManager::SceneType::Menu);
+		if (pause_back)
+		{
+			scene_manager.SwitchTo(SceneManager::SceneType::Pause);
+		}
+		else
+		{
+			scene_manager.SwitchTo(SceneManager::SceneType::Menu);
+		}
 	}
 }
 

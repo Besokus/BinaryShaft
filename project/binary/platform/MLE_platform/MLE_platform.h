@@ -21,8 +21,6 @@ public:
 		{
 			//修改贴图为NULL
 			img_platform = img_NULL_platform;
-			//分数-2
-			map_msg->score -= 2;
 			//如果为0修改地图limit的范围，左右各缩小10否则加10不超过（0，550）
 			if (direction)
 			{
@@ -30,6 +28,8 @@ public:
 				{
 					map_msg->left_limit -= 20;
 					map_msg->right_limit += 20;
+					//分数+1
+					map_msg->score += 1;
 				}
 			}
 			else
@@ -38,6 +38,8 @@ public:
 				{
 					map_msg->left_limit += 20;
 					map_msg->right_limit -= 20;
+					//分数-2
+					map_msg->score -= 2;
 				}
 			}
 			//通过标记使只能触发一次

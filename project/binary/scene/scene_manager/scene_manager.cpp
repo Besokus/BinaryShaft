@@ -23,12 +23,6 @@ void SceneManager::SetCurrentScene(Scene* scene)
 // 实现场景间的切换
 void SceneManager::SwitchTo(SceneType type)
 {
-	if (current_scene == pause_scene && type == SceneType::Game)
-	{
-		current_scene = game_scene;
-		return;
-	}
-
 	// 退出旧场景
 	current_scene->OnExit();
 	// 选择新场景

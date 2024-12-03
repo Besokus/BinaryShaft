@@ -1,6 +1,7 @@
 #pragma once
 #include "../button/button.h"
 
+extern bool pause_back;
 
 //∑µªÿ”Œœ∑
 class PauseBackGameButton :public Button
@@ -43,6 +44,7 @@ public:
 protected:
 	void OnClick()
 	{
+		pause_back = false;
 		scene_manager.SwitchTo(SceneManager::SceneType::Menu);
 	}
 };

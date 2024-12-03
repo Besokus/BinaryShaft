@@ -28,7 +28,7 @@ public:
 	const float gravity = 0.5f;				// 设定重力加速度
 	const float acceleration_x = 0.2f;
 	const int delta = 10;						// 设定间隔时间
-	const float max_speed_y = 10;                //最高y轴速度
+	float max_speed_y = 10;                //最高y轴速度
 public:
 	Animation* current_animation = nullptr;
 

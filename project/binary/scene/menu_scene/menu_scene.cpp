@@ -53,7 +53,8 @@ void MenuScene::OnInput(const ExMessage& msg)
 
 	if (msg.message == WM_KEYDOWN)
 	{
-
+		if(msg.vkcode==VK_ESCAPE)
+			running = false;
 	}
 }
 

@@ -59,5 +59,23 @@ public:
 			line(left_limit, 0, left_limit, 700);
 			line(right_limit - 50, 0, right_limit - 50, 700);
 		}
+		else
+		{
+			TCHAR level_msg[64];
+			_stprintf_s(level_msg, _T("挑战模式！！"));
+			TCHAR target_msg[64];
+			_stprintf_s(target_msg, _T("目标分数：无尽"));
+			TCHAR score_msg[64];
+			_stprintf_s(score_msg, _T("当前分数：%d"), score);
+			TCHAR speed_msg[64];
+			_stprintf_s(speed_msg, _T("当前速度：x%.2f"), speed);
+			outtextxy(530, 250, level_msg);
+			outtextxy(530, 300, target_msg);
+			outtextxy(530, 350, score_msg);
+			outtextxy(530, 400, speed_msg);
+			setlinecolor(RGB(0, 0, 255));
+			line(left_limit, 0, left_limit, 700);
+			line(right_limit - 50, 0, right_limit - 50, 700);
+		}
 	}
 };

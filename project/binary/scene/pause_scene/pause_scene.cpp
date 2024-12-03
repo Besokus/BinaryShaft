@@ -42,13 +42,15 @@ void PauseScene::OnInput(const ExMessage& msg)
 	btn_pause_backgame->OnInput(msg);
 	btn_pause_backmenu->OnInput(msg);
 	btn_pause_setup->OnInput(msg);
-	switch (msg.vkcode)
+	if (msg.message == WM_KEYDOWN)
 	{
-	case VK_ESCAPE:
-		scene_manager.SwitchTo(SceneManager::SceneType::Game);
-		break;
+		switch (msg.vkcode)
+		{
+		case VK_ESCAPE:
+			scene_manager.SwitchTo(SceneManager::SceneType::Game);
+			break;
+		}
 	}
-
 }
 
 void PauseScene::OnExit()

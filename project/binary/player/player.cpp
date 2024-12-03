@@ -63,6 +63,10 @@ void Player::OnUpdate()
 			this->down_platform->is_on_platform = false;
 			this->down_platform = nullptr;
 		}
+		else
+		{
+			down_platform->PlatformChange(this);
+		}
 	}
 	else//如果没有则遍历
 	{
@@ -111,6 +115,10 @@ void Player::OnDraw()
 	}
 
 	// 绘制血量
+	if (health > 12)
+	{
+		health = 12;
+	}
 	if (health <= 6 && health > 0)
 	{
 		for (int i = 0; i < health; i++)
@@ -340,8 +348,10 @@ void Player::CheckAlive()
 {
 	if (position.y < 0 || position.y>700)
 	{
-
 		is_alive = false;
-
+	}
+	if (health < 1)
+	{
+		is_alive = false;
 	}
 }

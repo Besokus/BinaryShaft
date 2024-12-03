@@ -135,13 +135,17 @@ void Platform::CheckCollison(Player* player)	//Åö×²¼ì²â
 
 bool Platform::CheckLeave(Player* player)
 {
-	float player_bottom = player->position.y;
-	float player_top = player->position.y + player->size.y;
-	float player_left = player->position.x;
-	float player_right = player->position.x + player->size.x;
-	if (player_left > shape.right || player_right < shape.left || player_bottom>shape.top)
+	if (player != nullptr)
 	{
-		return true;
+		float player_bottom = player->position.y;
+		float player_top = player->position.y + player->size.y;
+		float player_left = player->position.x;
+		float player_right = player->position.x + player->size.x;
+		if (player_left > shape.right || player_right < shape.left || player_bottom>shape.top)
+		{
+			return true;
+		}
+		return false;
 	}
 	return false;
 }

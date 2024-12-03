@@ -64,12 +64,15 @@ extern const int PAGE_NUM = 10;
 // 定义bool变量
 bool running = true;	// 游戏运行
 bool is_debug = false;  // 调试模式
-
+bool pause_back = false;// 游戏界面的暂停后返回
 
 // 定义游戏全局参数
 int level = 0;          //关卡数
 
 int page = 0;           //游戏说明页数
+
+Map_Msg* static_map = nullptr;
+Player* static_player = nullptr;
 
 
 // 定义图片对象
@@ -123,14 +126,20 @@ IMAGE img_SPEED_LEFT_platform;
 IMAGE img_TLE_platform;
 IMAGE img_MLE_platform;
 
+//道具
+IMAGE image_item_carefully_BBQ;
+IMAGE image_item_ctrl_Z;
+IMAGE image_item_helpme_awei;
+IMAGE image_item_hiraijin;
+IMAGE image_item_once_again;
+IMAGE image_item_the_world;
+IMAGE item_hiraijin_sign;
+
 // 定义图集对象
 Atlas atlas_player_left;
 Atlas atlas_player_right;
 Atlas atlas_player_fall_idle;
 Atlas atlas_CG;
-
-// 道具图集
-Atlas atlas_item_help;
 
 // 定义按钮对象
 // 菜单
@@ -231,9 +240,6 @@ Animation* animation_player_right = nullptr;
 Animation* animation_player_idle = nullptr;
 Animation* animation_player_fall_idle = nullptr;
 
-// 定义玩家对象
-Player* player = nullptr;
-
 // 定义平台对象
 // Platform 
 
@@ -310,6 +316,15 @@ void LoadImageAndAtlas()
 	loadimage(&img_player_idle, _T("resources/player_idle_1.png"), PLAYER_WIDTH, PLAYER_HEIGHT);
 	loadimage(&img_player_health, _T("resources/player_health.png"), 16, 16);
 
+	// 道具图片
+	loadimage(&image_item_carefully_BBQ, _T("resources/image_item_carefully_BBQ.png"), 100, 100);
+	loadimage(&image_item_ctrl_Z, _T("resources/image_item_ctrl_Z.png"), 100, 100);
+	loadimage(&image_item_helpme_awei, _T("resources/image_item_helpme_awei.png"), 100, 100);
+	loadimage(&image_item_hiraijin, _T("resources/image_item_hiraijin.png"), 100, 100);
+	loadimage(&image_item_once_again, _T("resources/image_item_once_again.png"), 100, 100);
+	loadimage(&image_item_the_world, _T("resources/image_item_the_world.png"), 100, 100);
+	loadimage(&item_hiraijin_sign, _T("resources/item_hiraijin_sign.png"));
+
 	// 玩家向左图集
 	atlas_player_left.LoadFromFile(_T("resources/left_walk_%d.png"), 6);
 	// 玩家向右图集
@@ -319,9 +334,6 @@ void LoadImageAndAtlas()
 
 	// CG图集
 	atlas_CG.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
-
-	// 阿伟助我道具图集
-	atlas_item_help.LoadFromFile(_T("resources/idle_fall_%d.png"), 5);
 
 	loadimage(&img_NULL_platform, _T("resources/NULL.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);
 	loadimage(&img_AC_platform, _T("resources/AC.png"), PLATFORM_WIDTH, PLATFORM_HEIGHT);

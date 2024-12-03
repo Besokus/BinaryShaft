@@ -24,6 +24,10 @@
 extern bool is_debug;
 extern int level;
 
+extern bool pause_back;// 游戏界面的暂停后返回
+extern Map_Msg* static_map;
+extern Player* static_player;
+
 extern IMAGE img_menu_background;
 extern IMAGE img_game_background_1;
 
@@ -52,66 +56,68 @@ void GameScene::OnEnter()
 {
 	// 重置随机数种子
 	srand((unsigned)time(NULL));
-
-	// 初始化关卡信息
-	map_msg = new Map_Msg(level);
-
-	// 设置玩家初始位置
-	player = new Player(map_msg);
-	player->SetPosition(200, 0);
-
-	// 初始化道具信息
-	item_list.clear();
-	current_item = nullptr;
-	for (int i = 0;i < map_msg->item_choice.size();i++)
+	if (!pause_back)
 	{
-		if (map_msg->item_choice[i])
+		// 初始化关卡信息
+		map_msg = new Map_Msg(level);
+
+		// 设置玩家初始位置
+		player = new Player(map_msg);
+		player->SetPosition(200, 0);
+
+		// 初始化道具信息
+		item_list.clear();
+		current_item = nullptr;
+		for (int i = 0; i < map_msg->item_choice.size(); i++)
 		{
-			switch (i)
+			if (map_msg->item_choice[i])
 			{
-			case 0:
-				item_list.push_back(new item_carefully_BBQ(player, map_msg));
-				break;
-			case 1:
-				item_list.push_back(new item_ctrl_Z(player, map_msg));
-				break;
-			case 2:
-				item_list.push_back(new item_helpme_awei(player, map_msg));
-				break;
-			case 3:
-				item_list.push_back(new item_hiraijin(player, map_msg));
-				break;
-			case 4:
-				item_list.push_back(new item_once_again(player, map_msg));
-				break;
-			case 5:
-				item_list.push_back(new item_the_world(player, map_msg));
-				break;
-			default:
-				break;
+				switch (i)
+				{
+				case 0:
+					item_list.push_back(new item_carefully_BBQ(player, map_msg));
+					break;
+				case 1:
+					item_list.push_back(new item_ctrl_Z(player, map_msg));
+					break;
+				case 2:
+					item_list.push_back(new item_helpme_awei(player, map_msg));
+					break;
+				case 3:
+					item_list.push_back(new item_hiraijin(player, map_msg));
+					break;
+				case 4:
+					item_list.push_back(new item_once_again(player, map_msg));
+					break;
+				case 5:
+					item_list.push_back(new item_the_world(player, map_msg));
+					break;
+				default:
+					break;
+				}
 			}
 		}
-	}
-	if (!item_list.empty())
-	{
-		current_item = *(item_list.begin());
-		current_item_num = 0;
-	}
+		if (!item_list.empty())
+		{
+			current_item = *(item_list.begin());
+			current_item_num = 0;
+		}
 
-	// 重置平台参数
-	platform_list.clear();
+		// 重置平台参数
+		platform_list.clear();
 
-	// 放置初始的几个平台
-	platform_list.push_back(new ACPlatform(img_AC_platform, map_msg));
-	platform_list.back()->SetPosition(0, 514);
-	platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
-	platform_list.back()->SetPosition(114, 414);
-	platform_list.push_back(new WAPlatform(img_WA_platform, map_msg));
-	platform_list.back()->SetPosition(100, 314);
-	platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
-	platform_list.back()->SetPosition(230, 214);
-	platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
-	platform_list.back()->SetPosition(214, 114);
+		// 放置初始的几个平台
+		platform_list.push_back(new ACPlatform(img_AC_platform, map_msg));
+		platform_list.back()->SetPosition(0, 514);
+		platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
+		platform_list.back()->SetPosition(114, 414);
+		platform_list.push_back(new WAPlatform(img_WA_platform, map_msg));
+		platform_list.back()->SetPosition(100, 314);
+		platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
+		platform_list.back()->SetPosition(230, 214);
+		platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
+		platform_list.back()->SetPosition(214, 114);
+	}
 }
 
 // 更新游戏数据
@@ -142,17 +148,33 @@ void GameScene::OnUpdate()
 	}
 
 	player->OnUpdate();
-
-	if (!map_msg->item_choice.empty())
-		if (current_item != nullptr)
-			current_item->OnUpdate();
+	
+	if (!item_list.empty())
+	{
+		for (auto i = item_list.begin(); i != item_list.end(); i++)
+		{
+			(*i)->OnUpdate();
+		}
+	}
 
 	// 删除出界的平台
 	DeletePlatform(platform_list);
 
 	if (!player->is_alive)
 	{
-
+		if (this->map_msg->item_choice[4])
+		{
+			for (auto i = item_list.begin(); i != item_list.end(); i++)
+			{
+				if ((*i)->get_id() == 5)
+				{
+					if ((*i)->is_ready())
+						(*i)->triggering();
+					else
+						break;
+				}
+			}
+		}
 		player->is_alive = true;
 		scene_manager.SwitchTo(SceneManager::SceneType::Death);
 	}
@@ -173,9 +195,13 @@ void GameScene::OnDraw()
 	player->OnDraw();
 
 	//绘制道具
-	if (!map_msg->item_choice.empty())
+	if (!item_list.empty())
+	{
 		if (current_item != nullptr)
+		{
 			current_item->OnDarw();
+		}
+	}
 
 	//绘制信息
 	map_msg->OnDraw();
@@ -199,11 +225,9 @@ void GameScene::OnInput(const ExMessage& msg)
 	{
 		switch (msg.vkcode)
 		{
-		case 'P':
-			scene_manager.SwitchTo(SceneManager::SceneType::Pause);
-			break;
 		case VK_ESCAPE:
-			scene_manager.SwitchTo(SceneManager::SceneType::Menu);
+			pause_back = true;
+			scene_manager.SwitchTo(SceneManager::SceneType::Pause);
 			break;
 		case 'Z':
 			if (is_debug)
@@ -224,14 +248,17 @@ void GameScene::OnInput(const ExMessage& msg)
 
 void GameScene::OnExit()
 {
-	delete player;
-	delete map_msg;
-	while (!item_list.empty())
+	if (!pause_back)
 	{
-		auto x = item_list.back();
-		item_list.pop_back();
-		delete x;
-		current_item = nullptr;
+		delete player;
+		delete map_msg;
+		while (!item_list.empty())
+		{
+			auto x = item_list.back();
+			item_list.pop_back();
+			delete x;
+			current_item = nullptr;
+		}
 	}
 }
 
