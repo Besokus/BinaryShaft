@@ -38,13 +38,14 @@ void LoginScene::OnDraw()
 		settextstyle(30, 0, _T("IPix"));
 
 		static TCHAR text1[64];
-		if(current_data!=nullptr)
+
+		if (current_data != nullptr)
 		{
 			if (*current_data == data_list[i])
 			{
 				settextcolor(RGB(255, 255, 0));
 			}
-			else 
+			else
 			{
 				settextcolor(RGB(255, 255, 255));
 			}
@@ -59,6 +60,18 @@ void LoginScene::OnDraw()
 		_stprintf_s(text2, _T("第%d关"), data_list[i].unlocked_level);
 		outtextxy(320, 255 + i * 50, text2);
 
+
+		int cnt = 0;
+		for (int j = 0;j < 12;j++)
+		{
+			if (data_list[i].unlocked_achievement[j])
+				cnt++;
+		}
+
+		static TCHAR text3[64];
+		_stprintf_s(text3, _T("%d/12"), cnt);
+		outtextxy(520, 255 + i * 50, text3);
+
 		settextcolor(RGB(255, 255, 255));
 	}
 
@@ -72,6 +85,7 @@ void LoginScene::OnInput(const ExMessage& msg)
 	btn_login_new->OnInput(msg);
 	btn_login_delete->OnInput(msg);
 	btn_login_return->OnInput(msg);
+
 
 	if (msg.message == WM_KEYDOWN)
 	{
@@ -108,11 +122,11 @@ void LoginScene::OnInput(const ExMessage& msg)
 			}
 			break;
 		case VK_RETURN:
-			if (current_data) 
+			if (current_data)
 			{
 				scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
 			}
-			else 
+			else
 			{
 				static TCHAR text[64];
 				_stprintf_s(text, _T("请选择玩家!"));
@@ -126,6 +140,40 @@ void LoginScene::OnInput(const ExMessage& msg)
 		}
 
 	}
+
+	//320 255+50
+	if (msg.message == WM_MOUSEMOVE || msg.message == WM_LBUTTONDOWN)
+	{
+		if (msg.y >= 255 && msg.y <= 255 + 50)
+		{
+			if (data_list.size() >= 1)
+				current_data = &data_list[0];
+			if (msg.message == WM_LBUTTONDOWN)
+			{
+				scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
+			}
+
+		}
+		if (msg.y >= 255 + 50 && msg.y <= 255 + 50 * 2)
+		{
+			if (data_list.size() >= 2)
+				current_data = &data_list[1];
+			if (msg.message == WM_LBUTTONDOWN)
+			{
+				scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
+			}
+		}
+		if (msg.y >= 255 + 50 * 2 && msg.y <= 255 + 50 * 3)
+		{
+			if (data_list.size() >= 3)
+				current_data = &data_list[2];
+			if (msg.message == WM_LBUTTONDOWN)
+			{
+				scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
+			}
+		}
+	}
+
 }
 
 void LoginScene::OnExit()

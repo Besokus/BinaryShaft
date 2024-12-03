@@ -26,7 +26,6 @@ void SelectLevelScene::OnDraw()
 	outtextxy(205, 190, _T("关卡"));
 	outtextxy(545, 190, _T("说明"));
 
-	outtextxy(60, 410, _T("Enter开始  Esc返回"));
 
 	if (is_A_down)
 	{
@@ -35,7 +34,7 @@ void SelectLevelScene::OnDraw()
 		outtextxy(150, 290, _T("<"));
 		settextcolor(RGB(255, 255, 255));
 	}
-	else 
+	else
 	{
 		outtextxy(100, 290, _T("A"));
 		outtextxy(150, 290, _T("<"));
@@ -48,13 +47,33 @@ void SelectLevelScene::OnDraw()
 		outtextxy(290, 290, _T(">"));
 		settextcolor(RGB(255, 255, 255));
 	}
-	else 
+	else
 	{
 		outtextxy(340, 290, _T("D"));
 		outtextxy(290, 290, _T(">"));
 	}
 
+	if (is_enter_down) 
+	{
+		settextcolor(RGB(255, 255, 0));
+		outtextxy(80, 410, _T("开始"));
+		settextcolor(RGB(255, 255, 255));
+	}
+	else 
+	{
+		outtextxy(80, 410, _T("开始"));
+	}
 
+	if (is_esc_down)
+	{
+		settextcolor(RGB(255, 255, 0));
+		outtextxy(300, 410, _T("返回"));
+		settextcolor(RGB(255, 255, 255));
+	}
+	else
+	{
+		outtextxy(300, 410, _T("返回"));
+	}
 
 	static TCHAR text[64];
 	_stprintf_s(text, _T("%d"), level + 1);
@@ -122,6 +141,63 @@ void SelectLevelScene::OnInput(const ExMessage& msg)
 		case 'D':
 			is_D_down = false;
 			break;
+		}
+	}
+
+	if (msg.message == WM_MOUSEMOVE || msg.message == WM_LBUTTONDOWN)
+	{
+		if (msg.x <= 340 + 30 * 2 && msg.x >= 290 && msg.y >= 290 && msg.y <= 290 + 30)
+		{
+			is_D_down = true;
+			if (msg.message == WM_LBUTTONDOWN)
+			{
+				level = (level + 1) % LEVEL_NUM;
+			}
+		}
+		else
+		{
+			is_D_down = false;
+		}
+
+		if (msg.x <= 150 + 30 * 2 && msg.x >= 100 && msg.y >= 290 && msg.y <= 290 + 30)
+		{
+			is_A_down = true;
+			if (msg.message == WM_LBUTTONDOWN)
+			{
+				level = (level - 1 + LEVEL_NUM) % LEVEL_NUM;
+			}
+		}
+		else
+		{
+			is_A_down = false;
+		}
+
+
+		if (msg.x <= 80 + 30 * 2 && msg.x >= 80 && msg.y >= 410 && msg.y <= 410 + 30)
+		{
+			is_enter_down = true;
+			if (msg.message == WM_LBUTTONDOWN)
+			{
+				scene_manager.SwitchTo(SceneManager::SceneType::Game);
+			}
+		}
+		else
+		{
+			is_enter_down = false;
+		}
+
+
+		if (msg.x <= 300 + 30 * 2 && msg.x >= 300 && msg.y >= 410 && msg.y <= 410 + 30)
+		{
+			is_esc_down = true;
+			if (msg.message == WM_LBUTTONDOWN)
+			{
+				scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
+			}
+		}
+		else
+		{
+			is_esc_down = false;
 		}
 	}
 
