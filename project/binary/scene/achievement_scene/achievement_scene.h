@@ -14,9 +14,10 @@
 class AchievementScene :public Scene
 {
 private:
-	const int PAGE_NUM = 20;
+	const int PAGE_NUM = 12;
 	bool is_A_down = false;
 	bool is_D_down = false;
+	bool is_peek = false;	// 是否偷偷查看成就
 	int current_page = 0;
 public:
 	AchievementScene() = default;

@@ -73,12 +73,6 @@ void LoginScene::OnInput(const ExMessage& msg)
 	btn_login_delete->OnInput(msg);
 	btn_login_return->OnInput(msg);
 
-	for (int i = 0; i < data_list.size(); i++)
-	{
-
-
-	}
-
 	if (msg.message == WM_KEYDOWN)
 	{
 		switch (msg.vkcode)
@@ -114,7 +108,21 @@ void LoginScene::OnInput(const ExMessage& msg)
 			}
 			break;
 		case VK_RETURN:
-			scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
+			if (current_data) 
+			{
+				scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
+			}
+			else 
+			{
+				static TCHAR text[64];
+				_stprintf_s(text, _T("请选择玩家!"));
+
+				MessageBox(GetHWnd(), text, _T("进入游戏失败"), MB_OK);
+			}
+			break;
+		case VK_ESCAPE:
+			scene_manager.SwitchTo(SceneManager::SceneType::Menu);
+			break;
 		}
 
 	}

@@ -206,7 +206,6 @@
     <ClInclude Include="scene\set_up_scene\set_up_scene.h" />
     <ClInclude Include="scene\show_detail_scene\show_detail_scene.h" />
     <ClInclude Include="scene\win_scene\win_scene.h" />
-    <ClInclude Include="util\image_util\image_util.h" />
     <ClInclude Include="vector2\vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

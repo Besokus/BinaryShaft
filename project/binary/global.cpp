@@ -126,16 +126,15 @@ IMAGE img_SPEED_LEFT_platform;
 IMAGE img_TLE_platform;
 IMAGE img_MLE_platform;
 
-//道具
+// 成就
+IMAGE img_achievement[20];//道具
 IMAGE image_item_carefully_BBQ;
 IMAGE image_item_ctrl_Z;
 IMAGE image_item_helpme_awei;
 IMAGE image_item_hiraijin;
 IMAGE image_item_once_again;
 IMAGE image_item_the_world;
-IMAGE item_hiraijin_sign;
-
-// 定义图集对象
+IMAGE item_hiraijin_sign;// 定义图集对象
 Atlas atlas_player_left;
 Atlas atlas_player_right;
 Atlas atlas_player_fall_idle;
@@ -245,9 +244,6 @@ Animation* animation_player_fall_idle = nullptr;
 
 std::vector<Platform*> platform_list;
 
-// 成就
-//std::vector<Achievement*> achievement_list;
-
 //关卡数据
 struct Map_massage map_massage[11] =
 {
@@ -260,6 +256,7 @@ struct Map_massage map_massage[11] =
 	{1.3f, 200, {40,20,10,5,5,5,5,10}, {0,0,1,0,1,1} },
 	{1.3f, 200, {40,20,5,5,5,0,24,1}, {0,1,0,0,1,1} },
 	{1.5f, 250, {40,20,5,5,5,24,0,1}, {1,0,0,0,1,1} },
+
 	{1.5f, 250, {35,20,10,10,10,10,5,0}, {0,1,1,1,0,0} },
 	{1.5f, 300, {35,15,10,10,10,0,0,20}, {0,0,1,1,0,1} },
 	{1.8f, 320, {35,21,5,5,5,12,12,5}, {1,1,0,0,0,1} },
@@ -292,25 +289,32 @@ void LoadImageAndAtlas()
 	// 导入胜利背景
 	loadimage(&img_win_background, _T("resources/TEMP_win_background.png"));
 
-	// 导入关于我们背景
-	loadimage(&img_showdetail_background, _T("resources/TEMP_showus_background.png"));
-
-
 	// 导入游戏说明背景图
 	loadimage(&img_detail_background, _T("resources/detail_scene_background.jpg"));
-	loadimage(&img_ending_detail, _T("resources/ending_1.png"), 190, 190, false);
-	loadimage(&img_death_detail, _T("resources/game_over.png"), 190, 190, false);
 
+	// 导入游戏胜利背景
+	loadimage(&img_ending_detail, _T("resources/ending_1.png"), 190, 190, false);
+
+	// 导入游戏失败背景
+	loadimage(&img_death_detail, _T("resources/game_over.png"), 190, 190, false);
 
 	// 导入排行榜背景
 	loadimage(&img_rank_background, _T("resources/rank_scene_background.png"));
-
 
 	// 导入暂停界面背景
 	loadimage(&img_pause_background, _T("resources/pause_background.png"), 700, 700);
 
 	// 导入登录login界面背景
 	loadimage(&img_login_background, _T("resources/login_background.png"), 700, 700);
+
+	// 导入成就图片
+	for (int i = 0;i < 20;i++)
+	{
+		TCHAR path_file[256];
+
+		_stprintf_s(path_file, _T("resources/achievement_%d.jpg"), i);
+		loadimage(&img_achievement[i], path_file, 150, 150);
+	}
 
 	// 玩家默认图片
 	loadimage(&img_player_idle, _T("resources/player_idle_1.png"), PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -612,7 +616,7 @@ void LoadButton()
 	btn_login_new = new LoginNewButton(region_login_new,
 		_T("resources/login_new_archive_idle.png"), _T("resources/login_new_archive_hovered.png"), _T("resources/login_new_archive_hovered.png"), LOGIN_BUTTON_WIDTH, LOGIN_BUTTON_HEIGHT);
 
-	
+
 	// 导入删除存档按键素材并且设置其范围
 	region_login_delete.left = 290;
 	region_login_delete.right = region_login_delete.left + ACHIEVEMENT_MODE_BUTTON_WIDTH;
@@ -634,6 +638,17 @@ void LoadButton()
 		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), LOGIN_BUTTON_WIDTH, LOGIN_BUTTON_HEIGHT);
 }
 
+void LoadMusic() 
+{
+	mciSendString(_T("open resources/bgm_menu_1.MP3 alias bgm_menu_1"), NULL, 0, NULL);
+
+	mciSendString(_T("open resources/bgm_normal_1.MP3 alias bgm_normal_1"), NULL, 0, NULL);
+
+	mciSendString(_T("open resources/bgm_ending_1.MP3 alias bgm_ending_1"), NULL, 0, NULL);
+
+	mciSendString(_T("open resources/bgm_challenge_1.MP3 alias bgm_challenge_1"), NULL, 0, NULL);
+}
+
 void LoadGameResources()
 {
 	// 导入字体资源
@@ -641,7 +656,7 @@ void LoadGameResources()
 
 	game_scene = new GameScene();
 	menu_scene = new MenuScene();
-	
+
 	achievement_scene = new AchievementScene();
 	death_scene = new DeathScene();
 
@@ -661,8 +676,11 @@ void LoadGameResources()
 
 	LoadImageAndAtlas();
 
+	LoadMusic();
+
 	animation_player_left->SetAtlas(&atlas_player_left);
 	animation_player_right->SetAtlas(&atlas_player_right);
 	animation_player_fall_idle->SetAtlas(&atlas_player_fall_idle);
 
 }
+

@@ -5,6 +5,7 @@
 #pragma warning(disable:4996) // 禁用使用wstombs带来的警告
 
 extern vector<Data> data_list;
+extern Data* current_data;
 
 extern bool running;
 
@@ -82,7 +83,14 @@ protected:
 		else
 		{
 			auto iter = data_list.begin();
-			data_list.erase(iter + num - 1);
+			iter += num - 1;
+			data_list.erase(iter);
+			if (data_list.size() > 0)
+			{
+				current_data = &data_list[0];
+			}
+			else
+				current_data = nullptr;
 		}
 
 		// 是按钮变回默认状态

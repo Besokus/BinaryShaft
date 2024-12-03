@@ -54,6 +54,8 @@ extern std::vector<Platform*> platform_list;
 // 2.其他界面跳转到这,应该重置参数
 void GameScene::OnEnter()
 {
+	mciSendString(_T("stop bgm_menu_1 "), NULL, 0, NULL);
+	mciSendString(_T("play bgm_normal_1 "), NULL, 0, NULL);
 	// 重置随机数种子
 	srand((unsigned)time(NULL));
 	if (!pause_back)

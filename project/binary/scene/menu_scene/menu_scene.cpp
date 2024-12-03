@@ -23,6 +23,7 @@ void MenuScene::OnEnter()
 	btn_menu_achievement->OnEnter();
 	btn_menu_exit->OnEnter();
 
+	mciSendString(_T("play bgm_menu_1 repeat"), NULL, 0, NULL);
 }
 
 void MenuScene::OnUpdate()

@@ -33,6 +33,12 @@ struct Data {
 
 	void UpdateAchievement()
 	{
+
+		// 0 自由落体          从底部脱离了这个世界
+		if (num_death >= 1)
+		{
+			unlocked_achievement[1] = true;
+		}
 		// 1 我是谁，我在哪     出栈(即第一次死亡)
 		if (num_death >= 1)
 		{
@@ -43,12 +49,6 @@ struct Data {
 		if (num_CE >= 0)
 		{
 			unlocked_achievement[2] = true;
-		}
-
-		// 3 made in heaven   跳上3次[TLE]
-		if (num_TLE >= 3)
-		{
-			unlocked_achievement[3] = true;
 		}
 
 		// 3 made in heaven   跳上3次[TLE]
@@ -111,7 +111,7 @@ struct Data {
 			unlocked_achievement[11] = true;
 		}
 
-		// 12 部分正确         获得积分1000
+		// 12 成为代码         获得积分1000
 		//if ()
 		{
 			unlocked_achievement[12] = true;

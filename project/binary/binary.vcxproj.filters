@@ -296,9 +296,6 @@
     <ClInclude Include="scene\set_up_scene\set_up_scene.h">
       <Filter>头文件\scene\set_up_scene</Filter>
     </ClInclude>
-    <ClInclude Include="util\image_util\image_util.h">
-      <Filter>头文件\util\image_util</Filter>
-    </ClInclude>
     <ClInclude Include="platform\AC_platform\AC_platform.h">
       <Filter>头文件\platform\AC_platform</Filter>
     </ClInclude>

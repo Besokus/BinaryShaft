@@ -108,7 +108,7 @@ void SelectLevelScene::OnInput(const ExMessage& msg)
 			scene_manager.SwitchTo(SceneManager::SceneType::Game);
 			break;
 		case VK_ESCAPE:
-			scene_manager.SwitchTo(SceneManager::SceneType::Menu);
+			scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
 			break;
 		}
 	}

@@ -28,12 +28,12 @@ void ReadData()
 	}
 
 	// 输出数据(用于检查)
-	if (!data_list.empty())
+	/*if (!data_list.empty())
 	{
 		for (int i = 0; i < data_list.size(); i++) {
 			printf("%d:   玩家姓名:%s     解锁关卡:%d\n", i, data_list[i].name, data_list[i].unlocked_level);
 		}
-	}
+	}*/
 
 	ifs.close();
 }
