@@ -70,6 +70,7 @@ void item_once_again::OnDarw()
 */
 void item_once_again::triggering()
 {
+
 	istriggered = true;
 	player->health = 9;
 	player->SetPosition(250, 300);

@@ -55,7 +55,7 @@ extern std::vector<Platform*> platform_list;
 void GameScene::OnEnter()
 {
 	mciSendString(_T("stop bgm_menu_1 "), NULL, 0, NULL);
-	mciSendString(_T("play bgm_normal_1 "), NULL, 0, NULL);
+	mciSendString(_T("play bgm_normal_1 repeat"), NULL, 0, NULL);
 	// 重置随机数种子
 	srand((unsigned)time(NULL));
 	if (!pause_back)

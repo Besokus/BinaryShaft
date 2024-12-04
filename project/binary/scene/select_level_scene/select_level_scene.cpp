@@ -12,10 +12,8 @@ extern IMAGE img_select_level_background;
 
 void SelectLevelScene::OnEnter()
 {
-	level = 0;
+
 }
-
-
 
 void SelectLevelScene::OnDraw()
 {

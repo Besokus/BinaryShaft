@@ -5,7 +5,7 @@
 extern bool running;
 extern SceneManager scene_manager;
 
-extern MenuStartButton* btn_menu_start;// btn button
+extern MenuStartButton* btn_menu_start;
 extern MenuSetUpButton* btn_menu_setup;
 extern MenuShowDetailButton* btn_menu_show_detail;
 extern MenuRankButton* btn_menu_rank;
@@ -23,6 +23,7 @@ void MenuScene::OnEnter()
 	btn_menu_achievement->OnEnter();
 	btn_menu_exit->OnEnter();
 
+	mciSendString(_T("stop bgm_normal_1 "), NULL, 0, NULL);
 	mciSendString(_T("play bgm_menu_1 repeat"), NULL, 0, NULL);
 }
 

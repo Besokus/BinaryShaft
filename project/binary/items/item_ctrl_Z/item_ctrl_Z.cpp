@@ -63,6 +63,8 @@ void item_ctrl_Z::OnDarw()
 */
 void item_ctrl_Z::triggering()
 {
+
+
 	istriggered = 1;
 	map_msg->speed = -map_msg->speed;
 	if (player->is_on_platform)
