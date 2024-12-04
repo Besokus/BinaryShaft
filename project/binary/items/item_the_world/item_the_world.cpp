@@ -63,6 +63,7 @@ void item_the_world::OnDarw()
 */
 void item_the_world::triggering()
 {
+	mciSendString(_T("play resources/DIOʱͣ.mp3 from 0"), NULL, 0, NULL);
 	map_msg->speed = 0;
 	if (player->is_on_platform)
 	{

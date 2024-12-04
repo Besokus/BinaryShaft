@@ -17,12 +17,7 @@
 extern bool running;
 
 extern SceneManager scene_manager;
-extern Scene* menu_scene;
-extern Scene* game_scene;
-extern Scene* pause_scene;
-extern Scene* select_Level_scene;
-
-extern std::vector<Platform*> platform_list;
+extern Scene* CG_scene;
 
 extern void LoadGameResources();
 extern void ReadData();
@@ -38,10 +33,10 @@ int main()
 	// 读取游戏存储数据
 	ReadData();
 
-	initgraph(700, 700, EX_SHOWCONSOLE);
+	initgraph(700, 700);
 
 	// 初始化场景为菜单
-	scene_manager.SetCurrentScene(menu_scene);
+	scene_manager.SetCurrentScene(CG_scene);
 
 	// 渲染辅助函数,与EndBatchDraw(),FlushBatchDraw()搭配一起使用
 	BeginBatchDraw();
@@ -63,7 +58,8 @@ int main()
 		cleardevice();
 		// 根据更新内容,绘制新画面
 		scene_manager.OnDraw();
-		//line(500, 0, 500, 700);
+
+
 		FlushBatchDraw();
 
 		// 稳定帧数

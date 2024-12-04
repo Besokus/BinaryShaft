@@ -13,6 +13,8 @@ public:
 	*/
 	void PlatformChange(Player* player, int direction = 0)
 	{
+		mciSendString(_T("play resources/跳跃音效.mp3 from 0"), NULL, 0, NULL);
+
 		if (is_visited) {
 			if (direction) {
 				//玩家y轴的速度修改为10

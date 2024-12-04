@@ -63,6 +63,8 @@ void item_ctrl_Z::OnDarw()
 */
 void item_ctrl_Z::triggering()
 {
+	mciSendString(_T("play resources/ctrlz.MP3 from 0"), NULL, 0, NULL);
+
 	istriggered = 1;
 	map_msg->speed = -map_msg->speed;
 	if (player->is_on_platform)

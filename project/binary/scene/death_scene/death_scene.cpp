@@ -7,6 +7,8 @@ extern IMAGE img_death_background;
 
 void DeathScene::OnEnter()
 {
+	mciSendString(_T("play resources/死亡.mp3 from 0"), NULL, 0, NULL);
+	mciSendString(_T("stop bgm_normal_1"), NULL, 0, NULL);
 	static TCHAR text[64];
 	_stprintf_s(text, _T("最终得分:%d !"), 114514);
 
@@ -27,27 +29,23 @@ int DeathScene::GetPlayerScore()
 
 void DeathScene::OnDraw()
 {
-	// 绘制死亡界面的内容
-	// 使用特定的绘图API或框架函数来显示“游戏结束”、“你的分数”等信息
-	// 例如，使用outtextxy（如果可用）或其他绘图函数
-	//outtextxy(10, 10, _T("GAME OVER"));
-	// 有一个函数来获取玩家的分数
-	//int score = GetPlayerScore();
-	//static TCHAR text[64];
-	//_stprintf_s(text, _T("本次获得分数:%d"), score);  //显示分数
-	//outtextxy(10, 30, text);
-	//outtextxy(10, 50, _T("按任意键返回主菜单"));
 	putimage(0, 0, &img_death_background);
 }
 
 void DeathScene::OnInput(const ExMessage& msg)
 {
-
+	// 键盘按键
 	if (msg.message == WM_KEYUP)
 	{
 		// 切换到主菜单场景
 		scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
 	}
 
+	// 鼠标左键
+	if (msg.message == WM_LBUTTONDOWN)
+	{
+		// 切换到主菜单场景
+		scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
+	}
 
 }

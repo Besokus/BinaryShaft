@@ -24,7 +24,7 @@ public:
 	~Atlas() = default;
 
 	// 从文件夹导入图片素材方法
-	void LoadFromFile(LPCTSTR path_template, int num);
+	void LoadFromFile(LPCTSTR path_template, int num,int flag);
 
 	// 清空图集方法
 	void Clear();

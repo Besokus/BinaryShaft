@@ -259,7 +259,7 @@ void Player::UpdatePosition()
 	// 水平速度
 	if (direction > 0)
 	{
-		if (velocity.x == 0)
+		if (velocity.x <= 0)
 		{
 			velocity.x = 1.5f;
 		}
@@ -270,7 +270,7 @@ void Player::UpdatePosition()
 	}
 	else if (direction < 0)
 	{
-		if (velocity.x == 0)
+		if (velocity.x >= 0)
 		{
 			velocity.x = -1.5f;
 		}

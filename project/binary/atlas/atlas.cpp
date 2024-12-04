@@ -3,17 +3,21 @@
 extern const int PLAYER_WIDTH;
 extern const int PLAYER_HEIGHT;
 
-void Atlas::LoadFromFile(LPCTSTR path_template, int num)
+void Atlas::LoadFromFile(LPCTSTR path_template, int num, int flag)
 {
 	img_list.clear();
 	img_list.resize(num);
 
 	TCHAR path_file[256];
+
 	for (size_t i = 0;i < num;i++)
 	{
 		_stprintf_s(path_file, path_template, i + 1);
 
-		loadimage(&img_list[i], path_file, PLAYER_WIDTH, PLAYER_HEIGHT);
+		if (flag == 0)
+			loadimage(&img_list[i], path_file, PLAYER_WIDTH, PLAYER_HEIGHT);
+		else
+			loadimage(&img_list[i], path_file);
 	}
 
 }

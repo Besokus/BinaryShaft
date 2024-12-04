@@ -65,6 +65,7 @@ void item_carefully_BBQ::OnDarw()
 */
 void item_carefully_BBQ::triggering()
 {
+	mciSendString(_T("play resources/ËÙ¶È¼õ»º.mp3 from 0"), NULL, 0, NULL);
 	istriggered = 1;
 	player->max_speed_y = 2.5;
 	map_msg->speed = 0.5f;

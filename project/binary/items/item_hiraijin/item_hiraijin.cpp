@@ -70,6 +70,8 @@ void item_hiraijin::OnDarw()
 */
 void item_hiraijin::triggering()
 {
+	mciSendString(_T("play resources/·ÉÀ×Éñ.MP3 from 0"), NULL, 0, NULL);
+
 	trigger_time++;
 	switch (trigger_time)
 	{

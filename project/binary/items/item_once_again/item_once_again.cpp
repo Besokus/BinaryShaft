@@ -70,6 +70,7 @@ void item_once_again::OnDarw()
 */
 void item_once_again::triggering()
 {
+	mciSendString(_T("play resources/¸´»î.mp3 from 0"), NULL, 0, NULL);
 	istriggered = true;
 	player->health = 9;
 	player->SetPosition(250, 300);

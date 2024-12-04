@@ -125,6 +125,7 @@ void item_helpme_awei::OnDarw()
 */
 void item_helpme_awei::triggering()
 {
+	mciSendString(_T("play resources/¾È¾ÈÎÒ.mp3 from 0"), NULL, 0, NULL);
 	istriggered = 1;
 	duration_score = map_msg->score;
 	duration_help_speed = map_msg->speed;

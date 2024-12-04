@@ -15,8 +15,8 @@ class CGScene :public Scene
 {
 
 private:
-	int current;     //记录当前播放到第几张CG
-	int len;         //记录CG长度
+	int current = 0;     // 记录当前播放到第几张CG
+	int len;            // 记录CG长度
 
 public:
 	CGScene() = default;
