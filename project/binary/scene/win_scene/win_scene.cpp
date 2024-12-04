@@ -10,6 +10,7 @@ void WinScene::OnEnter()
 {
 	btn_win_next->OnEnter();
 	btn_win_return->OnEnter();
+	mciSendString(_T("play resources/Ê¤Àû.mp3.mp3 from 0"), NULL, 0, NULL);
 }
 
 

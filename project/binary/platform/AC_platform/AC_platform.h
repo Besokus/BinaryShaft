@@ -22,6 +22,7 @@ public:
 		{
 			if (is_visited)
 			{
+				mciSendString(_T("play resources/Ac音效.mp3 from 0"), NULL, 0, NULL);
 				//修改贴图为NULL
 				img_platform = img_NULL_platform;
 				//direction为1分数+6并且血量加一，否则分数+3

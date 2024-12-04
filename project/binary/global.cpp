@@ -694,11 +694,18 @@ void LoadMusic()
 	mciSendString(_T("open resources/胜利.mp3"), NULL, 0, NULL);
 	mciSendString(_T("open resources/死亡.mp3"), NULL, 0, NULL);
 	mciSendString(_T("open resources/速度减缓.mp3"), NULL, 0, NULL);
+
 	mciSendString(_T("open resources/跳跃音效.mp3"), NULL, 0, NULL);
+	mciSendString(_T("setaudio resources/跳跃音效.mp3 volume to 200"), NULL, 0, NULL);
+
 	mciSendString(_T("open resources/通关音效.mp3"), NULL, 0, NULL);
 	mciSendString(_T("open resources/救救我.mp3"), NULL, 0, NULL);
 	mciSendString(_T("open resources/ctrlz.MP3"), NULL, 0, NULL);
 	mciSendString(_T("open resources/DIO时停.mp3"), NULL, 0, NULL);
+
+	mciSendString(_T("open resources/Ac音效.mp3"), NULL, 0, NULL);
+	mciSendString(_T("setaudio resources/Ac音效.mp3 volume to 100"), NULL, 0, NULL);
+
 
 }
 
