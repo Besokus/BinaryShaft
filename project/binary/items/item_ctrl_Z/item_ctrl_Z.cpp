@@ -79,9 +79,14 @@ void item_ctrl_Z::triggering()
 void item_ctrl_Z::end_trigger()
 {
 	istriggered = 0;
-	map_msg->speed = -map_msg->speed;
+	map_msg->speed = map_msg->real_speed;
 	if (player->is_on_platform)
 	{
 		player->velocity.y = -player->velocity.y;
 	}
+}
+
+void item_ctrl_Z::during_change()
+{
+	map_msg->speed = -map_msg->real_speed;
 }

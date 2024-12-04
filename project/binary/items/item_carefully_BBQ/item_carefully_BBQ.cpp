@@ -66,8 +66,7 @@ void item_carefully_BBQ::OnDarw()
 void item_carefully_BBQ::triggering()
 {
 	istriggered = 1;
-	memory_speed = map_msg->speed;
-	player->max_speed_y = 4;
+	player->max_speed_y = 2.5;
 	map_msg->speed = 0.5f;
 	if (player->is_on_platform)
 	{
@@ -84,9 +83,14 @@ void item_carefully_BBQ::end_trigger()
 {
 	istriggered = 0;
 	player->max_speed_y = 10;
-	map_msg->speed = memory_speed;
+	map_msg->speed = map_msg->real_speed;
 	if (player->is_on_platform)
 	{
-		player->velocity.y = -1.0f * memory_speed;
+		player->velocity.y = -map_msg->speed;
 	}
+}
+
+void  item_carefully_BBQ::during_change()
+{
+	map_msg->speed = 0.5f;
 }

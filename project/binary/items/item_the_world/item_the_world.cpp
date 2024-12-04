@@ -63,7 +63,6 @@ void item_the_world::OnDarw()
 */
 void item_the_world::triggering()
 {
-	memory_speed = map_msg->speed;
 	map_msg->speed = 0;
 	if (player->is_on_platform)
 	{
@@ -79,5 +78,14 @@ void item_the_world::triggering()
 */
 void item_the_world::end_trigger()
 {
-	map_msg->speed = memory_speed;
+	map_msg->speed = map_msg->real_speed;
+	if (player->is_on_platform)
+	{
+		player->velocity.y = -map_msg->real_speed;
+	}
+}
+
+void item_the_world::during_change()
+{
+	map_msg->speed = 0;
 }

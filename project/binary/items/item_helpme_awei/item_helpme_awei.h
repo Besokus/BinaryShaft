@@ -13,7 +13,7 @@ protected:
 public:
 	item_helpme_awei(Player* player, Map_Msg* map_msg);
 
-	void OnUpdate();
+	void during_change();
 
 	void OnDarw();
 

@@ -28,18 +28,21 @@ public:
 				{
 					map_msg->score -= 2;
 					map_msg->speed += 0.2f;
+					map_msg->real_speed += 0.2f;
 					player->velocity.y -= 0.2f;
 				}
 				//如果不为0缩小0.2的速度，不低于0.6
 				else
 				{
-					if (map_msg->speed >= 0.8)
+					if (map_msg->real_speed >= 0.8)
 					{
 						map_msg->speed -= 0.2f;
+						map_msg->real_speed -= 0.2f;
 					}
 					else
 					{
 						map_msg->speed = 0.6f;
+						map_msg->real_speed = 0.6f;
 					}
 				}
 				//通过标记使只能触发一次

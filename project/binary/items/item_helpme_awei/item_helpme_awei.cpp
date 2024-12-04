@@ -27,75 +27,56 @@ item_helpme_awei::item_helpme_awei(Player* player, Map_Msg* map_msg)
 }
 
 
-void item_helpme_awei::OnUpdate()
+void item_helpme_awei::during_change()
 {
-	if (istriggered)
+	if (map_msg->score < duration_score)//分数
 	{
-		time_keeper++;
-		if (time_keeper >= duration)
-		{
-			istriggered = false;
-			is_cding = true;
-			this->end_trigger();
-			time_keeper = 0;
-		}
-		else
-		{
-			if (map_msg->score < duration_score)//分数
-			{
-				map_msg->score = duration_score;
-			}
-			else if (map_msg->score > duration_score)
-			{
-				duration_score = map_msg->score;
-			}
-
-			if (player->health < duration_health)//血量
-			{
-				player->health = duration_health;
-			}
-			else if (player->health > duration_health)
-			{
-				duration_health = player->health;
-			}
-
-
-			if (map_msg->speed > duration_help_speed)//速度
-			{
-				map_msg->speed = duration_help_speed;
-			}
-			else if (map_msg->speed < duration_help_speed)
-			{
-				duration_help_speed = map_msg->speed;
-			}
-
-			if (map_msg->left_limit > duration_left_limit)//左边界
-			{
-				map_msg->left_limit = duration_left_limit;
-			}
-			else if (map_msg->left_limit < duration_left_limit)
-			{
-				duration_left_limit = map_msg->left_limit;
-			}
-
-			if (map_msg->right_limit < duration_right_limit)//右边界
-			{
-				map_msg->right_limit = duration_right_limit;
-			}
-			else if (map_msg->right_limit > duration_right_limit)
-			{
-				duration_right_limit = map_msg->right_limit;
-			}
-		}
+		map_msg->score = duration_score;
 	}
-	else if (is_cding)
+	else if (map_msg->score > duration_score)
 	{
-		time_keeper++;
-		if (time_keeper >= cd)
-		{
-			is_cding = false;
-			time_keeper = 0;
-		}
+		duration_score = map_msg->score;
+	}
+
+	if (player->health < duration_health)//血量
+	{
+		player->health = duration_health;
+	}
+	else if (player->health > duration_health)
+	{
+		duration_health = player->health;
+	}
+
+	if (!player->is_alive)
+	{
+		player->is_alive = true;
+	}
+
+	if (map_msg->speed > duration_help_speed)//速度
+	{
+		map_msg->speed = duration_help_speed;
+	}
+	else if (map_msg->speed < duration_help_speed)
+	{
+		duration_help_speed = map_msg->speed;
+	}
+
+	if (map_msg->left_limit > duration_left_limit)//左边界
+	{
+		map_msg->left_limit = duration_left_limit;
+	}
+	else if (map_msg->left_limit < duration_left_limit)
+	{
+		duration_left_limit = map_msg->left_limit;
+	}
+
+	if (map_msg->right_limit < duration_right_limit)//右边界
+	{
+		map_msg->right_limit = duration_right_limit;
+	}
+	else if (map_msg->right_limit > duration_right_limit)
+	{
+		duration_right_limit = map_msg->right_limit;
 	}
 }
 

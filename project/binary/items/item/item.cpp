@@ -11,6 +11,7 @@ void item::OnUpdate()
 	if (istriggered)
 	{
 		time_keeper++;
+		during_change();
 		if (time_keeper >= duration)
 		{
 			istriggered = false;

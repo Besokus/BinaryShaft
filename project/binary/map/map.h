@@ -18,6 +18,7 @@ public:
 	int left_limit;
 	int right_limit;
 	float speed;
+	float real_speed;
 	int score;
 	int target_score;
 	std::vector<int> platform_weight;
@@ -25,7 +26,7 @@ public:
 	Map_Msg(int level) 
 	{
 		score = 0;
-		speed = map_massage[level].speed;
+		real_speed = speed = map_massage[level].speed;
 		this->level = level;
 		target_score = map_massage[level].target_score;
 		platform_weight.insert(platform_weight.begin(), map_massage[level].platform_weight.begin(), map_massage[level].platform_weight.end());

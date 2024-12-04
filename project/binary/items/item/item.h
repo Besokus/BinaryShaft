@@ -46,6 +46,8 @@ public:
 
 	void DrawBlackOverlay(int x, int y, int width, int height, float overlay_ratio);
 
+	virtual void during_change() {};
+
 	virtual void OnUpdate();
 
 	virtual void OnDarw() = 0;

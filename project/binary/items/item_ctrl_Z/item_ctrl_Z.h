@@ -11,4 +11,6 @@ public:
 	void triggering();
 
 	void end_trigger();
+
+	void during_change();
 };
