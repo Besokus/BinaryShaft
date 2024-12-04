@@ -36,7 +36,5 @@ public:
 
 	void OnExit();
 
-	string GetElement(string x);
-	void SetElement(string choose, string x);
 
 };

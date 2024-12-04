@@ -91,9 +91,6 @@
     <Filter Include="头文件\button\select_mode_button">
       <UniqueIdentifier>{6180b0bf-23be-4eb2-9f01-eff5a5080d01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\button\select_level_button">
-      <UniqueIdentifier>{3e4f2051-cffe-4cd2-9846-9364538c6af5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\vector2">
       <UniqueIdentifier>{9718fdc6-fcf4-4f40-ab59-eafa76df1a10}</UniqueIdentifier>
     </Filter>
@@ -151,9 +148,6 @@
     <Filter Include="头文件\button\achievement_button">
       <UniqueIdentifier>{240df5b8-6e27-4b1d-91e3-98aa02d8ad6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\button\music_control_button">
-      <UniqueIdentifier>{2d042593-b295-44eb-9c3a-8e5291d1cd5a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\button\showus_button">
       <UniqueIdentifier>{3da11b0e-840c-4ef7-8599-0e929539ab6f}</UniqueIdentifier>
     </Filter>
@@ -171,6 +165,9 @@
     </Filter>
     <Filter Include="头文件\scene\select_items_scene">
       <UniqueIdentifier>{08d4ff5b-d0ba-4fa5-a9b8-ae7e26384f3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\button\set_up_button">
+      <UniqueIdentifier>{2d042593-b295-44eb-9c3a-8e5291d1cd5a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -392,8 +389,8 @@
     <ClInclude Include="button\achievement_button\achievement_button.h">
       <Filter>头文件\button\achievement_button</Filter>
     </ClInclude>
-    <ClInclude Include="button\music_control_button\music_control_button.h">
-      <Filter>头文件\button\music_control_button</Filter>
+    <ClInclude Include="button\music_control_button\set_up_button.h">
+      <Filter>头文件\button\set_up_button</Filter>
     </ClInclude>
     <ClInclude Include="button\showus_button\showus_button.h">
       <Filter>头文件\button\showus_button</Filter>

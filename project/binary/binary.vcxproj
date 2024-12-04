@@ -169,7 +169,7 @@
     <ClInclude Include="button\button\button.h" />
     <ClInclude Include="button\login_button\login_button.h" />
     <ClInclude Include="button\menu_button\menu_button.h" />
-    <ClInclude Include="button\music_control_button\music_control_button.h" />
+    <ClInclude Include="button\music_control_button\set_up_button.h" />
     <ClInclude Include="button\pause_button\pause_button.h" />
     <ClInclude Include="button\select_mode_button\select_mode_button.h" />
     <ClInclude Include="button\showus_button\showus_button.h" />
