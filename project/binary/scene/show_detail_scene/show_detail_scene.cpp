@@ -15,6 +15,15 @@ extern IMAGE img_TLE_platform;
 extern IMAGE img_MLE_platform;
 extern IMAGE img_death_detail;
 extern IMAGE img_ending_detail;
+extern IMAGE img_detail_background;
+extern IMAGE img_ending_detail;
+extern IMAGE img_death_detail;
+extern IMAGE image_item_carefully_BBQ;
+extern IMAGE image_item_ctrl_Z;
+extern IMAGE image_item_helpme_awei;
+extern IMAGE image_item_hiraijin;
+extern IMAGE image_item_once_again;
+extern IMAGE image_item_the_world;
 
 void ShowDetailScene::OnEnter() {
 	page = 0;
@@ -35,26 +44,22 @@ void ShowDetailScene::OnDraw()
 	{
 		settextcolor(RGB(255, 255, 0));
 		outtextxy(100, 430, _T("A <- 上一页"));
-		//outtextxy(150, 290, _T("<"));
 		settextcolor(RGB(255, 255, 255));
 	}
 	else
 	{
 		outtextxy(100, 430, _T("A <- 上一页"));
-		//outtextxy(150, 290, _T("<"));
 	}
 
 	if (is_D_down)
 	{
 		settextcolor(RGB(255, 255, 0));
 		outtextxy(440, 430, _T("下一页 - > D"));
-		//outtextxy(290, 290, _T(">"));
 		settextcolor(RGB(255, 255, 255));
 	}
 	else
 	{
 		outtextxy(440, 430, _T("下一页 - > D"));
-		//outtextxy(290, 290, _T(">"));
 	}
 
 
@@ -101,10 +106,10 @@ void ShowDetailScene::OnDraw()
 		outtextxy(90, 385, _T("返现实世界.否则，就淹没在无尽的代码海洋 。"));
 		break;
 	case 3:
-		putimage(480, 245, &img_AC_platform);
-		putimage(480, 290, &img_WA_platform);
-		putimage(480, 335, &img_TLE_platform);
-		putimage(480, 380, &img_MLE_platform);
+		putimage(490, 245, &img_AC_platform);
+		putimage(490, 290, &img_WA_platform);
+		putimage(490, 335, &img_TLE_platform);
+		putimage(490, 380, &img_MLE_platform);
 
 		settextstyle(25, 0, _T("IPix"));
 		outtextxy(90, 200, _T("平台种类和功能:"));
@@ -117,37 +122,66 @@ void ShowDetailScene::OnDraw()
 	case 4:
 		settextstyle(25, 0, _T("IPix"));
 		outtextxy(90, 200, _T("平台种类和功能:"));
-		putimage(480, 245, &img_CE_platform);
-		putimage(480, 290, &img_NULL_platform);
-		putimage(480, 335, &img_SPEED_LEFT_platform);
-		putimage(480, 380, &img_SPEED_RIGHT_platform);
+		putimage(490, 245, &img_CE_platform);
+		putimage(490, 290, &img_NULL_platform);
+		putimage(490, 335, &img_SPEED_LEFT_platform);
+		putimage(490, 380, &img_SPEED_RIGHT_platform);
 		settextstyle(20, 0, _T("IPix"));
 		outtextxy(90, 250, _T("CE：直接退出游戏，你迷失在代码世界了!"));
 		outtextxy(90, 295, _T("NULL：无事发生，暗自高兴吧!"));
-		outtextxy(90, 340, _T("SPEED_LEFT: 保持平衡，向左加速咯"));
+		outtextxy(90, 340, _T("BOUNCE:向上弹起，注意头不要碰到上面!"));
 		outtextxy(90, 385, _T("SPEED_RIGHT: 保持平衡，向右加速咯"));
 		break;
 	case 5:
+		settextstyle(25, 0, _T("IPix"));
+		outtextxy(90, 200, _T("道具类型:"));
+		putimage(510, 225, &image_item_carefully_BBQ);
+		putimage(510, 325, &image_item_ctrl_Z);
+		settextstyle(20, 0, _T("IPix"));
+		outtextxy(90, 250, _T("仔细烧烤:平台的速度降到0.5，慢慢思考下"));
+		outtextxy(90, 295, _T("一步怎么走，当心平台突然加快噢!!!"));
+		outtextxy(90, 340, _T("Ctrl_Z:时光回溯，注意使用时机!否则可能"));
+		outtextxy(90, 385, _T("有意想不到的结果..."));
+
+		break;
+	case 6:
+		settextstyle(25, 0, _T("IPix"));
+		outtextxy(90, 200, _T("道具类型:"));
+		putimage(510, 225, &image_item_helpme_awei);
+		putimage(510, 325, &image_item_hiraijin);
+		settextstyle(20, 0, _T("IPix"));
+		outtextxy(90, 250, _T("阿伟助我:阿伟附身，在使用期间无视所有负面"));
+		outtextxy(90, 295, _T("效果，平台不再加快速度!"));
+		outtextxy(90, 340, _T("飞雷神:瞬间转移到所示位置，把握时机使用有"));
+		outtextxy(90, 385, _T("起死回生之妙用，人类对它的开发不足0.01%.."));
+
+		break;
+	case 7:
+		settextstyle(25, 0, _T("IPix"));
+		outtextxy(90, 200, _T("道具类型:"));
+		putimage(510, 225, &image_item_once_again);
+		putimage(510, 325, &image_item_the_world);
+		settextstyle(20, 0, _T("IPix"));
+		outtextxy(90, 250, _T("复活甲:复活吧我的爱人!使用后复活玩家，重置"));
+		outtextxy(90, 295, _T("到一个初始位置，注意只能触发一次!"));
+		outtextxy(90, 340, _T("砸瓦鲁多:时停!游戏暂停5秒，这段时间你可以"));
+		outtextxy(90, 385, _T("随意跳动，注意平台突然的移动噢!"));
+
+		break;
+
+	case 8:
 		settextstyle(25, 0, _T("IPix"));
 		outtextxy(90, 200, _T("结束场景:"));
 		putimage(425, 230, &img_ending_detail);
 		settextstyle(20, 0, _T("IPix"));
 		outtextxy(90, 320, _T("恭喜你顺利通关，回到了现实世界!"));
-
 		break;
-	case 6:
+	case 9:
 		settextstyle(25, 0, _T("IPix"));
 		outtextxy(90, 200, _T("结束场景:"));
 		putimage(425, 230, &img_death_detail);
 		settextstyle(20, 0, _T("IPix"));
 		outtextxy(90, 320, _T("很遗憾，你彻底地迷失在代码世界了!"));
-		break;
-	case 7:
-
-		break;
-
-	case 8:
-
 		break;
 
 	}

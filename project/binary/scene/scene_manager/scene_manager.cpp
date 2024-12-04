@@ -12,6 +12,7 @@ extern Scene* showdetail_scene;
 extern Scene* login_scene;
 extern Scene* win_scene;
 extern Scene* select_items_scene;
+extern Scene* rank_scene;
 
 // 设置当前的场景
 void SceneManager::SetCurrentScene(Scene* scene)
@@ -65,6 +66,8 @@ void SceneManager::SwitchTo(SceneType type)
 		break;
 	case SceneType::SelectItem:
 		current_scene = select_items_scene;
+	case SceneType::Rank:
+		current_scene = rank_scene;
 		break;
 	default:
 		break;

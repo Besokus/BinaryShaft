@@ -25,7 +25,8 @@
 #include "scene/win_scene/win_scene.h"				        // 胜利界面
 #include "scene/show_detail_scene/show_detail_scene.h"		// 关于我们界面
 #include "scene/login_scene/login_scene.h"					// 注册,登入界面
-#include "scene/select_items_scene/select_items_scene.h"					// 注册,登入界面
+#include "scene/select_items_scene/select_items_scene.h"	// 选择道具界面
+#include "scene/rank_scene/rank_scene.h"					// 选择道具界面
 
 // 关卡相关头文件
 #include "map/map.h"
@@ -63,6 +64,7 @@ extern const int WINDOW_HEIGHT = 700;	  // 窗口高度
 
 extern const int LEVEL_NUM = 10;		  // 关卡总数量
 extern const int PAGE_NUM = 10;			  // 说明界面页数 //这个真的有存在于全局的必要吗??
+extern const int RANKPAGE = 9;//排行榜界面页数
 
 // 定义bool变量
 
@@ -77,6 +79,7 @@ int level = 0;                            // 当前关卡数
 
 
 int page = 0;                             // 当前游戏说明页数
+int rank_page = 0;      //排行榜界面页数
 
 Map_Msg* static_map = nullptr;
 Player* static_player = nullptr;
@@ -718,7 +721,7 @@ void LoadGameResources()
 	pause_scene = new PauseScene();
 	select_level_scene = new SelectLevelScene();
 	setup_scene = new SetUpScene();
-	// rank_scene = new RankScene();
+	rank_scene = new RankScene();
 	login_scene = new LoginScene();
 	win_scene = new WinScene();
 	CG_scene = new CGScene();

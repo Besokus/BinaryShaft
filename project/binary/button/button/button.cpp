@@ -50,7 +50,10 @@ void Button::OnInput(const ExMessage& msg)
 			status = Status::Pushed;
 	case WM_LBUTTONUP:
 		if (status == Status::Pushed)
+		{
 			OnClick();
+			status = Status::Idle;
+		}
 		break;
 	default:
 		break;

@@ -75,9 +75,12 @@ void SetUpScene::OnDraw()
 	btn_musiceffup->OnDraw();
 	btn_musiceffdown->OnDraw();
 
-
-	//outtextxy(400, 320, _T(this->m_bk.c_str()));
-	//outtextxy(400, 380, _T(this->m_eff.c_str()));
+	static TCHAR text1[64];
+	_stprintf_s(text1, _T("%d"), stoi(this->m_bk));
+	outtextxy(400, 320, text1);
+	static TCHAR text2[64];
+	_stprintf_s(text2, _T("%d"), stoi(this->m_eff));
+	outtextxy(400, 380, text2);
 
 	//绘制返回提示文本
 	outtextxy(200, 600, _T("按Esc返回主菜单"));

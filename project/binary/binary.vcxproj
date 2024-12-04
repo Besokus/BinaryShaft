@@ -150,6 +150,7 @@
     <ClCompile Include="scene\login_scene\login_scene.cpp" />
     <ClCompile Include="scene\menu_scene\menu_scene.cpp" />
     <ClCompile Include="scene\pause_scene\pause_scene.cpp" />
+    <ClCompile Include="scene\rank_scene\rank_scene.cpp" />
     <ClCompile Include="scene\scene\scene.cpp" />
     <ClCompile Include="scene\scene_manager\scene_manager.cpp" />
     <ClCompile Include="scene\select_items_scene\select_items_scene.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="scene\login_scene\login_scene.h" />
     <ClInclude Include="scene\menu_scene\menu_scene.h" />
     <ClInclude Include="scene\pause_scene\pause_scene.h" />
+    <ClInclude Include="scene\rank_scene\rank_scene.h" />
     <ClInclude Include="scene\scene\scene.h" />
     <ClInclude Include="scene\scene_manager\scene_manager.h" />
     <ClInclude Include="scene\select_items_scene\select_items_scene.h" />

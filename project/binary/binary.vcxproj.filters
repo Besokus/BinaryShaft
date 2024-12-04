@@ -172,6 +172,9 @@
     <Filter Include="头文件\scene\select_items_scene">
       <UniqueIdentifier>{08d4ff5b-d0ba-4fa5-a9b8-ae7e26384f3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\scene\rank_scene">
+      <UniqueIdentifier>{40c631c7-10cb-4a99-8893-0b92f9fa3d29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -272,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="scene\select_items_scene\select_items_scene.cpp">
       <Filter>头文件\scene\select_items_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\rank_scene\rank_scene.cpp">
+      <Filter>头文件\scene\rank_scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -415,6 +421,9 @@
     </ClInclude>
     <ClInclude Include="scene\select_items_scene\select_items_scene.h">
       <Filter>头文件\scene\select_items_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\rank_scene\rank_scene.h">
+      <Filter>头文件\scene\rank_scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -86,23 +86,66 @@ void SelectLevelScene::OnDraw()
 		break;
 	case 1:
 		settextstyle(30, 0, _T("IPix"));
-		outtextxy(480, 250, _T("无"));
+		outtextxy(480, 250, _T("借用道具来通关"));
+		outtextxy(480, 300, _T("按下Q或E使用"));
 		break;
 	case 2:
 		settextstyle(30, 0, _T("IPix"));
-		outtextxy(480, 250, _T("无"));
+		outtextxy(480, 250, _T("小心TLE平台"));
+		outtextxy(480, 300, _T("要开始加速了"));
+		outtextxy(480, 350, _T("（顶它有奇效）"));
 		break;
 	case 3:
 		settextstyle(30, 0, _T("IPix"));
-		outtextxy(480, 250, _T("无"));
+		outtextxy(480, 250, _T("小心MLE平台"));
+		outtextxy(480, 300, _T("你获得了新道具"));
+		outtextxy(480, 350, _T("咋瓦鲁多！"));
+		outtextxy(480, 400, _T("按CTRL切换道具"));
 		break;
 	case 4:
 		settextstyle(30, 0, _T("IPix"));
-		outtextxy(480, 250, _T("无"));
+		outtextxy(480, 250, _T("去试一下CE平台"));
+		outtextxy(480, 300, _T("（试试就逝世"));
+		outtextxy(480, 350, _T("新道具：复活甲"));
 		break;
 	case 5:
 		settextstyle(30, 0, _T("IPix"));
-		outtextxy(480, 250, _T("无"));
+		outtextxy(480, 250, _T("空间有限"));
+		outtextxy(480, 300, _T("好多的MLE！"));
+		outtextxy(480, 350, _T("新道具："));
+		outtextxy(480, 400, _T("时间回溯"));
+		break;
+	case 6:
+		settextstyle(30, 0, _T("IPix"));
+		outtextxy(480, 250, _T("时间有限"));
+		outtextxy(480, 300, _T("暴力是有极限的"));
+		outtextxy(480, 350, _T("新道具："));
+		outtextxy(480, 400, _T("仔细烧烤"));
+		break;
+	case 7:
+		settextstyle(30, 0, _T("IPix"));
+		outtextxy(480, 250, _T("展示身法"));
+		outtextxy(480, 300, _T("新道具：飞雷神"));
+		outtextxy(480, 350, _T("肩负火影之名"));
+		outtextxy(480, 400, _T("我不能输！"));
+		break;
+	case 8:
+		settextstyle(30, 0, _T("IPix"));
+		outtextxy(480, 250, _T("死亡地带"));
+		outtextxy(480, 300, _T("小心每一个CE"));
+		break;
+	case 9:
+		settextstyle(30, 0, _T("IPix"));
+		outtextxy(480, 250, _T("最后一战"));
+		outtextxy(480, 300, _T("你要逃出这里了"));
+		outtextxy(480, 350, _T("真的吗？"));
+		break;
+	case 10:
+		settextstyle(30, 0, _T("IPix"));
+		outtextxy(480, 250, _T("你貌似来到了"));
+		outtextxy(480, 300, _T("不该来的地方"));
+		outtextxy(480, 350, _T("你逃走了吗？"));
+		outtextxy(480, 400, _T("如逃"));
 		break;
 	}
 }
