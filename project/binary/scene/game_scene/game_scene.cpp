@@ -159,6 +159,8 @@ void GameScene::OnUpdate()
 		}
 	}
 
+	map_msg->OnUpdate();
+
 	// 删除出界的平台
 	DeletePlatform(platform_list);
 

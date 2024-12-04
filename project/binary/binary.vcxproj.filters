@@ -169,6 +169,9 @@
     <Filter Include="头文件\button\login_button">
       <UniqueIdentifier>{879a5623-dee5-46e0-8673-a44fdf699d2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\scene\select_items_scene">
+      <UniqueIdentifier>{08d4ff5b-d0ba-4fa5-a9b8-ae7e26384f3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -266,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="scene\login_scene\login_scene.cpp">
       <Filter>头文件\scene\login_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\select_items_scene\select_items_scene.cpp">
+      <Filter>头文件\scene\select_items_scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +412,9 @@
     </ClInclude>
     <ClInclude Include="data.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\select_items_scene\select_items_scene.h">
+      <Filter>头文件\scene\select_items_scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -31,7 +31,7 @@ protected:
 	void OnClick()
 	{
 		level = 10;
-		scene_manager.SwitchTo(SceneManager::SceneType::Game);
+		scene_manager.SwitchTo(SceneManager::SceneType::SelectItem);
 	}
 };
 

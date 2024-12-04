@@ -23,7 +23,7 @@ public:
 	int target_score;
 	std::vector<int> platform_weight;
 	std::vector<bool> item_choice;
-	Map_Msg(int level) 
+	Map_Msg(int level)
 	{
 		score = 0;
 		real_speed = speed = map_massage[level].speed;
@@ -77,6 +77,19 @@ public:
 			setlinecolor(RGB(0, 0, 255));
 			line(left_limit, 0, left_limit, 700);
 			line(right_limit - 50, 0, right_limit - 50, 700);
+		}
+	}
+	void OnUpdate()
+	{
+		if (level == 10)
+		{
+			if (score>0&&score % 100 == 0)
+			{
+				speed += 0.4;
+				real_speed += 0.4;
+				left_limit += 20;
+				right_limit -= 20;
+			}
 		}
 	}
 };

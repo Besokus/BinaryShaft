@@ -10,6 +10,8 @@ extern Scene* select_level_scene;
 extern SetUpScene* setup_scene;
 extern Scene* showdetail_scene;
 extern Scene* login_scene;
+extern Scene* win_scene;
+extern Scene* select_items_scene;
 
 // 设置当前的场景
 void SceneManager::SetCurrentScene(Scene* scene)
@@ -57,6 +59,12 @@ void SceneManager::SwitchTo(SceneType type)
 		break;
 	case SceneType::Login:
 		current_scene = login_scene;
+		break;
+	case SceneType::Win:
+		current_scene = win_scene;
+		break;
+	case SceneType::SelectItem:
+		current_scene = select_items_scene;
 		break;
 	default:
 		break;

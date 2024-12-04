@@ -23,6 +23,7 @@
 
 #include "scene/show_detail_scene/show_detail_scene.h"		// 关于我们界面
 #include "scene/login_scene/login_scene.h"					// 注册,登入界面
+#include "scene/select_items_scene/select_items_scene.h"					// 注册,登入界面
 
 // 关卡相关头文件
 #include "map/map.h"
@@ -127,14 +128,20 @@ IMAGE img_TLE_platform;
 IMAGE img_MLE_platform;
 
 // 成就
-IMAGE img_achievement[20];//道具
+IMAGE img_achievement[20];
+
+//道具
 IMAGE image_item_carefully_BBQ;
 IMAGE image_item_ctrl_Z;
 IMAGE image_item_helpme_awei;
 IMAGE image_item_hiraijin;
 IMAGE image_item_once_again;
 IMAGE image_item_the_world;
-IMAGE item_hiraijin_sign;// 定义图集对象
+IMAGE item_hiraijin_sign;
+
+IMAGE select_items_yes;
+
+// 定义图集对象
 Atlas atlas_player_left;
 Atlas atlas_player_right;
 Atlas atlas_player_fall_idle;
@@ -228,6 +235,7 @@ Scene* detail_scene = nullptr;
 Scene* rank_scene = nullptr;
 Scene* win_scene = nullptr;
 Scene* CG_scene = nullptr;
+Scene* select_items_scene = nullptr;
 
 Scene* showdetail_scene = nullptr;
 Scene* login_scene = nullptr;
@@ -327,6 +335,8 @@ void LoadImageAndAtlas()
 	loadimage(&image_item_once_again, _T("resources/image_item_once_again.png"), 100, 100);
 	loadimage(&image_item_the_world, _T("resources/image_item_the_world.png"), 100, 100);
 	loadimage(&item_hiraijin_sign, _T("resources/item_hiraijin_sign.png"));
+
+	loadimage(&select_items_yes, _T("resources/select_items_yes.png"),100,100);
 
 	// 玩家向左图集
 	atlas_player_left.LoadFromFile(_T("resources/left_walk_%d.png"), 6);
@@ -666,6 +676,9 @@ void LoadGameResources()
 	setup_scene = new SetUpScene();
 	// rank_scene = new RankScene();
 	login_scene = new LoginScene();
+	win_scene = new WinScene();
+
+	select_items_scene = new SelectItemsScene();
 
 	animation_player_left = new Animation();
 	animation_player_right = new Animation();

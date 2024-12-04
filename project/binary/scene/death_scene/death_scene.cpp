@@ -46,7 +46,7 @@ void DeathScene::OnInput(const ExMessage& msg)
 	if (msg.message == WM_KEYUP)
 	{
 		// 切换到主菜单场景
-		scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
+		scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
 	}
 
 

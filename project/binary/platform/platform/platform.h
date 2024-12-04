@@ -17,6 +17,8 @@ extern void PutImage(int x, int y, IMAGE* img);
 
 class Player;
 
+class Map_Msg;
+
 class Platform
 {
 private:

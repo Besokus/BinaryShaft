@@ -38,7 +38,8 @@ public:
 		Next,
 		Win,
 		CG,
-		Login
+		Login,
+		SelectItem
 	};
 	typedef enum Choose
 	{
