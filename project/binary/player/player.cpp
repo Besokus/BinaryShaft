@@ -179,7 +179,7 @@ void Player::OnInput(const ExMessage& msg)
 			if (is_on_platform)//ÖØÖÃÌøÔ¾Ê±¼ä
 			{
 				is_jumping = true;
-				jumping_time = 10;
+				jumping_time = 30;
 			}
 			break;
 		}
@@ -231,7 +231,18 @@ void Player::UpdatePosition()
 	{
 		if (jumping_time >= 0 && is_jumping)
 		{
-			velocity.y = -10;
+			if (jumping_time >= 22)
+			{
+				velocity.y = -8;
+			}
+			else if (jumping_time >= 7)
+			{
+				velocity.y = -7;
+			}
+			else if(jumping_time >= 0)
+			{
+				velocity.y = -5;
+			}
 			is_on_platform = false;
 			if (this->down_platform != nullptr)
 			{

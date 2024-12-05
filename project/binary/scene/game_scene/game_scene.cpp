@@ -78,7 +78,7 @@ void GameScene::OnEnter()
 
 		// 设置玩家初始位置
 		player = new Player(map_msg);
-		player->SetPosition(200, 0);
+		player->SetPosition(200, 100);
 
 		// 初始化道具信息
 		item_list.clear();
@@ -123,15 +123,15 @@ void GameScene::OnEnter()
 
 		// 放置初始的几个平台
 		platform_list.push_back(new ACPlatform(img_AC_platform, map_msg));
-		platform_list.back()->SetPosition(0, 514);
+		platform_list.back()->SetPosition(0, 514+100);
 		platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
-		platform_list.back()->SetPosition(114, 414);
+		platform_list.back()->SetPosition(114, 414+100);
 		platform_list.push_back(new WAPlatform(img_WA_platform, map_msg));
-		platform_list.back()->SetPosition(100, 314);
+		platform_list.back()->SetPosition(100, 314+100);
 		platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
-		platform_list.back()->SetPosition(230, 214);
+		platform_list.back()->SetPosition(530, 214+100);
 		platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
-		platform_list.back()->SetPosition(214, 114);
+		platform_list.back()->SetPosition(214, 114+100);
 	}
 }
 
@@ -358,6 +358,8 @@ void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 	}
 	static int counter = 0;
 
+	static int cnt = 0;
+
 	if ((++counter) % INTERVAL == 0)
 	{
 		//随机种类
@@ -379,6 +381,18 @@ void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 			{
 				continue;
 			}
+		}
+		if (type != 0)
+		{
+			cnt++;
+		}
+		else
+		{
+			cnt = 0;
+		}
+		if (cnt >= 5)
+		{
+			type = 0;
 		}
 		// 生成位置
 		int generater_x = rand() % (500 - 100);
@@ -444,7 +458,7 @@ void GameScene::DeletePlatform(std::vector<Platform*>& platform_list)
 	for (Platform* platform : platform_list)
 	{
 		// 如果超出游戏范围
-		if (platform->shape.top < -500 || platform->shape.top > 730)
+		if (platform->shape.top < -500 || platform->shape.top > 721)
 		{
 			platform->Disappear();
 		}
