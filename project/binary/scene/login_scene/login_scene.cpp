@@ -21,6 +21,11 @@ void LoginScene::OnEnter()
 	btn_login_new->OnEnter();
 	btn_login_delete->OnEnter();
 	btn_login_return->OnEnter();
+
+	for(int i=0;i<data_list.size();i++)
+	{
+		data_list[i].UpdateAchievement();
+	}
 }
 
 void LoginScene::OnUpdate()
@@ -57,7 +62,7 @@ void LoginScene::OnDraw()
 		outtextxy(70, 255 + i * 50, text1);
 
 		static TCHAR text2[64];
-		_stprintf_s(text2, _T("第%d关"), data_list[i].unlocked_level);
+		_stprintf_s(text2, _T("第%d关"), data_list[i].unlocked_level + 1);
 		outtextxy(320, 255 + i * 50, text2);
 
 

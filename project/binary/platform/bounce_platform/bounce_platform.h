@@ -1,6 +1,8 @@
 #pragma once
 #include "../platform/platform.h"
 
+extern Data* current_data;
+
 class bounce_Platform :public Platform
 {
 public:
@@ -14,6 +16,8 @@ public:
 	void PlatformChange(Player* player, int direction = 0)
 	{
 		mciSendString(_T("play resources/ÌøÔ¾ÒôÐ§.mp3 from 0"), NULL, 0, NULL);
+
+		current_data->num_bounce++;
 
 		if (is_visited) {
 			if (direction) {

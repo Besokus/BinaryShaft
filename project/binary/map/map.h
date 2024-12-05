@@ -81,17 +81,4 @@ public:
 			line(right_limit - 50, 0, right_limit - 50, 700);
 		}
 	}
-	void OnUpdate()
-	{
-		if (level == 10)
-		{
-			if (score>0&&score % 100 == 0)
-			{
-				speed += 0.4;
-				real_speed += 0.4;
-				left_limit += 20;
-				right_limit -= 20;
-			}
-		}
-	}
 };

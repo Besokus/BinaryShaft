@@ -1,6 +1,8 @@
 #pragma once
 #include "../platform/platform.h"
 
+extern Data* current_data;
+
 class CEPlatform :public Platform
 {
 public:
@@ -22,6 +24,8 @@ public:
 		{
 			if (is_visited)
 			{
+				current_data->num_CE++;
+
 				//修改贴图为NULL
 				img_platform = img_NULL_platform;
 				//如果direction为0修改玩家血量为0,否则回满玩家的血量

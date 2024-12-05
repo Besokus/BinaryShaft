@@ -1,11 +1,12 @@
 #pragma once
 #include <vector>
 
-struct Data {
+struct Data 
+{
 	char name[12] = "xcpcer";					// 玩家名字
 	int unlocked_level = 0;						// 解锁的关卡数
-	bool unlocked_achievement[20] = { false };	// 解锁成就
-	int level_score[11][3] = {0};				// 对应每关的分数,每个玩家每一关记录三次
+	bool unlocked_achievement[12] = { false };	// 解锁成就
+	int level_score[11][3] = { 0 };				// 对应每关的分数,每个玩家每一关记录三次
 
 	int num_AC = 0;
 	int num_WA = 0;
@@ -18,7 +19,7 @@ struct Data {
 	int num_speed = 0;
 
 	// 重载==运算符
-	bool operator==(const Data& other) const 
+	bool operator==(const Data& other) const
 	{
 		if (strcmp(name, other.name) != 0)		       // 比较名字
 			return false;
@@ -26,18 +27,18 @@ struct Data {
 		if (unlocked_level != other.unlocked_level)    // 比较解锁的关卡数
 			return false;
 
-		return true;                               
+		return true;
 	}
 
 	// 更新成就
 	void UpdateAchievement()
 	{
-
 		// 0 自由落体          从底部脱离了这个世界
 		if (num_death >= 1)
 		{
-			unlocked_achievement[1] = true;
+			unlocked_achievement[0] = true;
 		}
+
 		// 1 我是谁，我在哪     出栈(即第一次死亡)
 		if (num_death >= 1)
 		{
@@ -45,7 +46,7 @@ struct Data {
 		}
 
 		// 2 盖亚！！          踩上CE
-		if (num_CE >= 0)
+		if (num_CE >= 1)
 		{
 			unlocked_achievement[2] = true;
 		}
@@ -83,7 +84,7 @@ struct Data {
 		// 8 洛谷集邮          踩过了所有报错平台
 		if (num_TLE && num_MLE && num_CE && num_WA)
 		{
-			unlocked_achievement[7] = true;
+			unlocked_achievement[8] = true;
 		}
 
 		// 9 GrandMaster      获得全部成就
@@ -103,18 +104,13 @@ struct Data {
 			unlocked_achievement[10] = true;
 		}
 
-		
+
 		// 11 部分正确         跳上20次WA
 		if (num_death >= 20)
 		{
 			unlocked_achievement[11] = true;
 		}
 
-		// 12 成为代码         获得积分1000
-		//if ()
-		{
-			unlocked_achievement[12] = true;
-		}
 	}
 };
 

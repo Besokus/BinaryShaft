@@ -20,6 +20,10 @@ void AchievementScene::OnEnter()
 {
 	btn_achievement_rtmenu->OnEnter();
 
+	if (current_data) 
+	{
+		current_data->UpdateAchievement();
+	}
 }
 
 

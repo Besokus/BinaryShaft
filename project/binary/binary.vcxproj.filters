@@ -148,7 +148,6 @@
     <Filter Include="头文件\button\achievement_button">
       <UniqueIdentifier>{240df5b8-6e27-4b1d-91e3-98aa02d8ad6d}</UniqueIdentifier>
     </Filter>
- 
     <Filter Include="头文件\button\showus_button">
       <UniqueIdentifier>{3da11b0e-840c-4ef7-8599-0e929539ab6f}</UniqueIdentifier>
     </Filter>
@@ -172,7 +171,11 @@
     </Filter>
     <Filter Include="头文件\scene\rank_scene">
       <UniqueIdentifier>{40c631c7-10cb-4a99-8893-0b92f9fa3d29}</UniqueIdentifier>
-    </Filter>  </ItemGroup>
+    </Filter>
+    <Filter Include="头文件\data">
+      <UniqueIdentifier>{c59ab5c7-b679-458c-bb58-1a5bf83dd585}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
@@ -413,14 +416,14 @@
     <ClInclude Include="button\login_button\login_button.h">
       <Filter>头文件\button\login_button</Filter>
     </ClInclude>
-    <ClInclude Include="data.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="scene\select_items_scene\select_items_scene.h">
       <Filter>头文件\scene\select_items_scene</Filter>
     </ClInclude>
     <ClInclude Include="scene\rank_scene\rank_scene.h">
       <Filter>头文件\scene\rank_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="data.h">
+      <Filter>头文件\data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

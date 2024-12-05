@@ -2,7 +2,6 @@
 
 	负责人:全体成员
 	功能:
-
 		1.全局变量的定义
 		2.素材资源导入与初始化
 
@@ -270,11 +269,11 @@ struct Map_massage map_massage[11] =
 
 	// 速度、通关分数、{AC, WA, NULL, speed, bounce, MLE, TLE, CE}、
 	// {仔细烧烤、回溯、阿伟助我、飞雷神、再来一次、世界！（时停）}
-	{1.0f, 100, {40,20,20,10,10,0,0,0}, {0,0,0,0,0,0} },
-	{1.0f, 120, {40,20,20,10,10,0,0,0}, {0,0,1,0,0,0} },
-	{1.0f, 130, {40,20,10,10,10,10,0,0}, {0,0,1,0,0,0} },
-	{1.3f, 150, {40,20,10,10,5,5,0,0}, {0,0,1,0,0,1} },
-	{1.3f, 200, {40,20,10,5,5,5,5,10}, {0,0,1,0,1,1} },
+	{1.0f, 10, {40,20,20,10,10,0,0,0}, {0,0,0,0,0,0} },
+	{1.0f, 10, {40,20,20,10,10,0,0,0}, {0,0,1,0,0,0} },
+	{1.0f, 10, {40,20,10,10,10,10,0,0}, {0,0,1,0,0,0} },
+	{1.3f, 10, {40,20,10,10,5,5,0,0}, {0,0,1,0,0,1} },
+	{1.3f, 150, {40,20,10,5,5,5,5,10}, {0,0,1,0,1,1} },
 	{1.3f, 200, {40,20,5,5,5,0,24,1}, {0,1,0,0,1,1} },
 	{1.5f, 250, {40,20,5,5,5,24,0,1}, {1,0,0,0,1,1} },
 	{1.5f, 250, {35,20,10,10,10,10,5,0}, {0,1,1,1,0,0} },
@@ -286,9 +285,7 @@ struct Map_massage map_massage[11] =
 // 导入图片素材并初始化图集
 void LoadImageAndAtlas()
 {
-
 	// 导入背景图
-
 
 	loadimage(&img_menu_background, _T("resources/menu_background.png"));                   // 导入菜单背景
 
@@ -303,9 +300,7 @@ void LoadImageAndAtlas()
 
 	loadimage(&img_achievement_background, _T("resources/achievement_background.png"));		// 导入成就背景
 
-	loadimage(&img_ending_background, _T("resources/ending_1.png"));                        // 导入通关背景
-
-	loadimage(&img_win_background, _T("resources/TEMP_win_background.png"));               	// 导入胜利背景
+	loadimage(&img_win_background, _T("resources/ending_1.png"));               	        // 导入胜利背景
 
 	loadimage(&img_detail_background, _T("resources/detail_scene_background.jpg"));         // 导入游戏说明背景图
 

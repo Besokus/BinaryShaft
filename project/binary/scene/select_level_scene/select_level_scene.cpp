@@ -1,3 +1,4 @@
+#include "../../data.h"
 #include "select_level_scene.h"
 #include "../scene_manager/scene_manager.h"
 #include "../../player/player.h"
@@ -7,12 +8,13 @@ extern SceneManager scene_manager;
 extern int level;
 extern const int LEVEL_NUM;
 
+extern Data* current_data;
 
 extern IMAGE img_select_level_background;
 
 void SelectLevelScene::OnEnter()
 {
-
+	level = current_data->unlocked_level;
 }
 
 void SelectLevelScene::OnDraw()
@@ -51,13 +53,13 @@ void SelectLevelScene::OnDraw()
 		outtextxy(290, 290, _T(">"));
 	}
 
-	if (is_enter_down) 
+	if (is_enter_down)
 	{
 		settextcolor(RGB(255, 255, 0));
 		outtextxy(80, 410, _T("开始"));
 		settextcolor(RGB(255, 255, 255));
 	}
-	else 
+	else
 	{
 		outtextxy(80, 410, _T("开始"));
 	}
@@ -165,6 +167,13 @@ void SelectLevelScene::OnInput(const ExMessage& msg)
 			is_D_down = true;
 			break;
 		case VK_RETURN:
+			if (level > current_data->unlocked_level + 1)
+			{
+				static TCHAR text[64];
+				_stprintf_s(text, _T("建议通过前面的关卡之后,再来挑战!"));
+
+				MessageBox(GetHWnd(), text, _T("温馨提示"), MB_OK);
+			}
 			scene_manager.SwitchTo(SceneManager::SceneType::Game);
 			break;
 		case VK_ESCAPE:
@@ -217,9 +226,20 @@ void SelectLevelScene::OnInput(const ExMessage& msg)
 		if (msg.x <= 80 + 30 * 2 && msg.x >= 80 && msg.y >= 410 && msg.y <= 410 + 30)
 		{
 			is_enter_down = true;
+
+
 			if (msg.message == WM_LBUTTONDOWN)
 			{
+				if (level > current_data->unlocked_level + 1)
+				{
+					static TCHAR text[64];
+					_stprintf_s(text, _T("建议通过前面的关卡之后,再来挑战!"));
+
+					MessageBox(GetHWnd(), text, _T("温馨提示"), MB_OK);
+				}
+
 				scene_manager.SwitchTo(SceneManager::SceneType::Game);
+
 			}
 		}
 		else

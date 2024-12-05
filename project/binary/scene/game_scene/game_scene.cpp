@@ -172,18 +172,34 @@ void GameScene::OnUpdate()
 		}
 	}
 
-	map_msg->OnUpdate();
-
 	// 删除出界的平台
 	DeletePlatform(platform_list);
 
 	//判断胜利
 	if (map_msg->score >= map_msg->target_score)
 	{
+		mciSendString(_T("stop bgm_normal_1"), NULL, 0, NULL);
+		mciSendString(_T("stop bgm_challenge_1"), NULL, 0, NULL);
+
+		static TCHAR text[64];
+		_stprintf_s(text, _T("你通关了!"));
+		MessageBox(GetHWnd(), text, _T("Win"), MB_OK);
+
+		if (level >= current_data->unlocked_level)
+		{
+			current_data->unlocked_level = level + 1;
+		}
+
+		if (map_msg->score >= current_data->level_score[level][0])
+		{
+			current_data->level_score[level][0] = map_msg->score;
+			sort(current_data->level_score[level], current_data->level_score[level] + 2);
+		}
+
 		scene_manager.SwitchTo(SceneManager::SceneType::Win);
 	}
 
-	//判断死亡
+	// 判断死亡
 	bool flag = 1;
 	if (!player->is_alive)
 	{
@@ -208,20 +224,26 @@ void GameScene::OnUpdate()
 		}
 		if (flag)
 		{
+			// 音乐控制
 			mciSendString(_T("play resources/死亡.mp3 from 0"), NULL, 0, NULL);
 			mciSendString(_T("stop bgm_normal_1"), NULL, 0, NULL);
 			mciSendString(_T("stop bgm_challenge_1"), NULL, 0, NULL);
 
+			// 显示得分
 			static TCHAR text[64];
 			_stprintf_s(text, _T("最终得分:%d !"), map_msg->score);
+			MessageBox(GetHWnd(), text, _T("Game Over"), MB_OK);
 
-			if (map_msg->score >= current_data->level_score[level][0])
+			// 记录得分
+			if (map_msg->score > current_data->level_score[level][0])
 			{
 				current_data->level_score[level][0] = map_msg->score;
 				sort(current_data->level_score[level], current_data->level_score[level] + 3);
 			}
 
-			MessageBox(GetHWnd(), text, _T("Game Over"), MB_OK);
+			current_data->num_death++;
+
+			// 界面跳转
 			pause_back = 0;
 			scene_manager.SwitchTo(SceneManager::SceneType::Death);
 		}
@@ -233,7 +255,7 @@ void GameScene::OnDraw()
 	// 绘制背景图
 	putimage(0, 0, &img_game_background_1);
 
-	if (level == 10) 
+	if (level == 10)
 	{
 		putimage(0, 0, &img_game_background_2);
 	}
@@ -260,7 +282,7 @@ void GameScene::OnDraw()
 	map_msg->OnDraw();
 
 	settextstyle(20, 0, _T("IPix"));
-	outtextxy(0, 0, _T("按Z开启调试模式"));
+	// outtextxy(0, 0, _T("按Z开启调试模式"));
 }
 
 void GameScene::OnInput(const ExMessage& msg)

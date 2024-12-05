@@ -21,6 +21,4 @@ public:
 	void OnDraw();
 
 	void OnInput(const ExMessage& msg);
-
-	int GetPlayerScore();
 };

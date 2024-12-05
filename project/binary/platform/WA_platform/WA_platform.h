@@ -2,6 +2,8 @@
 #include "../platform/platform.h"
 
 extern IMAGE img_NULL_platform;
+extern Data* current_data;
+
 
 class WAPlatform :public Platform
 {
@@ -23,6 +25,8 @@ public:
 			mciSendString(_T("play resources/ÊÜÉË.mp3 from 0"), NULL, 0, NULL);
 			if (is_visited)
 			{
+				current_data->num_WA++;
+
 				//ĞŞ¸ÄÌùÍ¼ÎªNULL
 				img_platform = img_NULL_platform;
 				if (!direction)

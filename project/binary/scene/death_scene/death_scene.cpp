@@ -18,7 +18,7 @@ extern vector<Data>rank_list[9];//十个榜单
 extern const int RANKPAGE;
 
 //在本轮游戏结束后就将排行榜更新，current_score,current_level，避免到排行榜界面更改出现不必要的麻
-void DeathScene::OnEnter() 
+void DeathScene::OnEnter()
 {
 }
 
@@ -63,6 +63,7 @@ void DeathScene::OnInput(const ExMessage& msg)
 		else
 		{
 			scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
-		}	}
+		}
+	}
 
 }

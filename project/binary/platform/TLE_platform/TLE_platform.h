@@ -1,6 +1,8 @@
 #pragma once
 #include "../platform/platform.h"
 
+extern Data* current_data;
+
 class TLEPlatform :public Platform
 {
 public:
@@ -21,6 +23,8 @@ public:
 		{
 			if (is_visited)
 			{
+				current_data->num_TLE++;
+
 				//修改贴图为NULL
 				img_platform = img_NULL_platform;
 				//如果为0分数-2，修改地图speed的大小，增加0.2

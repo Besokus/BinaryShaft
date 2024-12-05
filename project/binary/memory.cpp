@@ -1,3 +1,9 @@
+/*
+	负责人:ja1u0va
+	功能:读写文件数据
+*/
+
+
 #include <iostream>			// c++标准输入输出
 #include <fstream>			// 文件流
 #include <cstdio>			// c标准输入输出
@@ -10,6 +16,7 @@ using namespace std;
 
 vector<Data> data_list;							// 定义数据链表,用来存储现有的玩家数据
 Data* current_data = nullptr;                   // 记录当前玩家数据
+
 int current_idx = 0;
 
 // 读取文件中数据的函数,并存入data_list
@@ -47,7 +54,7 @@ void WriteData()
 	ofs.close();
 }
 
-
+// 清空数据
 void ClearData()
 {
 	data_list.clear();

@@ -1,6 +1,8 @@
 #pragma once
 #include "../platform/platform.h"
 
+extern Data* current_data;
+
 class MLEPlatform :public Platform
 {
 public:
@@ -19,6 +21,9 @@ public:
 		//检验标记
 		if (is_platform == false)
 		{
+
+			current_data->num_MLE++;
+
 			//修改贴图为NULL
 			img_platform = img_NULL_platform;
 			//如果为0修改地图limit的范围，左右各缩小10否则加10不超过（0，550）
