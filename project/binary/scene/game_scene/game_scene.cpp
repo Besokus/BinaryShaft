@@ -197,6 +197,8 @@ void GameScene::OnUpdate()
 		}
 
 		scene_manager.SwitchTo(SceneManager::SceneType::Win);
+
+		return;
 	}
 
 	// ÅĞ¶ÏËÀÍö

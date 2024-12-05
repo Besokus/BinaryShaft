@@ -14,13 +14,10 @@ void WinScene::OnEnter()
 	// btn_win_return->OnEnter();
 
 	mciSendString(_T("play resources/胜利.mp3 from 0"), NULL, 0, NULL);
-
-	if (level > current_data->unlocked_level && level < 10) 
-	{
-		current_data->unlocked_level = level;
-	}
-
-	level++;
+	if (level < 10)
+		level++;
+	else
+		level = 10;
 }
 
 
@@ -34,16 +31,12 @@ void WinScene::OnDraw()
 {
 	putimage(0, 0, &img_win_background);
 
-	// btn_win_return->OnDraw();
-	// btn_win_next->OnDraw();
 
 }
 
 void WinScene::OnInput(const ExMessage& msg)
 {
-	// btn_win_next->OnInput(msg);
-	// btn_win_return->OnInput(msg);
-		// 键盘按键
+	// 键盘按键
 	if (msg.message == WM_KEYUP)
 	{
 		// 切换到主菜单场景
