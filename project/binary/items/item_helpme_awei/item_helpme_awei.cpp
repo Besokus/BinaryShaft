@@ -50,6 +50,8 @@ void item_helpme_awei::during_change()
 	if (!player->is_alive)
 	{
 		player->is_alive = true;
+		if (player->position.y > 700)
+			player->is_alive = false;
 	}
 
 	if (map_msg->speed > duration_help_speed)//ËÙ¶È

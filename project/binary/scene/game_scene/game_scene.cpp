@@ -175,7 +175,7 @@ void GameScene::OnUpdate()
 	// 删除出界的平台
 	DeletePlatform(platform_list);
 
-	//判断胜利
+	// 判断胜利
 	if (map_msg->score >= map_msg->target_score)
 	{
 		mciSendString(_T("stop bgm_normal_1"), NULL, 0, NULL);
@@ -193,7 +193,7 @@ void GameScene::OnUpdate()
 		if (map_msg->score >= current_data->level_score[level][0])
 		{
 			current_data->level_score[level][0] = map_msg->score;
-			sort(current_data->level_score[level], current_data->level_score[level] + 2);
+			sort(current_data->level_score[level], current_data->level_score[level] + 3);
 		}
 
 		scene_manager.SwitchTo(SceneManager::SceneType::Win);

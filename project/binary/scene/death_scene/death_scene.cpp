@@ -37,7 +37,7 @@ void DeathScene::OnInput(const ExMessage& msg)
 		// 切换到主菜单场景
 		if (level == 10)
 		{
-			scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
+			scene_manager.SwitchTo(SceneManager::SceneType::SelectItem);
 		}
 		else
 		{
@@ -49,10 +49,9 @@ void DeathScene::OnInput(const ExMessage& msg)
 	if (msg.message == WM_LBUTTONDOWN)
 	{
 		// 切换到主菜单场景
-		scene_manager.SwitchTo(SceneManager::SceneType::SelectLevel);
 		if (level == 10)
 		{
-			scene_manager.SwitchTo(SceneManager::SceneType::SelectMode);
+			scene_manager.SwitchTo(SceneManager::SceneType::SelectItem);
 		}
 		else
 		{
