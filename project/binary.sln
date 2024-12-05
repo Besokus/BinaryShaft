@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "binary", "binary\binary.vcxproj", "{5D30B0AC-3E09-449D-8122-EF4AD1E7E36B}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "BinaryShaft", "BinaryShaft\BinaryShaft.vdproj", "{6A1EEF6C-3893-4EA8-91CA-B856C5B46672}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{5D30B0AC-3E09-449D-8122-EF4AD1E7E36B}.Release|x64.Build.0 = Release|x64
 		{5D30B0AC-3E09-449D-8122-EF4AD1E7E36B}.Release|x86.ActiveCfg = Release|Win32
 		{5D30B0AC-3E09-449D-8122-EF4AD1E7E36B}.Release|x86.Build.0 = Release|Win32
+		{6A1EEF6C-3893-4EA8-91CA-B856C5B46672}.Debug|x64.ActiveCfg = Debug
+		{6A1EEF6C-3893-4EA8-91CA-B856C5B46672}.Debug|x86.ActiveCfg = Debug
+		{6A1EEF6C-3893-4EA8-91CA-B856C5B46672}.Release|x64.ActiveCfg = Release
+		{6A1EEF6C-3893-4EA8-91CA-B856C5B46672}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
