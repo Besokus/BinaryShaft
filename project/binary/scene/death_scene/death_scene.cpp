@@ -5,14 +5,10 @@
 extern SceneManager scene_manager;
 extern IMAGE img_death_background;
 
+
 void DeathScene::OnEnter()
 {
-	mciSendString(_T("play resources/À¿Õˆ.mp3 from 0"), NULL, 0, NULL);
-	mciSendString(_T("stop bgm_normal_1"), NULL, 0, NULL);
-	static TCHAR text[64];
-	_stprintf_s(text, _T("◊Ó÷’µ√∑÷:%d !"), 114514);
 
-	MessageBox(GetHWnd(), text, _T("Game Over"), MB_OK);
 }
 
 void DeathScene::OnUpdate()

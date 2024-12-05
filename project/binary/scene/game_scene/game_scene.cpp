@@ -1,4 +1,5 @@
 //场景
+//场景
 #include "game_scene.h"
 #include "../scene_manager/scene_manager.h"
 //玩家
@@ -150,7 +151,7 @@ void GameScene::OnUpdate()
 	}
 
 	player->OnUpdate();
-	
+
 	if (!item_list.empty())
 	{
 		for (auto i = item_list.begin(); i != item_list.end(); i++)
@@ -195,6 +196,13 @@ void GameScene::OnUpdate()
 		}
 		if (flag)
 		{
+			mciSendString(_T("play resources/死亡.mp3 from 0"), NULL, 0, NULL);
+			mciSendString(_T("stop bgm_normal_1"), NULL, 0, NULL);
+
+			static TCHAR text[64];
+			_stprintf_s(text, _T("最终得分:%d !"), map_msg->score);
+
+			MessageBox(GetHWnd(), text, _T("Game Over"), MB_OK);
 			pause_back = 0;
 			scene_manager.SwitchTo(SceneManager::SceneType::Death);
 		}
