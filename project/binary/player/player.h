@@ -25,7 +25,7 @@ class Player
 public:
 	const float run_velocity = 4.0f;			// 设定x方向速度
 	const float speed_velocity = 0.1f;			// 设定speed平台速度
-	const float gravity = 0.4f;				// 设定重力加速度
+	const float gravity = 0.45f;				// 设定重力加速度
 	const float acceleration_x = 0.2f;
 	const int delta = 10;						// 设定间隔时间
 	float max_speed_y = 10;                //最高y轴速度

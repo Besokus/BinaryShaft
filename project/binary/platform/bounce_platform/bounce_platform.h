@@ -26,7 +26,7 @@ public:
 			}
 			else {
 				//玩家y轴的速度修改为-15
-				player->velocity.y = -15;
+				player->velocity.y = -14;
 				player->is_on_platform = false;
 				player->down_platform = nullptr;
 			}

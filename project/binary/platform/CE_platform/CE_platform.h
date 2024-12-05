@@ -30,7 +30,10 @@ public:
 				img_platform = img_NULL_platform;
 				//如果direction为0修改玩家血量为0,否则回满玩家的血量
 				if (direction)
+				{
 					player->health = 12;
+					map_msg->score += 2;
+				}
 				else
 					player->health = 0;
 				//通过标记使只能触发一次

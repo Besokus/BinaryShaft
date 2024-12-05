@@ -34,12 +34,13 @@ public:
 					//玩家血量-1，分数-4
 					map_msg->score -= 4;
 					if(player->health>0)
-					player->health -= 1;
+						player->health -= 1;
 				}
 				else
 				{
 					if(player->health<12)
 					player->health += 1;
+					map_msg->score += 2;
 				}
 				//通过标记使只能触发一次
 				is_platform = true;

@@ -38,6 +38,7 @@ public:
 				//如果不为0缩小0.2的速度，不低于0.6
 				else
 				{
+					map_msg->score += 2;
 					if (map_msg->real_speed >= 0.8)
 					{
 						map_msg->speed -= 0.2f;

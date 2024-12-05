@@ -15,6 +15,10 @@ extern IMAGE img_select_level_background;
 void SelectLevelScene::OnEnter()
 {
 	level = current_data->unlocked_level;
+	if (level >= 10)
+	{
+		level = 9;
+	}
 }
 
 void SelectLevelScene::OnDraw()

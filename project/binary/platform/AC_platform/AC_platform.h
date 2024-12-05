@@ -37,11 +37,11 @@ public:
 				// direction为1分数+6并且血量加一，否则分数+3
 				if (direction)
 				{
-					map_msg->score += 10;
+					map_msg->score += 6;
 					player->health += 1;
 				}
 				else
-					map_msg->score += 6;
+					map_msg->score += 3;
 				// 通过标记使只能触发一次
 				is_platform = true;
 			}

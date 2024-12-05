@@ -231,9 +231,9 @@ void Player::UpdatePosition()
 	{
 		if (jumping_time >= 0 && is_jumping)
 		{
-			if (jumping_time >= 22)
+			if (jumping_time >= 23)
 			{
-				velocity.y = -8;
+				velocity.y = -9;
 			}
 			else if (jumping_time >= 7)
 			{
@@ -241,7 +241,7 @@ void Player::UpdatePosition()
 			}
 			else if(jumping_time >= 0)
 			{
-				velocity.y = -5;
+				velocity.y = -4;
 			}
 			is_on_platform = false;
 			if (this->down_platform != nullptr)
