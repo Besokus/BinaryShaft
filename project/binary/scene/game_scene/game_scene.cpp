@@ -129,7 +129,7 @@ void GameScene::OnEnter()
 		platform_list.push_back(new WAPlatform(img_WA_platform, map_msg));
 		platform_list.back()->SetPosition(100, 314+100);
 		platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
-		platform_list.back()->SetPosition(530, 214+100);
+		platform_list.back()->SetPosition(330, 214+100);
 		platform_list.push_back(new NULLPlatform(img_NULL_platform, map_msg));
 		platform_list.back()->SetPosition(214, 114+100);
 	}
