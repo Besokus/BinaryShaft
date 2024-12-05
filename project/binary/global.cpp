@@ -44,7 +44,7 @@
 
 #include "button/pause_button/pause_button.h"
 #include "button/achievement_button/achievement_button.h"
-#include "button/music_control_button/music_control_button.h"
+#include "button/music_control_button/set_up_button.h"
 #include "button/showus_button/showus_button.h"
 #include "button/win_butoon/win_button.h"
 #include "button/login_button/login_button.h"
@@ -61,44 +61,34 @@ extern const int PLATFORM_HEIGHT = 30;	  // 平台高度
 extern const int WINDOW_WIDTH = 700;	  // 窗口宽度
 extern const int WINDOW_HEIGHT = 700;	  // 窗口高度
 
-
 extern const int LEVEL_NUM = 10;		  // 关卡总数量
-extern const int PAGE_NUM = 10;			  // 说明界面页数 //这个真的有存在于全局的必要吗??
-extern const int RANKPAGE = 9;//排行榜界面页数
 
 // 定义bool变量
-
-// 游戏局内逻辑
 bool running = true;	                  // 游戏运行
 bool is_debug = false;                    // 调试模式
 bool pause_back = false;                  // 游戏界面的暂停后返回
 
-// 定义游戏全局参数
-
 int level = 0;                            // 当前关卡数
 
+int volume_bgm = 500;                     // 背景音乐音量
+int volume_sound = 500;					  // 音效音量
 
-int page = 0;                             // 当前游戏说明页数
-int rank_page = 0;      //排行榜界面页数
 
 Map_Msg* static_map = nullptr;
 Player* static_player = nullptr;
 
 // 定义图片对象
 
-
 // 背景图
 
 IMAGE img_menu_background;           // 菜单
 
-
 IMAGE img_select_mode_background;	 // 选择模式
-
 
 IMAGE img_select_level_background;   // 选择关卡
 
-
 IMAGE img_game_background_1;         // 普通模式
+IMAGE img_game_background_2;         // 挑战模式
 
 IMAGE img_death_background;          // 死亡
 
@@ -106,12 +96,13 @@ IMAGE img_achievement_background;    // 成就
 
 IMAGE img_pause_background;			 // 暂停
 
+IMAGE img_set_up_background;		 // 设置
+
 IMAGE img_ending_background;         // 通关
 
 IMAGE img_detail_background;         // 游戏说明
 IMAGE img_ending_detail;
 IMAGE img_death_detail;
-
 
 IMAGE img_rank_background;           // 排行榜
 
@@ -178,7 +169,6 @@ MusicEFDown* btn_musiceffdown = nullptr;
 SelectModeNormalButton* btn_select_mode_normal = nullptr;
 SelectModeChallengeButton* btn_select_mode_challenge = nullptr;
 SelectModeReturnButton* btn_select_mode_return = nullptr;
-
 
 // 暂停
 PauseBackGameButton* btn_pause_backgame = nullptr;
@@ -251,7 +241,7 @@ Scene* death_scene = nullptr;
 Scene* select_mode_scene = nullptr;
 Scene* pause_scene = nullptr;
 Scene* select_level_scene = nullptr;
-SetUpScene* setup_scene = nullptr;
+Scene* setup_scene = nullptr;
 Scene* detail_scene = nullptr;
 Scene* rank_scene = nullptr;
 Scene* win_scene = nullptr;
@@ -307,6 +297,7 @@ void LoadImageAndAtlas()
 	loadimage(&img_select_level_background, _T("resources/select_level_background.png"));   // 导入选择关卡背景
 
 	loadimage(&img_game_background_1, _T("resources/game_background_1.png"));               // 导入普通游戏背景
+	loadimage(&img_game_background_2, _T("resources/game_background_2.png"));               // 导入普通游戏背景
 
 	loadimage(&img_death_background, _T("resources/game_over.png"));                        // 导入死亡背景
 
@@ -323,6 +314,8 @@ void LoadImageAndAtlas()
 	loadimage(&img_death_detail, _T("resources/game_over.png"), 190, 190, false);           // 导入游戏失败背景
 
 	loadimage(&img_rank_background, _T("resources/rank_scene_background.png"));             // 导入排行榜背景
+
+	loadimage(&img_set_up_background, _T("resources/setup_background.png"), 700, 700);      // 导入设置界面背景
 
 	loadimage(&img_pause_background, _T("resources/pause_background.png"), 700, 700);       // 导入暂停界面背景
 
@@ -351,7 +344,7 @@ void LoadImageAndAtlas()
 	loadimage(&image_item_the_world, _T("resources/image_item_the_world.png"), 100, 100);
 	loadimage(&item_hiraijin_sign, _T("resources/item_hiraijin_sign.png"));
 
-	loadimage(&select_items_yes, _T("resources/select_items_yes.png"),100,100);
+	loadimage(&select_items_yes, _T("resources/select_items_yes.png"), 100, 100);
 
 	// 玩家向左图集
 
@@ -538,6 +531,7 @@ void LoadButton()
 	// 音量按钮大小常量
 	const int MUSIC_SET_BUTTON_WIDTH = 55;
 	const int MUSIC_SET_BUTTON_HEIGHT = 45;
+
 	region_setting_musicbkup.left = 540;
 	region_setting_musicbkup.right = region_setting_musicbkup.left + MUSIC_SET_BUTTON_WIDTH;
 	region_setting_musicbkup.top = 330;
@@ -554,7 +548,7 @@ void LoadButton()
 	btn_musicbkdown = new MusicBKDown(region_setting_musicbkdown,
 		_T("resources/musicdown_idle.png"), _T("resources/musicdown_hovered.png"), _T("resources/musicdown_hovered.png"), MUSIC_SET_BUTTON_WIDTH, MUSIC_SET_BUTTON_HEIGHT);
 
-	//音效加减
+	// 音效加减
 	region_setting_musiceffup.left = 540;
 	region_setting_musiceffup.right = region_setting_musiceffup.left + MUSIC_SET_BUTTON_WIDTH;
 	region_setting_musiceffup.top = 390;
@@ -585,27 +579,27 @@ void LoadButton()
 	region_pause_backgame.top = 190;
 	region_pause_backgame.bottom = region_pause_backgame.top + PAUSE_MODE_BUTTON_HEIGHT;
 
-	//导入素材
+	// 导入素材
 	btn_pause_backgame = new PauseBackGameButton(region_pause_backgame,
 		_T("resources/pause_backgame_idle.png"), _T("resources/pause_backgame_hovered.png"), _T("resources/pause_backgame_hovered.png"), PAUSE_MODE_BUTTON_WIDTH, PAUSE_MODE_BUTTON_HEIGHT);
 
-	//设置返回菜单界面
+	// 设置返回菜单界面
 	region_pause_backmenu.left = 260;
 	region_pause_backmenu.right = region_pause_backmenu.left + PAUSE_MODE_BUTTON_WIDTH;
 	region_pause_backmenu.top = 280;
 	region_pause_backmenu.bottom = region_pause_backmenu.top + PAUSE_MODE_BUTTON_HEIGHT;
 
-	//导入素材
+	// 导入素材
 	btn_pause_backmenu = new PauseBackMenuButton(region_pause_backmenu,
 		_T("resources/select_mode_return_idle.png"), _T("resources/select_mode_return_hovered.png"), _T("resources/select_mode_return_hovered.png"), PAUSE_MODE_BUTTON_WIDTH, PAUSE_MODE_BUTTON_HEIGHT);
 
-	//设置设置按钮
+	// 设置设置按钮
 	region_pause_setup.left = 260;
 	region_pause_setup.right = region_pause_setup.left + PAUSE_MODE_BUTTON_WIDTH;
 	region_pause_setup.top = 370;
 	region_pause_setup.bottom = region_pause_setup.top + PAUSE_MODE_BUTTON_HEIGHT;
 
-	//导入素材
+	// 导入素材
 	btn_pause_setup = new PauseSetUpButton(region_pause_setup,
 		_T("resources/menu_setup_idle.png"), _T("resources/menu_setup_hovered.png"), _T("resources/menu_setup_hovered.png"), PAUSE_MODE_BUTTON_WIDTH, PAUSE_MODE_BUTTON_HEIGHT);
 
@@ -674,20 +668,23 @@ void LoadButton()
 // 导入音乐
 void LoadMusic()
 {
-	// 菜单音乐
+	// CG音乐
 	mciSendString(_T("open resources/cg.MP3 alias cg"), NULL, 0, NULL);
-	
+
 	// 菜单音乐
 	mciSendString(_T("open resources/bgm_menu_1.MP3 alias bgm_menu_1"), NULL, 0, NULL);
-	mciSendString(L"setaudio bgm_menu_1 volume to 330", NULL, 0, NULL);
+	mciSendString(L"setaudio bgm_menu_1 volume to 500", NULL, 0, NULL);
+
 	// 普通模式
 	mciSendString(_T("open resources/bgm_normal_1.MP3 alias bgm_normal_1"), NULL, 0, NULL);
-	mciSendString(L"setaudio bgm_normal_1 volume to 330", NULL, 0, NULL);
+	mciSendString(L"setaudio bgm_normal_1 volume to 500", NULL, 0, NULL);
+
 	// 结局cg音乐
 	mciSendString(_T("open resources/bgm_ending_1.MP3 alias bgm_ending_1"), NULL, 0, NULL);
 
 	// 挑战模式
 	mciSendString(_T("open resources/bgm_challenge_1.MP3 alias bgm_challenge_1"), NULL, 0, NULL);
+	mciSendString(L"setaudio bgm_challenge_1 volume to 500", NULL, 0, NULL);
 
 	// 音效
 	mciSendString(_T("open resources/飞雷神.MP3"), NULL, 0, NULL);
@@ -697,11 +694,19 @@ void LoadMusic()
 	mciSendString(_T("open resources/胜利.mp3"), NULL, 0, NULL);
 	mciSendString(_T("open resources/死亡.mp3"), NULL, 0, NULL);
 	mciSendString(_T("open resources/速度减缓.mp3"), NULL, 0, NULL);
+
 	mciSendString(_T("open resources/跳跃音效.mp3"), NULL, 0, NULL);
+	mciSendString(_T("setaudio resources/跳跃音效.mp3 volume to 200"), NULL, 0, NULL);
+
 	mciSendString(_T("open resources/通关音效.mp3"), NULL, 0, NULL);
 	mciSendString(_T("open resources/救救我.mp3"), NULL, 0, NULL);
 	mciSendString(_T("open resources/ctrlz.MP3"), NULL, 0, NULL);
 	mciSendString(_T("open resources/DIO时停.mp3"), NULL, 0, NULL);
+
+	mciSendString(_T("open resources/Ac音效.mp3"), NULL, 0, NULL);
+	mciSendString(_T("setaudio resources/Ac音效.mp3 volume to 100"), NULL, 0, NULL);
+
+	mciSendString(_T("open resources/受伤.mp3"), NULL, 0, NULL);
 
 }
 

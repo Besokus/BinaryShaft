@@ -1,103 +1,135 @@
 #include "set_up_scene.h"
 #include "../scene_manager/scene_manager.h"
-#include "../../button/music_control_button/music_control_button.h"
+#include "../../button/music_control_button/set_up_button.h"
 #include "../menu_scene/menu_scene.h"
-#include<conio.h>
-#include<algorithm>
-using namespace std;
+
+extern int volume_bgm;
+extern int volume_sound;
+
 extern SceneManager scene_manager;
-//extern MenuScene* menu_scene;
-//全局化音量音效按钮对象
+
 extern MusicBKUP* btn_musicbkup;
 extern MusicBKDown* btn_musicbkdown;
 extern MusicEFUP* btn_musiceffup;
 extern MusicEFDown* btn_musiceffdown;
 
+extern IMAGE img_set_up_background;
+
 extern bool pause_back;
 
-//需要的单张图片
-//IMAGE img_set;
-IMAGE img_setting_bk;
 void SetUpScene::OnEnter()
-{	//初始化界面信息
-	//setbkcolor(BLACK);
-	//设置文字大小和风格
-	settextstyle(50, 0, _T("微软雅黑"));
-	setbkmode(TRANSPARENT);
+{
 
-	//加载按钮和设置字样图片...
-	loadimage(&img_setting_bk, _T("resources/setup/setup_background.png"), 700, 700);
-	//loadimage(&img_set, "path");
+
 	btn_musicbkup->OnEnter();
 	btn_musicbkdown->OnEnter();
 	btn_musiceffup->OnEnter();
 	btn_musiceffdown->OnEnter();
 
-	//加载音量数据
-	ifstream ifs1("resources/Music_Data/Music_Bk.txt");
-	ifstream ifs2("resources/Music_Data/Music_Eff.txt");
-	if (ifs1.is_open())
-	{
-		getline(ifs1, this->m_bk);
-		cout << "音量加载成功" << endl;
-	}
-	else
-		this->m_bk = "???";
-	if (ifs2.is_open())
-	{
-		getline(ifs2, this->m_eff);
-		cout << "音效加载成功" << endl;
-	}
-	else
-		this->m_eff = "???";
-	ifs1.close();
-	ifs2.close();
-	std::cout << "进入设置界面" << std::endl;
+
+
 }
 
 void SetUpScene::OnUpdate()
 {
-	cout << "设置界面正在运行" << endl;
+	static TCHAR text[64];
+
+	// CG音乐
+	_stprintf_s(text, _T("setaudio cg volume to %d"), volume_bgm);
+	mciSendString(text, NULL, 0, NULL);
+
+	// 菜单音乐
+	_stprintf_s(text, _T("setaudio bgm_menu_1 volume to %d"), volume_bgm);
+	mciSendString(text, NULL, 0, NULL);
+
+	// 普通模式
+	_stprintf_s(text, _T("setaudio bgm_normal_1 volume to %d"), volume_bgm);
+	mciSendString(text, NULL, 0, NULL);
+
+	// 结局cg音乐
+	_stprintf_s(text, _T("setaudio bgm_ending_1 volume to %d"), volume_bgm);
+	mciSendString(text, NULL, 0, NULL);
+
+	// 挑战模式
+	_stprintf_s(text, _T("setaudio bgm_challenge_1 volume to %d"), volume_bgm);
+	mciSendString(text, NULL, 0, NULL);
+
+
+	// 音效
+	_stprintf_s(text, _T("setaudio resources/飞雷神.MP3 volume to %d"), volume_sound);
+	mciSendString(text, NULL, 0, NULL);
+
+	_stprintf_s(text, _T("setaudio resources/复活.mp3 volume to %d"), volume_sound);
+	mciSendString(text, NULL, 0, NULL);
+
+	_stprintf_s(text, _T("setaudio resources/胜利.mp3 volume to %d"), volume_sound);
+	mciSendString(text, NULL, 0, NULL);
+
+	_stprintf_s(text, _T("setaudio resources/死亡.mp3 volume to %d"), (int)(volume_sound * 1.2));
+	mciSendString(text, NULL, 0, NULL);
+
+	_stprintf_s(text, _T("setaudio resources/速度减缓.mp3 volume to %d"), volume_sound);
+	mciSendString(text, NULL, 0, NULL);
+
+	_stprintf_s(text, _T("setaudio resources/跳跃音效.mp3 volume to %d"), volume_sound);
+	mciSendString(text, NULL, 0, NULL);
+
+	_stprintf_s(text, _T("setaudio resources/通关音效.mp3 volume to %d"), volume_sound);
+	mciSendString(text, NULL, 0, NULL);
+
+	_stprintf_s(text, _T("setaudio resources/救救我.mp3 volume to %d"), volume_sound);
+	mciSendString(text, NULL, 0, NULL);
+
+	_stprintf_s(text, _T("setaudio resources/ctrlz.MP3 volume to %d"), volume_sound);
+	mciSendString(text, NULL, 0, NULL);
+
+	_stprintf_s(text, _T("setaudio resources/DIO时停.mp3 volume to %d"), volume_sound);
+	mciSendString(text, NULL, 0, NULL);
+
+	_stprintf_s(text, _T("setaudio resources/Ac音效.mp3 volume to %d"), (int)(volume_sound * 0.3));
+	mciSendString(text, NULL, 0, NULL);
+
 
 }
 
 void SetUpScene::OnDraw()
 {
-	//绘制设置背景图片...
-	putimage(0, 0, &img_setting_bk);
 
+	putimage(0, 0, &img_set_up_background);
 
-	outtextxy(100, 320, _T("背景音乐大小:"));
-	outtextxy(100, 380, _T("游戏音效大小:"));
-	//绘制按钮图片...
+	static TCHAR text[64];
+
+	settextstyle(50, 0, _T("IPix"));
+	settextcolor(RGB(255, 255, 255));
+	setbkmode(TRANSPARENT);
+
+	outtextxy(50, 320, _T("背景音乐大小:"));
+	outtextxy(50, 380, _T("游戏音效大小:"));
+
+	_stprintf_s(text, _T("%d"), volume_bgm / 10);
+	outtextxy(400, 320, text);
+	_stprintf_s(text, _T("%d"), volume_sound / 10);
+	outtextxy(400, 380, text);
+
 	btn_musicbkup->OnDraw();
 	btn_musicbkdown->OnDraw();
 	btn_musiceffup->OnDraw();
 	btn_musiceffdown->OnDraw();
 
-	static TCHAR text1[64];
-	_stprintf_s(text1, _T("%d"), stoi(this->m_bk));
-	outtextxy(400, 320, text1);
-	static TCHAR text2[64];
-	_stprintf_s(text2, _T("%d"), stoi(this->m_eff));
-	outtextxy(400, 380, text2);
-
-	//绘制返回提示文本
-	outtextxy(200, 600, _T("按Esc返回主菜单"));
+	outtextxy(200, 600, _T("按任意键返回"));
 
 }
 
 void SetUpScene::OnInput(const ExMessage& msg)
 {
-	//按钮的事件接受
+
 	btn_musicbkup->OnInput(msg);
 	btn_musicbkdown->OnInput(msg);
 	btn_musiceffup->OnInput(msg);
 	btn_musiceffdown->OnInput(msg);
 
-	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+	if (msg.message==WM_KEYDOWN)
 	{
-		printf("EXIT\n");
 		if (pause_back)
 		{
 			scene_manager.SwitchTo(SceneManager::SceneType::Pause);
@@ -111,24 +143,6 @@ void SetUpScene::OnInput(const ExMessage& msg)
 
 void SetUpScene::OnExit()
 {
-	cout << "设置界面退出" << endl;
 
 }
 
-string SetUpScene::GetElement(string x)
-{
-	if (x == "music_BK")
-		return this->m_bk;
-	else if (x == "music_EFF")
-		return this->m_eff;
-	else
-		return NULL;
-}
-
-void SetUpScene::SetElement(string choose, string x)
-{
-	if (choose == "music_BK")
-		this->m_bk = x;
-	else if (choose == "music_EFF")
-		this->m_eff = x;
-}

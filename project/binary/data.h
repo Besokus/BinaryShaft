@@ -5,7 +5,7 @@ struct Data {
 	char name[12] = "xcpcer";					// 玩家名字
 	int unlocked_level = 0;						// 解锁的关卡数
 	bool unlocked_achievement[20] = { false };	// 解锁成就
-	int level_score[11] = { 0 };				// 对应每关的分数
+	int level_score[11][3] = {0};				// 对应每关的分数,每个玩家每一关记录三次
 
 	int num_AC = 0;
 	int num_WA = 0;
@@ -18,19 +18,18 @@ struct Data {
 	int num_speed = 0;
 
 	// 重载==运算符
-	bool operator==(const Data& other) const {
-		// 比较名字
-		if (strcmp(name, other.name) != 0)
+	bool operator==(const Data& other) const 
+	{
+		if (strcmp(name, other.name) != 0)		       // 比较名字
 			return false;
 
-		// 比较解锁的关卡数
-		if (unlocked_level != other.unlocked_level)
+		if (unlocked_level != other.unlocked_level)    // 比较解锁的关卡数
 			return false;
 
-		// 如果所有成员都相等，则返回true
-		return true;
+		return true;                               
 	}
 
+	// 更新成就
 	void UpdateAchievement()
 	{
 
@@ -135,3 +134,14 @@ struct Data {
 // 10 天选不死人       死亡了20次
 // 11 部分正确         跳上20次WA
 // 12 成为代码         获得积分1000
+
+
+
+/*
+	for (int i = rank[page].size();i >= 0;i--)
+	{
+		int idx = rank[page].size() - i;
+		_stprintf_s(text, _T("%d"), rank[page][i].score);
+		outtextxy(115, idx*20+235, text);
+	}
+*/

@@ -49,7 +49,8 @@ void Button::OnInput(const ExMessage& msg)
 		if (CheckCursorHit(msg.x, msg.y))
 			status = Status::Pushed;
 	case WM_LBUTTONUP:
-		if (status == Status::Pushed)
+
+		if (status == Status::Pushed) 
 		{
 			OnClick();
 			status = Status::Idle;

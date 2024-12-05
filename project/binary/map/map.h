@@ -1,7 +1,9 @@
 #pragma once
 #include "../../player/player.h"
 #include "../../scene/game_scene/game_scene.h"
+
 extern int level;
+
 struct Map_massage
 {
 	float speed;

@@ -1,3 +1,5 @@
+#include "../../data.h"
+#include <algorithm>
 //场景
 #include "game_scene.h"
 #include "../scene_manager/scene_manager.h"
@@ -24,12 +26,13 @@
 extern bool is_debug;
 extern int level;
 
-extern bool pause_back;// 游戏界面的暂停后返回
+extern bool pause_back;
 extern Map_Msg* static_map;
 extern Player* static_player;
 
 extern IMAGE img_menu_background;
 extern IMAGE img_game_background_1;
+extern IMAGE img_game_background_2;
 
 extern IMAGE img_NULL_platform;
 extern IMAGE img_AC_platform;
@@ -44,6 +47,9 @@ extern SceneManager scene_manager;
 
 extern std::vector<Platform*> platform_list;
 
+extern vector<Data> data_list;
+extern Data* current_data;
+
 // 初始化游戏界面
 // 重置游戏参数,例如：
 // 1.玩家位置
@@ -55,7 +61,14 @@ extern std::vector<Platform*> platform_list;
 void GameScene::OnEnter()
 {
 	mciSendString(_T("stop bgm_menu_1 "), NULL, 0, NULL);
-	mciSendString(_T("play bgm_normal_1 repeat"), NULL, 0, NULL);
+	if (level == 10)
+	{
+		mciSendString(_T("play bgm_challenge_1 repeat"), NULL, 0, NULL);
+	}
+	else
+	{
+		mciSendString(_T("play bgm_normal_1 repeat"), NULL, 0, NULL);
+	}
 	// 重置随机数种子
 	srand((unsigned)time(NULL));
 	if (!pause_back)
@@ -150,7 +163,7 @@ void GameScene::OnUpdate()
 	}
 
 	player->OnUpdate();
-	
+
 	if (!item_list.empty())
 	{
 		for (auto i = item_list.begin(); i != item_list.end(); i++)
@@ -195,6 +208,20 @@ void GameScene::OnUpdate()
 		}
 		if (flag)
 		{
+			mciSendString(_T("play resources/死亡.mp3 from 0"), NULL, 0, NULL);
+			mciSendString(_T("stop bgm_normal_1"), NULL, 0, NULL);
+			mciSendString(_T("stop bgm_challenge_1"), NULL, 0, NULL);
+
+			static TCHAR text[64];
+			_stprintf_s(text, _T("最终得分:%d !"), map_msg->score);
+
+			if (map_msg->score >= current_data->level_score[level][0])
+			{
+				current_data->level_score[level][0] = map_msg->score;
+				sort(current_data->level_score[level], current_data->level_score[level] + 3);
+			}
+
+			MessageBox(GetHWnd(), text, _T("Game Over"), MB_OK);
 			pause_back = 0;
 			scene_manager.SwitchTo(SceneManager::SceneType::Death);
 		}
@@ -205,6 +232,11 @@ void GameScene::OnDraw()
 {
 	// 绘制背景图
 	putimage(0, 0, &img_game_background_1);
+
+	if (level == 10) 
+	{
+		putimage(0, 0, &img_game_background_2);
+	}
 
 	// 绘制平台
 	for (Platform* platform : platform_list)

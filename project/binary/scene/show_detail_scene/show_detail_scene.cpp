@@ -1,8 +1,7 @@
 #include "show_detail_scene.h"
 
 extern SceneManager scene_manager;
-extern int page;
-extern const int PAGE_NUM;
+
 extern IMAGE img_detail_background;
 extern IMAGE img_AC_detail;
 extern IMAGE img_NULL_platform;
@@ -25,9 +24,9 @@ extern IMAGE image_item_hiraijin;
 extern IMAGE image_item_once_again;
 extern IMAGE image_item_the_world;
 
-void ShowDetailScene::OnEnter() {
+void ShowDetailScene::OnEnter() 
+{
 	page = 0;
-	std::cout << "进入游戏说明" << std::endl;
 }
 
 void ShowDetailScene::OnDraw()
@@ -194,11 +193,11 @@ void ShowDetailScene::OnInput(const ExMessage& msg)
 		switch (msg.vkcode)
 		{
 		case 'A':
-			page = (page - 1 + PAGE_NUM) % PAGE_NUM;
+			page = (page - 1 + PAGE_SUM) % PAGE_SUM;
 			is_A_down = true;
 			break;
 		case 'D':
-			page = (page + 1) % PAGE_NUM;
+			page = (page + 1) % PAGE_SUM;
 			is_D_down = true;
 			break;
 		case VK_ESCAPE:

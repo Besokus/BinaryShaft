@@ -17,7 +17,8 @@ class ShowDetailScene : public Scene
 private:
 	bool is_A_down = false;
 	bool is_D_down = false;
-
+	int page = 0;
+	const int PAGE_SUM = 10;
 
 public:
 	ShowDetailScene() = default;

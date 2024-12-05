@@ -20,6 +20,7 @@ public:
 		//检验标记
 		if (is_platform == false)
 		{
+			mciSendString(_T("play resources/受伤.mp3 from 0"), NULL, 0, NULL);
 			if (is_visited)
 			{
 				//修改贴图为NULL

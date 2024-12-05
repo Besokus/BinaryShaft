@@ -1,28 +1,25 @@
 #pragma once
 #include "../button/button.h"
-extern SetUpScene* setup_scene;
-//音量调节按钮
+
+extern Scene* setup_scene;
+
+extern int volume_bgm;
+extern int volume_sound;
+
 class MusicBKUP : public Button
 {
 public:
 	MusicBKUP(RECT rect, LPCTSTR path_img_idle, LPCTSTR path_img_hovered, LPCTSTR path_img_pushed, int width, int height)
 		:Button(rect, path_img_idle, path_img_hovered, path_img_pushed, width, height) {}
 
-
-
 	~MusicBKUP() = default;
 
 protected:
 	void OnClick()
 	{
-		int temp = stoi(setup_scene->GetElement("music_BK"));
-		temp += 1;
-		if (temp >= 0 && temp <= 100)
-		{
-			setup_scene->SetElement("music_BK", to_string(temp));
-			SceneManager::Opertate_File(SceneManager::opt::music_BK, to_string(temp));
-		}
-
+		volume_bgm += 50;
+		if (volume_bgm >= 1000)
+			volume_bgm = 1000;
 	}
 
 };
@@ -38,14 +35,9 @@ public:
 protected:
 	void OnClick()
 	{
-		int temp = stoi(setup_scene->GetElement("music_BK"));
-		temp -= 1;
-		if (temp >= 0 && temp <= 100)
-		{
-			setup_scene->SetElement("music_BK", to_string(temp));
-			SceneManager::Opertate_File(SceneManager::opt::music_BK, to_string(temp));
-		}
-
+		volume_bgm -= 50;
+		if (volume_bgm <= 0)
+			volume_bgm = 0;
 	}
 
 };
@@ -62,14 +54,10 @@ public:
 protected:
 	void OnClick()
 	{
-		int temp = stoi(setup_scene->GetElement("music_EFF"));
-		temp += 1;
-		if (temp >= 0 && temp <= 100)
-		{
-			setup_scene->SetElement("music_EFF", to_string(temp));
-			SceneManager::Opertate_File(SceneManager::opt::music_EFF, to_string(temp));
-		}
+		volume_sound += 50;
 
+		if (volume_sound >= 1000)
+			volume_sound = 1000;
 	}
 
 };
@@ -86,13 +74,10 @@ public:
 protected:
 	void OnClick()
 	{
-		int temp = stoi(setup_scene->GetElement("music_EFF"));
-		temp -= 1;
-		if (temp >= 0 && temp <= 100)
-		{
-			setup_scene->SetElement("music_EFF", to_string(temp));
-			SceneManager::Opertate_File(SceneManager::opt::music_EFF, to_string(temp));
-		}
+		volume_sound -= 50;
+
+		if (volume_sound <= 0)
+			volume_sound = 0;
 
 	}
 

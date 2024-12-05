@@ -7,7 +7,7 @@ extern Scene* death_scene;
 extern Scene* select_mode_scene;
 extern Scene* pause_scene;
 extern Scene* select_level_scene;
-extern SetUpScene* setup_scene;
+extern Scene* setup_scene;
 extern Scene* showdetail_scene;
 extern Scene* login_scene;
 extern Scene* win_scene;
@@ -66,6 +66,7 @@ void SceneManager::SwitchTo(SceneType type)
 		break;
 	case SceneType::SelectItem:
 		current_scene = select_items_scene;
+		break;
 	case SceneType::Rank:
 		current_scene = rank_scene;
 		break;

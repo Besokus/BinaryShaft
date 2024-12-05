@@ -24,6 +24,7 @@ void MenuScene::OnEnter()
 	btn_menu_exit->OnEnter();
 
 	mciSendString(_T("stop bgm_normal_1 "), NULL, 0, NULL);
+	mciSendString(_T("stop bgm_challenge_1 "), NULL, 0, NULL);
 	mciSendString(_T("play bgm_menu_1 repeat"), NULL, 0, NULL);
 }
 
