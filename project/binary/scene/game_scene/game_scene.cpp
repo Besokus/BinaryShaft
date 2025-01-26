@@ -393,6 +393,7 @@ void GameScene::GeneratePlatform(std::vector<Platform*>& platform_list)
 		if (cnt >= 5)
 		{
 			type = 0;
+			cnt = 0;
 		}
 		// Éú³ÉÎ»ÖÃ
 		int generater_x = rand() % (500 - 100);
