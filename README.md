@@ -35,4 +35,4 @@
 |Windows|11|操作系统|
 
 ### 安装教程
-后续补充
+打开Release点击BinaryShaft.zip进行下载，下载完成后点击setup进行安装
